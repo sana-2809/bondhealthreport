@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.12)  12 MAR 2026 17:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.12)  12 MAR 2026 17:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -641,37 +641,36 @@ File: pmboxdrawenc.dfu 2019/12/05 v1.4 UTF-8 support for box drawing characters
 \pmbd@Sep=\dimen273
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 168.
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 212.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 211.
  (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count339
-)
-No file main.aux.
+) (main.aux (title.aux) (certificate.aux) (declaration.aux) (acknowledgement.aux) (abstract.aux) (chapter1_introduction.aux) (chapter2_literature_review.aux) (chapter3_system_study.aux) (chapter4_system_design.aux) (chapter5_implementation.aux) (chapter6_technologies.aux) (chapter7_testing.aux) (chapter8_future_scope.aux) (chapter9_conclusion.aux) (references.aux) (appendix.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for pmboxdraw/pmboxdraw/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-(C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for pmboxdraw/pmboxdraw/m/n on input line 211.
+LaTeX Font Info:    ... okay on input line 211.
+ (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count340
 \scratchdimen=\dimen274
@@ -724,7 +723,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 212.
+Package hyperref Info: Link coloring ON on input line 211.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
@@ -733,13 +732,13 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count346
-LaTeX Info: Redefining \microtypecontext on input line 212.
-Package microtype Info: Applying patch `item' on input line 212.
-Package microtype Info: Applying patch `toc' on input line 212.
-Package microtype Info: Applying patch `eqnum' on input line 212.
-Package microtype Info: Applying patch `footnote' on input line 212.
-Package microtype Info: Applying patch `verbatim' on input line 212.
-LaTeX Info: Redefining \microtypesetup on input line 212.
+LaTeX Info: Redefining \microtypecontext on input line 211.
+Package microtype Info: Applying patch `item' on input line 211.
+Package microtype Info: Applying patch `toc' on input line 211.
+Package microtype Info: Applying patch `eqnum' on input line 211.
+Package microtype Info: Applying patch `footnote' on input line 211.
+Package microtype Info: Applying patch `verbatim' on input line 211.
+LaTeX Info: Redefining \microtypesetup on input line 211.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -829,291 +828,272 @@ l.24 \clearpage
 ])
 \openout2 = `abstract.aux'.
 
- (abstract.tex
+ (abstract.tex) [3
+
+
+
+
+
+] (main.toc [4
+
+
+
+] [5] [6] [7])
+\tf@toc=\write3
+\openout3 = `main.toc'.
+
+ [8] (main.lof)
+\tf@lof=\write4
+\openout4 = `main.lof'.
+
+ [9
+
+] (main.lot)
+\tf@lot=\write5
+\openout5 = `main.lot'.
+
+ [10
+
+]
+\openout2 = `chapter1_introduction.aux'.
+
+ (chapter1_introduction.tex
 Chapter 1.
-abstract.tex:1: Argument of \thispagestyle has an extra }.
-<inserted text> 
-                \par 
-l.1 \chapter
-            *{ABSTRACT}
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 12.
+(C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [1
 
-Runaway argument?
-abstract.tex:1: Paragraph ended before \thispagestyle was complete.
-<to be read again> 
-                   \par 
-l.1 \chapter
-            *{ABSTRACT}
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
 
-Runaway argument?
-|\@empty \protect 
-abstract.tex:1: Paragraph ended before \HyPsd@@ProtectSpacesFi was complete.
-<to be read again> 
-                   \par 
-l.1 \chapter
-            *{ABSTRACT}
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
 
-abstract.tex:1: Use of \HyPsd@RemoveMask doesn't match its definition.
-\BKM@title ->\par 
-                  | 
-l.1 \chapter
-            *{ABSTRACT}
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-abstract.tex:1: Undefined control sequence.
-\HyPsd@ProtectSpaces ...d@RemoveMask #1\HyPsd@End 
-                                                  #1
-l.1 \chapter
-            *{ABSTRACT}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Runaway argument?
-{
-abstract.tex:1: Paragraph ended before \HyPsd@RemoveBraces was complete.
-<to be read again> 
-                   \par 
-l.1 \chapter
-            *{ABSTRACT}
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-abstract.tex:1: Extra }, or forgotten \endgroup.
-\pdfstringdef ...d@RemoveBraces \expandafter {#1|}
-                                                  \global \let #1\HyPsd@Stri...
-l.1 \chapter
-            *{ABSTRACT}
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-abstract.tex:1: Argument of \HyPsd@CheckCatcodes has an extra }.
-<inserted text> 
-                \par 
-l.1 \chapter
-            *{ABSTRACT}
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-
-Runaway argument?
-\global \let \BKM@title \HyPsd@String 
-abstract.tex:1: Paragraph ended before \HyPsd@CheckCatcodes was complete.
-<to be read again> 
-                   \par 
-l.1 \chapter
-            *{ABSTRACT}
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
+]
+LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 55.
+ (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omsptm.fd
+File: omsptm.fd 
 )
-Runaway argument?
-\@empty \HyPsd@End \BKM@title \expandafter \HyPsd@Subst \expandafter \ETC.
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: File ended while scanning use of \HyPsd@RemoveMask.
-<inserted text> 
-                \par 
-l.220 \include{abstract}
-                        
-I suspect you have forgotten a `}', causing me
-to read past where you wanted me to stop.
-I'll try to recover; but if the error is serious,
-you'd better type `E' or `X' now and fix your file.
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 55.
+ [2]) [3]
+\openout2 = `chapter2_literature_review.aux'.
 
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing { inserted.
-<to be read again> 
-                   #
-l.220 \include{abstract}
-                        
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing number, treated as zero.
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing number, treated as zero.
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing number, treated as zero.
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
+ (chapter2_literature_review.tex
+Chapter 2.
+[4
 
 
-Package fancyhdr Warning: \headheight is too small (14.5pt): 
-(fancyhdr)\space \space \space \space \space \space \space \space \space \space \space \space \space \space \space \space Make it at least 16.6749pt, for example:
-(fancyhdr)\space \space \space \space \space \space \space \space \space \space \space \space \space \space \space \space \setlength{\headheight}{16.6749pt}.
-(fancyhdr)\space \space \space \space \space \space \space \space \space \space \space \space \space \space \space \space You might also make \topmargin smaller:
-(fancyhdr)\space \space \space \space \space \space \space \space \space \space \space \space \space \space \space \space \addtolength{\topmargin}{-2.1749pt}.
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing { inserted.
-<to be read again> 
-                   #
-l.220 \include{abstract}
-                        
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing number, treated as zero.
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing number, treated as zero.
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Missing number, treated as zero.
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.220 \include{abstract}
-                        
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
 
 
-Overfull \vbox (755.50687pt too high) has occurred while \output is active []
+] [5] [6]) [7]
+\openout2 = `chapter3_system_study.aux'.
+
+ (chapter3_system_study.tex
+Chapter 3.
+[8
 
 
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220: Emergency stop.
-<output> ...i \else \global \vsize \maxdimen \fi }
-                                                  
-l.220 \include{abstract}
-                        
-Unbalanced output routine
 
- 
+
+] [9] [10] [11] [12] [13]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14] [15]) [16] [17]
+\openout2 = `chapter4_system_design.aux'.
+
+ (chapter4_system_design.tex
+Chapter 4.
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 21.
+(pdftex.def)             Requested size: 407.66833pt x 229.2948pt.
+[18
+
+
+
+
+]
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 60.
+(pdftex.def)             Requested size: 430.31812pt x 242.03157pt.
+ [19]
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 86.
+(pdftex.def)             Requested size: 452.9679pt x 254.76833pt.
+ [20]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 118.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 118.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 118.
+ [21]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 168.
+ [22] [23]
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 248.
+ [24] (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
+File: lstlang2.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
+File: lstlang3.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
+File: lstlang2.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
+File: lstlang3.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
+File: lstlang2.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
+File: lstlang3.sty 2025/11/14 1.11b listings language file
+) (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+) [25] [26] [27] (C:\Users\Hp\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) [28] [29] [30]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 582.
+ [31]
+LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 628.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 628.
+
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbackslash' on input line 628.
+
+[32] [33]) [34]
+\openout2 = `chapter5_implementation.aux'.
+
+ (chapter5_implementation.tex
+Chapter 5.
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 14.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+[35
+
+
+
+
+]
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 29.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 52.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+ [36]
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 63.
+(pdftex.def)             Requested size: 181.18439pt x 101.89409pt.
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 74.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+ [37]
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 89.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+ [38]
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 100.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 111.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 122.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+File: image/pic1.jpg Graphic file (type jpg)
+<use image/pic1.jpg>
+Package pdftex.def Info: image/pic1.jpg  used on input line 133.
+(pdftex.def)             Requested size: 385.02547pt x 216.55804pt.
+) [39] [40] [41]
+\openout2 = `chapter6_technologies.aux'.
+
+ (chapter6_technologies.tex
+Chapter 6.
+[42
+
+
+
+
+] [43] [44]) [45]
+\openout2 = `chapter7_testing.aux'.
+
+ (chapter7_testing.tex
+Chapter 7.
+[46
+
+
+
+
+] [47] [48]) [49] [50]
+\openout2 = `chapter8_future_scope.aux'.
+
+ (chapter8_future_scope.tex
+Chapter 8.
+[51
+
+
+
+
+] [52] [53] [54] [55] [56]) [57]
+\openout2 = `chapter9_conclusion.aux'.
+
+ (chapter9_conclusion.tex
+Chapter 9.
+[58
+
+
+
+
+] [59] [60]) [61]
+\openout2 = `references.aux'.
+
+ (references.tex [62
+
+
+
+
+] [63]) [64]
+\openout2 = `appendix.aux'.
+
+ (appendix.tex) (main.aux (title.aux) (certificate.aux) (declaration.aux) (acknowledgement.aux) (abstract.aux) (chapter1_introduction.aux) (chapter2_literature_review.aux) (chapter3_system_study.aux) (chapter4_system_design.aux) (chapter5_implementation.aux) (chapter6_technologies.aux) (chapter7_testing.aux) (chapter8_future_scope.aux) (chapter9_conclusion.aux) (references.aux) (appendix.aux))
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-24>
+ ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
 Here is how much of TeX's memory you used:
- 17382 strings out of 467871
- 279461 string characters out of 5419828
- 739714 words of memory out of 5000000
- 46029 multiletter control sequences out of 15000+600000
- 649631 words of font info for 76 fonts, out of 8000000 for 9000
+ 20231 strings out of 467871
+ 324980 string characters out of 5419828
+ 1172525 words of memory out of 5000000
+ 48181 multiletter control sequences out of 15000+600000
+ 666950 words of font info for 110 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,1057b,683s stack positions out of 10000i,1000n,20000p,200000b,200000s
-c:/Users/Hp/Downloads/bondhealthreport/bondhealthreport/main.tex:220:  ==> Fatal error occurred, no output PDF file produced!
+ 75i,12n,79p,1057b,2257s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/Hp/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Hp/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Hp/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Hp/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (76 pages, 3672432 bytes).
+PDF statistics:
+ 1673 PDF objects out of 1728 (max. 8388607)
+ 552 named destinations out of 1000 (max. 500000)
+ 18814 words of extra memory for PDF output out of 20736 (max. 10000000)
+

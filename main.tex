@@ -202,9 +202,8 @@
 
 \let\oldchapter\chapter
 \renewcommand{\chapter}{
-    \clearpage
+    \thispagestyle{footeronly}
     \oldchapter
-    \thispagestyle{reportstyle}
 }
 
 % =========================================================
