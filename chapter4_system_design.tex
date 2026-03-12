@@ -1,0 +1,710 @@
+% chapter4_system_design.tex
+% Automated Diagram Digitization - System Design Chapter
+
+\chapter{System Design}
+\label{ch:systemdesign}
+
+\justifying
+This chapter presents the comprehensive system design of the Automated Diagram Digitization platform, detailing the architectural decisions, data flow, database schema, API design, and module specifications. The system design follows industry best practices for web applications, ensuring scalability, maintainability, security, and seamless integration between the frontend editor, backend services, and AI processing engine.
+
+% =============================================================================
+% 4.1 SYSTEM ARCHITECTURE OVERVIEW
+% =============================================================================
+
+\section{System Architecture Overview}
+
+\justifying
+The Automated Diagram Digitization platform is built on a robust three-tier architecture ensuring scalability, maintainability, and security while providing seamless integration between the React frontend, FastAPI backend, and PostgreSQL database, with clear separation of concerns between presentation, business logic, and data persistence layers.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{image/pic1.jpg}
+    \caption{Three-Tier System Architecture of Automated Diagram Digitization Platform}
+    \label{fig:ch4-architecture}
+\end{figure}
+
+\subsection{Presentation Layer (Client Tier)}
+
+\justifying
+The presentation layer serves as the user interface through which all users interact with the platform. It utilizes React 18 with Vite for fast development and optimal performance, React Flow for interactive diagram rendering, and Tailwind CSS for responsive, modern design. Key advantages include component-based architecture for reusability, fast refresh during development, and a consistent experience across all devices and screen sizes.
+
+\justifying
+The interface is organized into two main sections: the input page with three tabs for image upload, text prompt, and JSON import; and the flowchart editor with a draggable shape sidebar, canvas area with background grid, and toolbar with undo/redo, auto-layout, export, and theme toggle controls.
+
+\subsection{Application Layer (Business Tier)}
+
+\justifying
+The application layer implements all business logic, validation, workflow orchestration, and AI integration using FastAPI with Python. Key components include RESTful API endpoints for image analysis and text-to-flowchart generation, integration with Google Gemini AI using custom prompts, request validation using Pydantic models, centralized error handling with regex fallback for malformed responses, and asynchronous database operations using SQLAlchemy.
+
+\subsection{Data Layer (Database Tier)}
+
+\justifying
+The data layer manages all persistent storage using PostgreSQL with JSONB support for flexible schema storage. Key features include UUID v4 primary keys for distributed generation without coordination, JSONB columns for storing complete React Flow state (nodes and edges), timestamp tracking with timezone support for created\_at and updated\_at fields, foreign key constraints where applicable, and connection pooling for optimal performance.
+
+% =============================================================================
+% 4.2 DATA FLOW DIAGRAMS
+% =============================================================================
+
+\section{Data Flow Diagrams}
+
+\justifying
+Data Flow Diagrams (DFDs) provide a graphical representation of how information moves through the Automated Diagram Digitization platform. This section describes the three most critical workflows.
+
+\subsection{Image Upload and Analysis Flow}
+
+\justifying
+The image analysis process enables users to upload flowchart images for automatic digitization. The workflow proceeds as follows: the user selects an image file via drag-drop or file picker, the frontend validates file type and size, the image is sent to the backend via multipart/form-data, the backend processes the image using Pillow (resizing to thumbnail), the image is sent to Gemini AI with the system prompt, the AI returns JSON with nodes and edges, the backend parses the response and ensures edge IDs exist, and the frontend renders the flowchart in the editor. The user can then edit, save, or export the diagram.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.95\textwidth]{image/pic1.jpg}
+    \caption{Image Upload and Analysis Data Flow Diagram}
+    \label{fig:chapter4-image-flow}
+\end{figure}
+
+\subsection{Text-to-Flowchart Generation Flow}
+
+\justifying
+The text-to-flowchart feature enables users to describe algorithms in natural language for automatic flowchart generation. The workflow proceeds as follows: the user enters a text description in the prompt textarea, the frontend sends the prompt to the backend via POST request, the backend combines the user prompt with the text-to-flowchart system prompt, the combined prompt is sent to Gemini AI, the AI returns JSON with nodes and edges (may include explanatory text), the backend extracts JSON using regex pattern matching, the parsed JSON is returned to the frontend, and the editor renders the generated flowchart. The user can then modify the generated diagram as needed.
+
+\subsection{JSON Import and Export Flow}
+
+\justifying
+The JSON import/export functionality enables data portability and integration with other tools. For import: the user uploads a JSON file or pastes JSON into textarea, the frontend validates JSON format, the validated JSON is passed directly to the editor for rendering. For export: the user clicks the export button and selects format (JSON/PNG/SVG), for JSON export the current nodes and edges are serialized to JSON and downloaded as a file, for PNG export the canvas is captured using html-to-image and downloaded, for SVG export the React Flow SVG renderer generates vector graphics for download.
+
+% =============================================================================
+% 4.3 DATABASE SCHEMA DESIGN
+% =============================================================================
+
+\section{Database Schema Design (PostgreSQL)}
+
+\justifying
+The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB support, providing reliable data persistence, ACID compliance, and flexible schema for storing complex flowchart data. The schema uses UUID primary keys, timestamp tracking, and JSONB columns for flow data storage.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{image/pic1.jpg}
+    \caption{Database Entity-Relationship Diagram}
+    \label{fig:schema}
+\end{figure}
+
+\justifying
+\noindent
+The Entity-Relationship diagram above illustrates the database structure. At the center is the \texttt{flowcharts} table, which stores all flowchart data. Each flowchart has a unique UUID identifier, a title string, a JSONB column containing the complete React Flow state (nodes and edges), and timestamp columns for creation and last update tracking.
+
+\justifying
+\noindent
+The JSONB column provides flexibility to store varying node and edge structures without requiring schema changes. Each node object contains id, type, position coordinates, data (including label), width, height, and optional styling properties. Each edge object contains id, source, target, optional label, type (smoothstep/straight), markerEnd for arrows, and optional styling properties.
+
+\justifying
+\noindent
+The schema follows best practices for web applications, uses \texttt{created\_at} and \texttt{updated\_at} timestamps with timezone support for audit compliance, applies indexes on frequently queried columns, and uses UUID primary keys for security benefits over sequential integers. The JSONB column supports indexing on specific fields if needed for performance.
+
+\justifying
+\noindent
+All timestamp columns use \texttt{TIMESTAMPTZ} rather than a timezone-naive type, storing values in UTC and allowing the application layer to convert to the user's local timezone at render time. This is particularly important for a platform that may be deployed across different geographical regions. Consistent UTC storage eliminates ambiguity in timestamp comparisons.
+
+\justifying
+\noindent
+The schema is managed through a versioned migration system using Alembic (SQLAlchemy migrations), capturing every structural change as an incremental script across development, staging, and production environments. This ensures consistent database evolution across all deployments.
+
+\noindent
+The following table provides a concise summary of the \texttt{flowcharts} table structure as implemented in PostgreSQL.
+
+\begin{table}[H]
+    \small
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|}
+        \hline
+        \textbf{Column} & \textbf{Data Type} & \textbf{Description \& Constraints} \\
+        \hline
+        id
+            & UUID
+            & Primary key, default gen\_random\_uuid() \\
+        \hline
+        title
+            & VARCHAR(255)
+            & Flowchart title, default 'Untitled' \\
+        \hline
+        flow\_data
+            & JSONB
+            & Complete node/edge data, NOT NULL \\
+        \hline
+        created\_at
+            & TIMESTAMPTZ
+            & Creation timestamp, default now() \\
+        \hline
+        updated\_at
+            & TIMESTAMPTZ
+            & Last update timestamp, default now() \\
+        \hline
+    \end{tabular}
+    \caption{Flowcharts Table Schema}
+    \label{tab:database-schema}
+\end{table}
+
+\vspace{0.3cm}
+\textbf{Database Indexes for Performance Optimization:}
+
+\begin{itemize}
+    \item \texttt{CREATE INDEX idx\_flowcharts\_id ON flowcharts(id);} -- Primary key index for fast lookup by UUID.
+    
+    \item \texttt{CREATE INDEX idx\_flowcharts\_created\_at ON flowcharts(created\_at);} -- Optimizes queries sorting by creation date.
+    
+    \item \texttt{CREATE INDEX idx\_flowcharts\_updated\_at ON flowcharts(updated\_at);} -- Optimizes queries sorting by update date.
+    
+    \item \texttt{CREATE INDEX idx\_flowcharts\_title ON flowcharts(title);} -- Enables fast search by title (for future search functionality).
+    
+    \item \texttt{CREATE INDEX idx\_flowcharts\_gin\_nodes ON flowcharts USING gin ((flow\_data -> 'nodes'));} -- GIN index for querying inside JSONB nodes array.
+\end{itemize}
+
+\textbf{Sample flow\_data JSON Structure:}
+
+\begin{lstlisting}[
+    caption={Sample flow\_data JSON Structure},
+    label={lst:flowdata},
+    breaklines=true,
+    columns=flexible]
+{
+  "nodes": [
+    {
+      "id": "node_123",
+      "type": "process",
+      "position": { "x": 100, "y": 200 },
+      "data": { "label": "Process Data" },
+      "width": 150,
+      "height": 80,
+      "style": {
+        "backgroundColor": "#ffffff",
+        "color": "#000000",
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "fontStyle": "normal"
+      }
+    },
+    {
+      "id": "node_456",
+      "type": "decision",
+      "position": { "x": 300, "y": 200 },
+      "data": { "label": "Is Valid?\\nYes/No" },
+      "width": 120,
+      "height": 120
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1-2",
+      "source": "node_123",
+      "target": "node_456",
+      "sourceHandle": "bottom",
+      "targetHandle": "top",
+      "label": "Yes",
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrowclosed" },
+      "style": { "stroke": "#000000" },
+      "labelStyle": {
+        "fill": "#000000",
+        "fontWeight": 600
+      },
+      "labelBgStyle": {
+        "fill": "#ffffff",
+        "stroke": "#000000",
+        "strokeWidth": 1,
+        "rx": 4,
+        "ry": 4
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+% =============================================================================
+% 4.4 API DESIGN
+% =============================================================================
+
+\section{API Design (RESTful Endpoints)}
+
+\justifying
+\noindent
+The Automated Diagram Digitization platform implements a comprehensive RESTful API following industry best practices, serving as the communication backbone between the React frontend and FastAPI backend. Endpoints are resource-oriented, use appropriate HTTP methods, and consistent JSON response formats.
+
+\noindent
+The API is organised into logical resource groups: image analysis, text-to-flowchart generation, and flowchart management (CRUD operations). Middleware for CORS handling, request validation, and error handling is applied consistently. Incoming payloads are validated for type correctness, required fields, and domain constraints before any business logic executes.
+
+\noindent
+Error responses follow a consistent JSON structure containing detail message and appropriate HTTP status codes: \texttt{200} for successful retrieval, \texttt{201} for resource creation, \texttt{400} for validation failures, \texttt{404} when a requested resource does not exist, and \texttt{500} for internal server errors.
+
+\begin{table}[H]
+    \small
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{1.8cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{5.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|}
+        \hline
+        \textbf{Method} & \textbf{Endpoint} & \textbf{Description} & \textbf{Request Body} \\
+        \hline
+        POST & /analyze & Upload flowchart image for AI analysis & multipart/form-data (image file) \\
+        \hline
+        POST & /analyze/algorithm & Generate flowchart from text description & JSON: \{ "prompt": "text" \} \\
+        \hline
+        POST & /flowcharts & Create new flowchart in database & JSON: \{ "title": "...", "flow\_data": \{...\} \} \\
+        \hline
+        GET  & /flowcharts/\{id\} & Retrieve flowchart by UUID & - \\
+        \hline
+        PUT  & /flowcharts/\{id\} & Update existing flowchart & JSON with partial updates \\
+        \hline
+        GET  & / & Health check endpoint & - \\
+        \hline
+    \end{tabular}
+    \caption{Core API Endpoints}
+    \label{tab:api-endpoints}
+\end{table}
+
+\textbf{Sample Request - Image Analysis:}
+
+\begin{lstlisting}[
+    caption={Image Analysis API Request},
+    label={lst:image-request},
+    breaklines=true,
+    columns=flexible]
+POST /analyze HTTP/1.1
+Host: localhost:8000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="flowchart.png"
+Content-Type: image/png
+
+[image data]
+------WebKitFormBoundary--
+\end{lstlisting}
+
+\textbf{Sample Response - Image Analysis:}
+
+\begin{lstlisting}[language=TeX,
+    caption={Image Analysis API Response},
+    label={lst:image-response},
+    breaklines=true,
+    columns=flexible]
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "start",
+      "position": { "x": 500, "y": 50 },
+      "data": { "label": "Start" },
+      "width": 90,
+      "height": 40
+    },
+    {
+      "id": "2",
+      "type": "process",
+      "position": { "x": 475, "y": 150 },
+      "data": { "label": "Enter\\nCredentials" },
+      "width": 150,
+      "height": 80
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1-2",
+      "source": "1",
+      "target": "2",
+      "sourceHandle": "bottom",
+      "targetHandle": "top",
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrowclosed" }
+    }
+  ]
+}
+\end{lstlisting}
+
+% =============================================================================
+% 4.5 MODULE-WISE DETAILED DESIGN
+% =============================================================================
+
+\section{Module-wise Detailed Design}
+
+\justifying
+This section provides design specifications for each major module of the Automated Diagram Digitization platform, describing their component structure and interactions with other modules.
+
+\subsection{Input Module}
+
+\justifying
+The input module handles all user input methods before AI processing. Components include:
+
+\begin{itemize}
+    \item \textbf{Image Upload Component}: Drag-drop zone with file picker fallback, file type validation (PNG, JPG, WebP), file size validation, preview thumbnail, and upload progress indicator.
+    
+    \item \textbf{Text Prompt Component}: Multi-line textarea with placeholder text, character count (optional), example prompt button, and submit with loading state.
+    
+    \item \textbf{JSON Import Component}: Textarea for JSON paste with syntax highlighting, file upload button for .json files, JSON validation with error messaging, and format preview option.
+    
+    \item \textbf{Tab Navigation}: Tabbed interface switching between input methods with active state styling and form reset on tab change.
+\end{itemize}
+
+\subsection{AI Processing Module}
+
+\justifying
+The AI processing module interfaces with Google Gemini AI and handles response parsing. Components include:
+
+\begin{itemize}
+    \item \textbf{Gemini API Client}: Configured with API key from environment variables, handles authentication, and sends requests with appropriate system prompts.
+    
+    \item \textbf{Image Processor}: Uses Pillow to open uploaded images, resizes to thumbnail (1024x1024 max) for optimal API performance, and maintains aspect ratio.
+    
+    \item \textbf{Prompt Manager}: Stores and manages system prompts for image analysis and text-to-flowchart generation, combines user input with system prompts.
+    
+    \item \textbf{Response Parser}: Parses JSON responses from Gemini, handles malformed responses using regex extraction (\textbackslash{}(\textbackslash.*\textbackslash{})), ensures edge IDs exist (generates e\{source\}-\{target\} if missing), and validates required fields.
+    
+    \item \textbf{Error Handler}: Catches and logs API errors, returns user-friendly error messages, and provides fallback responses when possible.
+\end{itemize}
+
+\subsection{Editor Module}
+
+\justifying
+The editor module is the core interactive component for diagram creation and modification. Components include:
+
+\begin{itemize}
+    \item \textbf{React Flow Canvas}: Renders nodes and edges with background grid, supports zooming and panning, and handles selection and deletion.
+    
+    \item \textbf{Sidebar Palette}: Displays draggable shape icons (start, process, decision, io) with SVG icons, implements HTML5 drag-drop with data transfer, and provides visual feedback during drag.
+    
+    \item \textbf{Custom Node Components}: BaseNode with common functionality, ProcessNode with rectangle shape, StartNode with rounded rectangle (pill shape), DecisionNode with diamond shape (clip-path polygon), and InputNode with parallelogram shape (skew transform).
+    
+    \item \textbf{Node Resizer}: Uses React Flow's NodeResizer component, visible only when node selected, maintains minimum dimensions (80x40 for most nodes, 120x120 for decision), and preserves text readability.
+    
+    \item \textbf{Edge Label Editor}: Double-click handler on edges, inline input popup at mouse position, Enter key saves, Escape cancels, and blur saves automatically.
+    
+    \item \textbf{Undo/Redo System}: Snapshot-based history using useState, takeSnapshot before operations, undo restores previous state, redo restores next state, and keyboard shortcuts (Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z).
+    
+    \item \textbf{Auto-Layout Engine}: Column-based clustering algorithm, calculates true center X for each node, clusters within tolerance (150px), snaps nodes to average column positions, and updates edge types based on alignment.
+    
+    \item \textbf{Styling Controls}: Color picker for nodes and edges, text styling buttons (bold, italic), font size dropdown (10-20px), and style application to selected elements.
+\end{itemize}
+
+\subsection{Export Module}
+
+\justifying
+The export module handles all diagram export functionality. Components include:
+
+\begin{itemize}
+    \item \textbf{PNG Exporter}: Uses html-to-image library to capture canvas element, creates download link with data URL, and names file using flowchart title.
+    
+    \item \textbf{SVG Exporter}: Leverages React Flow's built-in SVG export capabilities, generates vector graphics with proper scaling, and maintains styling.
+    
+    \item \textbf{JSON Exporter}: Serializes current nodes and edges to JSON string with pretty printing (2-space indent), creates blob with application/json type, and triggers download.
+    
+    \item \textbf{Export Menu}: Dropdown menu with export options, icons for each format, and disabled state during export operations.
+\end{itemize}
+
+% Section 4.5 Module-wise Detailed Design (around line 413)
+
+\subsection{Storage Module}
+
+\justifying
+The storage module manages database operations for flowchart persistence. Components include:
+
+\begin{itemize}
+    \item \textbf{Database Client}: Async SQLAlchemy engine with connection pooling, configured with DATABASE\_URL from environment, and SSL enabled for production.
+    
+    \item \textbf{Create Operation}: Inserts new flowchart with title and flow\_data, returns generated UUID and timestamps, and handles validation errors.
+    
+    \item \textbf{Read Operation}: Retrieves flowchart by UUID using SELECT query, returns 404 if not found, and parses JSONB flow\_data.
+    
+    \item \textbf{Update Operation}: Updates title or flow\_data with partial updates, refreshes updated\_at timestamp, and returns updated record.
+\end{itemize}
+
+\subsection{Theme Module}
+
+\justifying
+The theme module manages dark/light mode switching. Components include:
+
+\begin{itemize}
+    \item \textbf{Theme Context}: React context providing theme state and toggle function, consumed by all components needing theme awareness.
+    
+    \item \textbf{Theme Toggle Button}: Button with sun/moon icons, toggles between dark and light modes, and updates localStorage with preference.
+    
+    \item \textbf{CSS Variables}: Root-level CSS variables for node backgrounds, borders, text colors, and canvas background, dynamically updated on theme change.
+    
+    \item \textbf{Persistence}: localStorage stores user theme preference, initial theme loaded from localStorage or defaults to dark mode.
+\end{itemize}
+
+% =============================================================================
+% 4.6 AI PROMPT DESIGN
+% =============================================================================
+
+\section{AI Prompt Design}
+
+\justifying
+The system uses two specialized prompts for Gemini AI, carefully engineered for accurate flowchart recognition and generation.
+
+\subsection{Image Analysis System Prompt}
+
+\begin{lstlisting}[language=Python,
+    caption={Image Analysis System Prompt},
+    label={lst:image-prompt},
+    breaklines=true,
+    columns=flexible,
+    keepspaces=true]
+SYSTEM_PROMPT = """
+You are an expert Optical Graph Recognition engine.
+Analyze the provided flowchart image and extract its structure into a JSON format compatible with React Flow.
+
+Follow these strict rules:
+
+1. Nodes:
+- Identify shapes and map to these EXACT types:
+  - rectangle -> type: "process"
+  - diamond -> type: "decision"
+  - oval/circle -> type: "start"
+  - parallelogram -> type: "io"
+- Dimensions: Calculate the actual width and height of each shape based on its bounding box in the image (relative to a 1000x1000 canvas).
+- Extract text into data.label (use \\n for line breaks).
+- Estimate coordinates on a 0-1000 scale.
+
+2. Edges:
+- 'type': "smoothstep"
+- 'markerEnd': { "type": "arrowclosed" }
+- 'sourceHandle' and 'targetHandle': Use "top", "bottom", "left", or "right" based on where the arrow physically enters/exits the shape.
+
+3. Output format:
+- Return ONLY raw JSON. No markdown, no backticks, no preamble.
+- Structure: {"nodes": [...], "edges": [...]}
+"""
+\end{lstlisting}
+
+\subsection{Text-to-Flowchart System Prompt}
+
+\begin{lstlisting}[language=Python,
+    caption={Text-to-Flowchart System Prompt},
+    label={lst:text-prompt},
+    breaklines=true,
+    columns=flexible,
+    keepspaces=true]
+TEXT_TO_FLOW_PROMPT = """
+You are a React Flow architect. Convert the user's process description or algorithm into a structured JSON.
+Output ONLY raw JSON.
+
+NODE RULES:
+- TYPES: Use only: "start", "process", "decision", "io".
+- Include width and height at the root level.
+- Scale nodes based on text length (increase width/height for multi-line labels).
+- For decision nodes with long text, increase size to at least 200x200.
+
+EDGE RULES:
+- Use "type": "smoothstep" and "markerEnd": {"type": "arrowclosed"}.
+- Use "sourceHandle" and "targetHandle" (top, bottom, left, right) for clean connections.
+- For decision branches (Yes/No), include label styling.
+
+LABEL RULES:
+- Use \\n for line breaks.
+- For decision nodes, format text to fit within diamond shape.
+- Include labelStyle for edge labels with fill, fontWeight, and background styling.
+"""
+\end{lstlisting}
+
+% =============================================================================
+% 4.7 ALGORITHM DESIGN
+% =============================================================================
+
+\section{Algorithm Design}
+
+\subsection{Column-based Auto Layout Algorithm}
+
+\justifying
+The auto-layout algorithm clusters nodes by their X-coordinates to create aligned columns, ensuring professional diagram appearance.
+
+\begin{lstlisting}[language=Python,
+    caption={Column-based Auto Layout Algorithm Pseudocode},
+    label={lst:autolayout},
+    breaklines=true,
+    columns=flexible,
+    keepspaces=true]
+function normaliseAndSnap(nodes):
+    // Step 1: Initialize max widths per node type
+    maxWidths = {
+        start: 100,
+        process: 150,
+        io: 150,
+        decision: 120
+    }
+    
+    // Step 2: Update with actual node widths
+    for node in nodes:
+        maxWidths[node.type] = max(maxWidths[node.type], node.width)
+    
+    // Step 3: Calculate true center X for each node
+    nodesWithCenters = nodes.map(node => ({
+        ...node,
+        trueCenterX: node.position.x + maxWidths[node.type] / 2,
+        finalWidth: maxWidths[node.type]
+    }))
+    
+    // Step 4: Sort by center X
+    sortedNodes = sort(nodesWithCenters by trueCenterX)
+    
+    // Step 5: Cluster nodes within tolerance
+    columns = []
+    tolerance = 150
+    
+    for node in sortedNodes:
+        existingCol = find(columns where 
+            abs(col.averageCenterX - node.trueCenterX) < tolerance)
+        if existingCol:
+            existingCol.centerValues.push(node.trueCenterX)
+            existingCol.averageCenterX = average(existingCol.centerValues)
+        else:
+            columns.push({
+                centerValues: [node.trueCenterX],
+                averageCenterX: node.trueCenterX
+            })
+    
+    // Step 6: Reposition nodes to column averages
+    result = []
+    for node in nodesWithCenters:
+        col = find(columns where 
+            abs(col.averageCenterX - node.trueCenterX) < tolerance)
+        node.position.x = col.averageCenterX - node.finalWidth / 2
+        result.push(node)
+    
+    return result
+\end{lstlisting}
+
+\subsection{Undo/Redo with Snapshot History}
+
+\begin{lstlisting}[language=JavaScript,
+    caption={Undo/Redo Algorithm Pseudocode},
+    label={lst:undo},
+    breaklines=true,
+    columns=flexible,
+    keepspaces=true]
+function takeSnapshot():
+    snapshot = {
+        nodes: deepCopy(currentNodes),
+        edges: deepCopy(currentEdges)
+    }
+    past.push(snapshot)
+    future.clear()
+
+function undo():
+    if past.length > 0:
+        currentSnapshot = {nodes: currentNodes, edges: currentEdges}
+        future.unshift(currentSnapshot)
+        previousSnapshot = past.pop()
+        setNodes(previousSnapshot.nodes)
+        setEdges(previousSnapshot.edges)
+
+function redo():
+    if future.length > 0:
+        currentSnapshot = {nodes: currentNodes, edges: currentEdges}
+        past.push(currentSnapshot)
+        nextSnapshot = future.shift()
+        setNodes(nextSnapshot.nodes)
+        setEdges(nextSnapshot.edges)
+
+// Keyboard handlers
+onKeyDown:
+    if (ctrlKey and key == 'z' and not shiftKey):
+        undo()
+    else if (ctrlKey and key == 'z' and shiftKey):
+        redo()
+    else if (ctrlKey and key == 'y'):
+        redo()
+\end{lstlisting}
+
+% =============================================================================
+% 4.8 ERROR HANDLING DESIGN
+% =============================================================================
+
+\section{Error Handling Design}
+
+\justifying
+The system implements comprehensive error handling at multiple levels to ensure robustness.
+
+\subsection{AI Response Error Handling}
+
+\begin{itemize}
+    \item \textbf{Malformed JSON}: Uses regex extraction to find JSON block within text response: \texttt{re.search(r'(\textbackslash{}\{\textbackslash{}.*\textbackslash{}\}\textbackslash{})', text, re.DOTALL)}.
+    
+    \item \textbf{Unescaped Characters}: Uses \texttt{json.loads(json\_str, strict=False)} to handle unescaped newlines within strings.
+    
+    \item \textbf{Missing Fields}: Validates required fields (nodes, edges) and provides defaults if missing.
+    
+    \item \textbf{Missing Edge IDs}: Automatically generates IDs in format \texttt{e\{source\}-\{target\}} if not provided by AI.
+\end{itemize}
+
+\subsection{API Error Handling}
+
+\begin{itemize}
+    \item \textbf{400 Bad Request}: Returned for missing prompt field, invalid JSON format, or validation failures.
+    
+    \item \textbf{404 Not Found}: Returned when flowchart ID does not exist in database.
+    
+    \item \textbf{500 Internal Server Error}: Returned for AI API failures, database errors, or unexpected exceptions with error logging.
+\end{itemize}
+
+\subsection{Frontend Error Handling}
+
+\begin{itemize}
+    \item \textbf{File Upload Errors}: Validates file type and size before upload, displays user-friendly error messages.
+    
+    \item \textbf{JSON Import Errors}: Validates JSON syntax, displays line and column of error with descriptive message.
+    
+    \item \textbf{API Request Errors}: Catches fetch errors, displays toast notifications, and provides retry options.
+\end{itemize}
+
+% =============================================================================
+% 4.9 PERFORMANCE OPTIMIZATION
+% =============================================================================
+
+\section{Performance Optimization}
+
+\justifying
+The Automated Diagram Digitization platform implements multiple optimization strategies to ensure responsive user experiences.
+
+\textbf{Backend Optimization:}
+\begin{itemize}
+    \item \textbf{Image Resizing}: Thumbnail resizing to 1024x1024 max before sending to Gemini API reduces payload size and processing time.
+    
+    \item \textbf{Connection Pooling}: SQLAlchemy connection pooling with configurable pool size (5-20 connections) minimizes connection overhead.
+    
+    \item \textbf{Async Operations}: FastAPI async endpoints with await for database and AI operations improve concurrency.
+    
+    \item \textbf{JSONB Indexing}: GIN indexes on flow\_data for potential future querying requirements.
+\end{itemize}
+
+\textbf{Frontend Optimization:}
+\begin{itemize}
+    \item \textbf{React Flow Performance}: Uses virtualization for large diagrams, limits re-renders with memo and useCallback.
+    
+    \item \textbf{Debounced Operations}: Auto-save and auto-layout debounced to prevent excessive operations during rapid edits.
+    
+    \item \textbf{Lazy Loading}: Code splitting with React.lazy for editor component (loaded only when needed).
+    
+    \item \textbf{CSS Variables}: Theme switching uses CSS variable updates instead of full re-renders.
+\end{itemize}
+
+\textbf{AI Optimization:}
+\begin{itemize}
+    \item \textbf{Prompt Engineering}: Temperature=0 for deterministic outputs, response\_mime\_type="application/json" for structured responses.
+    
+    \item \textbf{Image Optimization}: Thumbnail resizing reduces API latency and costs.
+    
+    \item \textbf{Caching}: Consider caching frequent prompts or responses for future implementation.
+\end{itemize}
+
+% =============================================================================
+% 4.10 SUMMARY
+% =============================================================================
+
+\section{Summary}
+
+\justifying
+This chapter has presented the complete system design of the Automated Diagram Digitization platform, spanning the three-tier architecture, data flow diagrams, database schema, API design, module specifications, AI prompt design, algorithms, error handling, and performance optimization strategies. The design decisions reflect consistent priorities: accurate AI-powered recognition, intuitive user experience, robust error handling, and scalable architecture.
+
+\justifying
+The layered separation between presentation, business logic, and data persistence ensures each tier can evolve independently. The database schema with UUID primary keys and JSONB support provides a flexible foundation for storing complex flowchart data. The RESTful API exposes this functionality in a predictable manner, while the AI integration with carefully engineered prompts ensures accurate shape recognition and text extraction.
+
+\justifying
+The modular design with clear separation of concerns (input module, AI processing, editor, export, storage, theme) enables independent development and testing of each component. The auto-layout algorithm ensures professional diagram appearance, while the undo/redo system provides error recovery. The following chapter details the implementation of each module described here, translating these design specifications into working code.

@@ -1,0 +1,142 @@
+\chapter{Implementation}
+\label{ch:implementation}
+
+This chapter details the implementation of the Automated Diagram Digitization system, describing each module's logic, API interactions, and integration with the broader application. The implementation follows a layered architecture: FastAPI handles HTTP routing, PostgreSQL serves as the persistent store, and React with Vite presents the user interface. All code is organised within separate frontend and backend directories, with environment-specific settings separated into a \texttt{.env} file.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Development Environment Setup}
+\label{sec:dev-env}
+
+The backend runs on Python 3.9+ with the FastAPI framework. The database is a PostgreSQL instance with JSONB support for flexible schema storage. The frontend runs on Node.js v18+ with React 18 and Vite for fast development. Sensitive configuration values — database connection strings and Gemini API keys — are stored in a \texttt{.env} file at the project root and loaded via the \texttt{python-dotenv} package.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Project structure showing backend and frontend directories.}
+\label{fig:project-structure}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Backend Implementation}
+\label{sec:backend}
+
+\subsection{Image Analysis Endpoint}
+
+The image analysis endpoint accepts an uploaded flowchart image, processes it, sends it to Gemini AI with a custom system prompt, and returns structured JSON containing nodes and edges. The image is resized to a thumbnail of 1024x1024 pixels for optimal API performance while maintaining aspect ratio.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Image upload interface with drag-drop area and file selection.}
+\label{fig:image-upload}
+\end{figure}
+
+\subsection{Text-to-Flowchart Endpoint}
+
+The text-to-flowchart endpoint accepts a natural language description of an algorithm and returns a generated flowchart. The user prompt is combined with a specialized system prompt designed for flowchart generation. The response is cleaned using regex extraction to handle any explanatory text the AI might add, ensuring only valid JSON is returned.
+
+\subsection{Database Operations}
+
+The database layer uses SQLAlchemy with async support for PostgreSQL operations. The flowcharts table stores each diagram with a UUID primary key, title, JSONB column for the complete React Flow state, and timestamps for creation and updates. The JSONB column provides flexibility to store varying node and edge structures without requiring schema changes.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Frontend Implementation}
+\label{sec:frontend}
+
+\subsection{Input Page}
+
+The input page provides three methods for creating flowcharts: image upload with drag-drop support, text prompt for algorithm description, and JSON import for existing flow data. A tabbed interface allows users to switch between input methods, with each tab showing the appropriate form controls.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Input page showing three tabs for image upload, text prompt, and JSON import.}
+\label{fig:input-page}
+\end{figure}
+
+\subsection{Sidebar with Draggable Shapes}
+
+The sidebar displays four shape types: start/end (oval), process (rectangle), decision (diamond), and input/output (parallelogram). Each shape is represented by an SVG icon and a label. HTML5 drag-drop is implemented, with the shape type stored in the dataTransfer object for retrieval when dropped on the canvas.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{image/pic1.jpg}
+\caption{Sidebar with draggable shape icons.}
+\label{fig:sidebar}
+\end{figure}
+
+\subsection{Flowchart Editor}
+
+The flowchart editor is the core component for diagram creation and editing. It uses React Flow to render nodes and edges, with custom node components for each shape type. The canvas features a dot grid background, zoom and pan controls, and selection handling. Nodes can be resized using resize handles, with minimum dimensions enforced to maintain text readability.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Flowchart editor canvas with nodes, edges, and toolbar.}
+\label{fig:editor}
+\end{figure}
+
+\subsection{Custom Node Components}
+
+Each shape type has its own node component that extends a base node. The base node provides common functionality: connection handles on all four sides, double-click editing, and node resizing. Shape-specific styling is applied using CSS: rectangles for process nodes, diamonds using clip-path polygons, rounded rectangles for start nodes, and skewed parallelograms for input/output nodes.
+
+\subsection{Undo/Redo Functionality}
+
+Undo/redo is implemented using a snapshot-based history system. Before any operation that modifies the diagram (node drag, edge creation, deletion, etc.), a snapshot of the current nodes and edges is saved to a past stack. Undo restores the previous state from the past stack and pushes the current state to a future stack. Keyboard shortcuts Ctrl+Z (undo), Ctrl+Y (redo), and Ctrl+Shift+Z (redo) are supported.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Toolbar showing undo, redo, and auto-layout buttons.}
+\label{fig:toolbar}
+\end{figure}
+
+\subsection{Auto-Layout Feature}
+
+The auto-layout feature uses a column-based clustering algorithm to align nodes neatly. It calculates the true center X-coordinate for each node, clusters nodes within a tolerance of 150 pixels, computes the average center for each cluster, and repositions nodes to align with their cluster's average. Edge types are automatically adjusted based on alignment — straight edges for vertically aligned nodes, smoothstep edges for others.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Auto-layout applied showing nodes aligned in columns.}
+\label{fig:autolayout}
+\end{figure}
+
+\subsection{Edge Label Editing}
+
+Edge labels can be added or edited by double-clicking on any edge. An inline input popup appears at the mouse position, allowing the user to enter label text. Pressing Enter saves the label, Escape cancels, and clicking elsewhere also saves. Labels are displayed with a background box for readability, with styling that adapts to the current theme.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Edge label editing popup on a decision branch.}
+\label{fig:edgelabel}
+\end{figure}
+
+\subsection{Theme Implementation}
+
+The system supports both dark and light modes using CSS variables. A theme context provides the current theme state and toggle function. User preference is persisted in localStorage. CSS variables control node backgrounds, borders, text colors, canvas background, and grid colors, with all components reacting to theme changes.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Same flowchart displayed in light mode.}
+\label{fig:light-mode}
+\end{figure}
+
+\subsection{Export Functionality}
+
+Three export formats are supported: PNG for sharing, SVG for vector graphics, and JSON for data portability. PNG export uses the html-to-image library to capture the canvas element. SVG export leverages React Flow's built-in SVG rendering. JSON export serializes the current nodes and edges with pretty printing.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{image/pic1.jpg}
+\caption{Export options dropdown showing PNG, SVG, and JSON formats.}
+\label{fig:export}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Summary}
+\label{sec:implementation-summary}
+
+This chapter has presented the implementation of each module within the Automated Diagram Digitization platform. From the AI-powered image analysis endpoint through to the interactive React Flow editor, every component has been built with consistent emphasis on accuracy, user experience, and maintainability. The layered architecture ensures each module remains independently testable and extensible. The following chapter details the testing strategy employed to validate the correctness and robustness of the implementation.

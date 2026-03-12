@@ -1,0 +1,13 @@
+\chapter*{ABSTRACT}
+\thispagestyle{footeronly}
+\begin{center}
+{\Large \textbf{ABSTRACT}}
+\end{center}
+\noindent
+Automated Diagram Digitization is a modern web-based application designed to convert hand-drawn or printed flowchart images into interactive, editable digital diagrams. This project addresses the critical challenge of manually recreating diagrams by leveraging artificial intelligence to automatically recognize shapes, extract text, and detect connections between nodes. The system utilizes Google's Gemini AI Vision model to analyze uploaded flowchart images and identify four basic shape types: process (rectangle), decision (diamond), start/end (oval), and input/output (parallelogram). The extracted information is structured into a JSON format compatible with React Flow, enabling users to interact with and modify their diagrams through an intuitive drag-and-drop interface.
+\noindent
+The system features three input methods: image upload, text-to-flowchart generation from natural language descriptions, and JSON import for existing flow data. Key functionalities include an interactive editor with undo/redo, auto-layout for clean alignment, edge labeling via double-click, text styling (bold, italic, font size), node/edge color customization, and multiple export options (PNG, SVG, JSON). Built with FastAPI on the backend, PostgreSQL for persistent storage, and React with Vite on the frontend, Automated Diagram Digitization demonstrates a production-ready solution for flowchart automation.
+\noindent
+The platform implements robust error handling for AI responses, custom prompt engineering for accurate shape recognition, and comprehensive API endpoints for all operations. With features like theme switching (dark/light mode), node resizing with text adaptation, and a drag-drop shape palette, the system provides a seamless experience for students, educators, software developers, and business professionals who need to digitize and edit flowcharts efficiently.
+\noindent
+\textbf{Keywords:} Diagram Digitization, Optical Graph Recognition, Gemini AI, React Flow, FastAPI, Flowchart Automation, Computer Vision, Natural Language Processing

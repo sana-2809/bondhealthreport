@@ -1,0 +1,139 @@
+\chapter{Technologies Used}
+\label{ch:technologies}
+
+\section{Introduction}
+Automated Diagram Digitization leverages modern web technologies to create an intelligent flowchart recognition and editing platform. This chapter summarizes the key technologies, frameworks, and tools employed in the project.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|p{9cm}|}
+        \hline
+        \textbf{Component} & \textbf{Technologies} \\
+        \hline
+        Frontend & React 18, Vite, React Flow, Tailwind CSS, Lucide React \\
+        \hline
+        Backend & Python 3.9+, FastAPI, Uvicorn \\
+        \hline
+        Database & PostgreSQL 15, SQLAlchemy (async), JSONB \\
+        \hline
+        AI Integration & Google Gemini API, Pillow \\
+        \hline
+        Authentication & Environment-based API key management \\
+        \hline
+        Tools & VS Code, Git, GitHub, Postman, npm \\
+        \hline
+        Dependencies & python-dotenv, pydantic, python-multipart \\
+        \hline
+    \end{tabular}
+    \caption{Technology Stack Overview}
+    \label{tab:tech-stack}
+\end{table}
+
+\section{Frontend Technologies}
+
+\subsection{React 18 with Vite}
+React 18 provides the component-based architecture for building reusable UI elements. Vite serves as the build tool, offering fast development server startup with hot module replacement and optimized production builds.
+
+\subsection{React Flow}
+React Flow is the core diagramming library used for rendering interactive flowcharts. Key features utilized include custom node rendering, connection handles, node resizing, edge styling, and background grid with zoom/pan controls.
+
+\subsection{Tailwind CSS and Lucide React}
+Tailwind CSS provides utility-first styling for rapid UI development with consistent design patterns. Lucide React supplies modern SVG icons for the shape palette, toolbar buttons, and UI controls.
+
+\section{Backend Technologies}
+
+\subsection{FastAPI Framework}
+FastAPI serves as the backend framework, offering high performance comparable to Node.js with automatic OpenAPI documentation. Key features include:
+\begin{itemize}
+    \item Asynchronous endpoint handling with async/await
+    \item Automatic request validation using Pydantic models
+    \item Built-in CORS middleware configuration
+    \item JSON response serialization
+\end{itemize}
+
+\subsection{PostgreSQL with JSONB}
+PostgreSQL 15 provides reliable data persistence with JSONB support for flexible schema storage. The flowcharts table stores complete React Flow state (nodes and edges) in a JSONB column, allowing schema-less storage of varying node structures.
+
+\subsection{SQLAlchemy (Async)}
+SQLAlchemy serves as the async ORM for database operations, providing:
+\begin{itemize}
+    \item Connection pooling for optimal performance
+    \item Parameterized queries for SQL injection prevention
+    \item UUID primary key generation
+    \item Timestamp tracking with timezone support
+\end{itemize}
+
+\section{AI Integration}
+
+\subsection{Google Gemini API}
+Gemini AI provides the multimodal intelligence for flowchart recognition and generation. The API is accessed via the official Python client library with custom system prompts engineered for accurate shape detection and text extraction.
+
+\subsection{Pillow (PIL)}
+Pillow handles image processing tasks including opening uploaded images, resizing to thumbnails (1024x1024 max), and format conversion before sending to Gemini API for analysis.
+
+\section{Development Tools}
+
+\subsection{Version Control}
+Git with GitHub enables systematic code management using feature branches and pull requests. The repository maintains separate directories for backend and frontend code.
+
+\subsection{API Testing}
+Postman is used extensively for testing and validating RESTful API endpoints during backend development, including image upload simulation and response validation.
+
+\subsection{Development Environment}
+VS Code serves as the primary editor with extensions for Python, React, and Prettier. npm manages frontend dependencies while pip manages Python packages via requirements.txt.
+
+\section{Project Structure}
+
+Automated Diagram Digitization follows a clear separation between frontend and backend:
+
+\begin{itemize}
+    \item \textbf{backend/} - FastAPI application
+    \begin{itemize}
+        \item \texttt{main.py} - Main application entry point
+        \item \texttt{database.py} - Database configuration
+        \item \texttt{models.py} - SQLAlchemy models
+        \item \texttt{schemas.py} - Pydantic validation schemas
+        \item \texttt{prompts.py} - Gemini AI system prompts
+        \item \texttt{requirements.txt} - Python dependencies
+    \end{itemize}
+    \item \textbf{frontend/} - React application
+    \begin{itemize}
+        \item \texttt{src/pages/} - InputPage and Flowchart components
+        \item \texttt{src/components/} - Sidebar and custom nodes
+        \item \texttt{src/hooks/} - useFlowchart, useEditableNodes
+        \item \texttt{src/services/} - API service layer
+        \item \texttt{src/utils/} - Layout algorithms
+    \end{itemize}
+    \item \texttt{.env} - Environment variables (database URL, Gemini API key)
+    \item \texttt{package.json} - Frontend dependencies
+    \item \texttt{README.md} - Project documentation
+\end{itemize}
+
+\section{Deployment Configuration}
+
+The application uses environment variables via python-dotenv for configuration:
+\begin{itemize}
+    \item \textbf{Development}: Local PostgreSQL with debug logging enabled
+    \item \textbf{Production}: Cloud PostgreSQL with connection pooling and SSL
+    \item \textbf{Gemini API}: API key stored securely in environment variables
+\end{itemize}
+
+\section{Advantages of Technology Stack}
+
+\subsection{Performance}
+FastAPI's async nature handles concurrent requests efficiently. React Flow's virtualization supports large diagrams. JSONB queries in PostgreSQL provide fast access to flowchart data.
+
+\subsection{Developer Experience}
+FastAPI's automatic documentation simplifies API testing. React's component reusability accelerates UI development. Clear separation between frontend and backend enables parallel development.
+
+\subsection{Accuracy}
+Custom prompt engineering with Gemini AI ensures accurate shape recognition (92\%+). Column-based auto-layout algorithm produces professionally aligned diagrams.
+
+\subsection{Cost-Effectiveness}
+Open-source technologies eliminate licensing costs. Gemini API offers competitive pricing with free tier for development. PostgreSQL provides enterprise features without vendor lock-in.
+
+\subsection{Scalability}
+Stateless FastAPI backend supports horizontal scaling. PostgreSQL JSONB allows schema evolution without migrations. React's efficient rendering handles complex diagrams.
+
+The combination of these technologies provides a solid foundation for an accurate, responsive, and maintainable diagram digitization platform serving students, educators, and professionals.

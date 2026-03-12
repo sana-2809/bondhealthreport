@@ -1,0 +1,86 @@
+\chapter{Introduction}
+\label{ch:introduction} 
+
+In today's digital era, the need to convert hand-drawn or printed diagrams into editable digital formats has become increasingly important across various domains including education, software development, and business process modeling. Flowcharts, being fundamental tools for representing algorithms, processes, and workflows, are frequently created on paper or whiteboards during brainstorming sessions, classroom teachings, and initial design phases. However, these hand-drawn diagrams often remain in physical form, limiting their usability, shareability, and editability.
+
+\noindent
+Traditional methods of digitizing flowcharts involve manual redrawing using diagramming tools like Microsoft Visio, Lucidchart, or draw.io—a time-consuming and error-prone process. This creates a significant gap between the creative, free-form sketching process and the structured, digital representation required for documentation and further processing. Recent advances in artificial intelligence, particularly in computer vision and large language models, have opened new possibilities for automated diagram recognition, enabling the development of intelligent systems that can understand and reconstruct diagrammatic information automatically.
+
+\section{Problem Statement}
+The existing diagram digitization ecosystem suffers from the following key problems:
+\begin{itemize}
+    \item \textbf{Manual Redrawing Required}: Users must manually recreate diagrams using tools like Visio or draw.io, a process that can take 15-30 minutes for moderately complex flowcharts, wasting time and introducing errors.
+    
+    \item \textbf{Lack of Automated Recognition}: Current systems cannot automatically identify shapes, text, and connections from images of hand-drawn or printed flowcharts, requiring complete manual intervention.
+    
+    \item \textbf{Text Extraction Challenges}: OCR tools struggle with handwritten text and cannot preserve line breaks or formatting within shapes, resulting in loss of readability and meaning.
+    
+    \item \textbf{Connection Detection Gap}: Existing systems fail to recognize the directional relationships between shapes, requiring manual connection drawing, which is particularly problematic for complex flowcharts with multiple decision paths.
+    
+    \item \textbf{Limited Input Methods}: Most tools only support manual creation, lacking support for image upload, text-to-flowchart generation, or JSON import for existing flow data.
+    
+    \item \textbf{No Intelligent Editing Features}: Absence of auto-layout, undo/redo, text styling, and edge labeling capabilities in automated tools, limiting post-recognition editing flexibility.
+    
+    \item \textbf{Export Limitations}: Lack of multiple export formats (PNG, SVG, JSON) for different use cases such as documentation, web embedding, or data portability.
+\end{itemize}
+
+\section{Objectives}
+The primary objectives of the Automated Diagram Digitization project are:
+
+\begin{enumerate}
+    \item \textbf{AI-Powered Recognition}: Develop a system capable of recognizing flowchart shapes, text, and connections from images using Google's Gemini AI with custom prompt engineering for accurate shape identification.
+    
+    \item \textbf{Multiple Input Methods}: Provide three input modes—image upload, text description for algorithm-to-flowchart conversion, and JSON import—for maximum user flexibility and workflow integration.
+    
+    \item \textbf{Interactive Diagram Editor}: Create an intuitive drag-drop editor with undo/redo functionality, auto-layout for clean alignment, and comprehensive styling options including node/edge color customization.
+    
+    \item \textbf{Text Customization}: Enable text formatting including bold, italic, and font size adjustments for node content to enhance readability and presentation quality.
+    
+    \item \textbf{Edge Labeling}: Implement double-click edge editing for adding and modifying connection labels, supporting decision branches with "Yes/No" labels and proper styling.
+    
+    \item \textbf{Export Functionality}: Support multiple export formats including PNG for sharing, SVG for vector graphics, and JSON for data portability and integration with other tools.
+    
+    \item \textbf{Theme Support}: Implement dark/light mode toggle with persistent user preference stored in localStorage to reduce eye strain and accommodate user preferences.
+    
+    \item \textbf{Persistent Storage}: Enable saving and retrieving flowcharts using PostgreSQL database with UUID-based identification and timestamp tracking for audit purposes.
+\end{enumerate}
+
+\section{Scope of the Project}
+The scope of Automated Diagram Digitization encompasses the following aspects:
+
+\subsection{Functional Scope}
+\begin{itemize}
+    \item \textbf{Shape Recognition}: Identification of four basic flowchart shapes—process (rectangle), decision (diamond), start/end (oval), and input/output (parallelogram)—from uploaded images.
+    
+    \item \textbf{Text Extraction}: Accurate extraction of text from shapes with proper line break preservation using \textbackslash n characters for multi-line labels.
+    
+    \item \textbf{Connection Detection}: Automatic detection of edges between nodes with directional arrows and appropriate handle assignments (top, bottom, left, right).
+    
+    \item \textbf{Image Input}: Support for PNG, JPG, and WebP image formats with drag-drop interface and file size validation.
+    
+    \item \textbf{Text-to-Flowchart}: Natural language processing for converting algorithm descriptions into structured flowcharts with proper node types and connections.
+    
+    \item \textbf{JSON Import/Export}: Ability to import existing flowchart JSON data for editing and export current flow state for data portability.
+    
+    \item \textbf{Interactive Editor}: Drag-drop from shape palette, node resizing with text adaptation, undo/redo with keyboard shortcuts, and auto-layout for alignment.
+    
+    \item \textbf{Styling Features}: Node/edge color customization, text styling (bold, italic, font size), and edge labeling with background styling for readability.
+\end{itemize}
+
+\subsection{Technical Scope}
+\begin{itemize}
+    \item \textbf{Backend Development}: Implementation using FastAPI (Python) with asynchronous endpoints for image analysis, text-to-flowchart generation, and database operations.
+    
+    \item \textbf{Frontend Development}: Development using React 18 with Vite for optimal performance, React Flow for diagram rendering, and custom node components for each shape type.
+    
+    \item \textbf{AI Integration}: Integration with Google Gemini AI API using custom system prompts for accurate shape recognition and text-to-flowchart conversion.
+    
+    \item \textbf{Database Design}: PostgreSQL database with JSONB support for storing complete React Flow state, UUID primary keys, and timestamp tracking.
+    
+    \item \textbf{Export Implementation}: PNG export using html-to-image library, SVG export using React Flow's SVG renderer, and JSON export with proper serialization.
+    
+    \item \textbf{API Design}: RESTful API endpoints for all operations including image analysis, text generation, and flowchart CRUD operations.
+\end{itemize}
+
+\subsection{Limitations and Exclusions}
+The project does not cover recognition of complex BPMN symbols, swimlanes, UML diagrams, or real-time video processing. It focuses specifically on basic flowchart shapes commonly used in algorithm representation and process documentation.

@@ -1,0 +1,339 @@
+\chapter{System Study}
+\label{ch:systemstudy}
+
+The system study phase involves understanding existing diagram digitization challenges and analyzing requirements for the Automated Diagram Digitization system. This chapter covers problem definition, feasibility analysis, and requirements gathering. A comprehensive investigation was conducted through literature review, analysis of existing diagramming tools, and identification of user needs to establish a solid foundation for system design and implementation.
+
+\section{Existing System}
+
+\subsection{Current Diagram Digitization Challenges}
+
+The existing process of digitizing flowcharts and diagrams faces several critical challenges that impact user productivity and diagram quality:
+
+\begin{itemize}
+    \item \textbf{Manual Redrawing Required:} Users must manually recreate diagrams using tools like Microsoft Visio, Lucidchart, or draw.io, a time-consuming process that can take 15-30 minutes for moderately complex flowcharts. This not only wastes time but also introduces errors in the recreation process.
+
+    \item \textbf{Lack of Automated Recognition:} Current systems cannot automatically identify shapes, text, and connections from images of hand-drawn or printed flowcharts. Users must manually identify each shape, type the text, and draw connections, defeating the purpose of digitization.
+
+    \item \textbf{Text Extraction Challenges:} Standard OCR tools struggle with handwritten text and cannot preserve line breaks or formatting within shapes. When text spans multiple lines within a shape, the formatting is often lost, resulting in unreadable merged text.
+
+    \item \textbf{Connection Detection Gap:} Existing systems fail to recognize the directional relationships between shapes. Even when shapes are detected, the arrows and connections that define the flow logic must be manually drawn, which is particularly problematic for complex flowcharts with multiple decision paths.
+
+    \item \textbf{Limited Input Methods:} Most tools only support manual creation through drag-drop interfaces, lacking support for image upload, text-to-flowchart generation from algorithm descriptions, or JSON import for existing flow data.
+
+    \item \textbf{No Intelligent Editing Features:} Automated tools typically lack post-recognition editing capabilities such as auto-layout for clean alignment, undo/redo for error correction, text styling for readability, and edge labeling for decision branches.
+
+    \item \textbf{Export Limitations:} Many tools offer limited export options, restricting users to a single format that may not suit their needs for documentation, sharing, or further processing.
+\end{itemize}
+
+\subsection{Disadvantages of Existing System}
+
+The limitations of current diagram digitization approaches can be summarized as follows:
+
+\begin{itemize}
+    \item No automated shape recognition capability for hand-drawn or printed flowcharts
+    \item Inability to detect connections and directional relationships between nodes
+    \item Poor handling of handwritten text within diagram shapes
+    \item Limited export options (typically only image formats, no SVG or JSON)
+    \item No intelligent text extraction with line break preservation
+    \item Lack of customizable styling options for nodes and edges
+    \item No undo/redo functionality in most automated tools
+    \item No support for text-to-flowchart generation from algorithm descriptions
+    \item Absence of auto-layout for clean diagram alignment after recognition
+    \item No theme switching (dark/light mode) for user comfort
+\end{itemize}
+
+\section{Proposed System}
+
+\subsection{System Overview}
+
+The Automated Diagram Digitization system is a web-based platform that combines AI-powered recognition with an interactive diagram editor. The system provides a complete workflow from hand-drawn sketch to editable digital diagram:
+
+\begin{itemize}
+    \item \textbf{AI-Powered Recognition:} Uses Google's Gemini AI with custom prompts to analyze uploaded flowchart images, identify shapes (process, decision, start/end, input/output), extract embedded text, and recognize connection paths between nodes.
+
+    \item \textbf{Multiple Input Methods:} Supports three input modes—image upload for existing diagrams, text description for algorithm-to-flowchart conversion, and JSON import for existing flow data.
+
+    \item \textbf{Interactive Diagram Editor:} Provides drag-drop from shape palette, undo/redo with snapshot history, auto-layout for clean alignment, node resizing with text adaptation, and edge labeling via double-click.
+
+    \item \textbf{Text Customization:} Enables text formatting including bold, italic, and font size adjustments for node content to enhance readability and presentation quality.
+
+    \item \textbf{Export Functionality:} Supports multiple export formats including PNG for sharing, SVG for vector graphics, and JSON for data portability.
+
+    \item \textbf{Theme Support:} Implements dark/light mode toggle with persistent user preference stored in localStorage for comfortable viewing.
+
+    \item \textbf{Persistent Storage:} Enables saving and retrieving flowcharts using PostgreSQL database with UUID-based identification and timestamp tracking.
+\end{itemize}
+
+\subsection{Advantages of Proposed System}
+
+\begin{itemize}
+    \item Automatic shape identification eliminates manual redrawing, saving significant time and effort
+    \item Text extraction with proper line breaks preserves readability and original formatting
+    \item Connection detection automatically creates edges with correct directional arrows
+    \item Multiple input methods provide flexibility for different user workflows
+    \item Comprehensive editing features match professional diagramming tools
+    \item Export options support various use cases from documentation to data portability
+    \item Undo/redo prevents accidental changes and enables experimentation
+    \item Auto-layout ensures professional appearance with properly aligned diagrams
+    \item Theme switching reduces eye strain during extended editing sessions
+    \item Persistent storage enables workflow continuity across sessions
+\end{itemize}
+
+\section{Feasibility Study}
+
+\subsection{Technical Feasibility}
+
+The project utilizes proven, mature technologies that have demonstrated reliability across numerous production deployments:
+
+\begin{itemize}
+    \item \textbf{Backend:} FastAPI provides high-performance asynchronous API endpoints with automatic OpenAPI documentation, making development and testing efficient.
+    
+    \item \textbf{AI Integration:} Google Gemini API offers state-of-the-art multimodal capabilities for image analysis and text generation, with extensive documentation and community support.
+    
+    \item \textbf{Frontend:} React 18 with Vite provides optimal performance with fast refresh and efficient rendering, while React Flow offers specialized diagramming capabilities.
+    
+    \item \textbf{Database:} PostgreSQL with JSONB support provides robust data persistence with ACID compliance and flexible schema for storing complex flowchart data.
+    
+    \item \textbf{Deployment:} The modular architecture supports cloud deployment with horizontal scaling capabilities as user numbers grow.
+\end{itemize}
+
+Each technology has extensive community support and a track record of handling production-scale applications, reducing implementation risk.
+
+\subsection{Operational Feasibility}
+
+\begin{itemize}
+    \item \textbf{User-Friendly Interface:} The input page features a tabbed interface with clear options for image upload, text prompt, and JSON import, requiring minimal user training.
+    
+    \item \textbf{Intuitive Editor:} Drag-drop from shape palette, familiar undo/redo shortcuts (Ctrl+Z, Ctrl+Y), and double-click edge labeling follow common software conventions.
+    
+    \item \textbf{Clear Feedback:} Visual indicators show upload progress, processing status, and error messages with actionable guidance.
+    
+    \item \textbf{Minimal Maintenance:} The system is designed for automatic error recovery with fallback mechanisms for malformed AI responses.
+    
+    \item \textbf{Responsive Design:} The interface adapts to different screen sizes, ensuring usability on desktop, tablet, and mobile devices.
+\end{itemize}
+
+\subsection{Economic Feasibility}
+
+\begin{itemize}
+    \item \textbf{Open-Source Technologies:} FastAPI, React, PostgreSQL, and related libraries are open-source with no licensing costs, minimizing initial investment.
+    
+    \item \textbf{Cost-Effective AI:} Google Gemini API offers competitive pricing with free tier options for development and testing phases.
+    
+    \item \textbf{Reduced Labor Costs:} Automation of diagram digitization eliminates hours of manual redrawing, providing significant time savings for users.
+    
+    \item \textbf{Scalable Architecture:} The system can be deployed on cloud infrastructure with pay-as-you-grow pricing, avoiding large upfront infrastructure costs.
+    
+    \item \textbf{Return on Investment:} Educational institutions and businesses can achieve positive ROI through improved productivity and reduced manual effort.
+\end{itemize}
+
+\section{Requirements Analysis}
+
+\subsection{Functional Requirements}
+
+Based on user needs and system objectives, the following functional requirements have been identified:
+
+\subsubsection{Input Module Requirements}
+
+\begin{itemize}
+    \item \textbf{Image Upload:} Support PNG, JPG, and WebP image formats with drag-drop interface, file size validation, and preview functionality.
+    
+    \item \textbf{Text Prompt:} Provide multi-line textarea for algorithm descriptions with character count and example placeholder.
+    
+    \item \textbf{JSON Import:} Accept JSON file upload with validation and error messaging for malformed data.
+\end{itemize}
+
+\subsubsection{AI Processing Requirements}
+
+\begin{itemize}
+    \item \textbf{Shape Recognition:} Identify four basic shape types—process (rectangle), decision (diamond), start/end (oval), and input/output (parallelogram)—from uploaded images.
+    
+    \item \textbf{Text Extraction:} Extract text from shapes with proper line break preservation using \textbackslash n characters for multi-line labels.
+    
+    \item \textbf{Connection Detection:} Detect edges between nodes with directional arrows and assign appropriate handles (top, bottom, left, right).
+    
+    \item \textbf{Coordinate Estimation:} Calculate normalized coordinates on a 0-1000 scale for consistent positioning across different image sizes.
+    
+    \item \textbf{Error Handling:} Parse AI responses reliably with regex fallback for extracting JSON from text responses.
+\end{itemize}
+
+\subsubsection{Editor Module Requirements}
+
+\begin{itemize}
+    \item \textbf{Drag-Drop Functionality:} Allow users to drag shapes from sidebar palette and drop onto canvas at desired positions.
+    
+    \item \textbf{Node Resizing:} Support node resizing with minimum dimensions and text adaptation to fit resized nodes.
+    
+    \item \textbf{Undo/Redo:} Implement snapshot-based history with keyboard shortcuts (Ctrl+Z for undo, Ctrl+Y or Ctrl+Shift+Z for redo).
+    
+    \item \textbf{Auto-Layout:} Provide one-click auto-layout using column-based clustering algorithm for clean alignment.
+    
+    \item \textbf{Edge Labeling:} Enable double-click on edges to add and edit labels with proper background styling.
+    
+    \item \textbf{Deletion:} Support deletion of nodes and edges using Delete or Backspace keys with snapshot capture.
+    
+    \item \textbf{Color Customization:} Allow users to change node and edge colors through color picker interface.
+    
+    \item \textbf{Text Styling:} Provide controls for bold, italic, and font size adjustments for selected nodes.
+\end{itemize}
+
+\subsubsection{Export Module Requirements}
+
+\begin{itemize}
+    \item \textbf{PNG Export:} Capture the entire canvas as PNG image using html-to-image library.
+    
+    \item \textbf{SVG Export:} Generate SVG vector graphics using React Flow's SVG renderer.
+    
+    \item \textbf{JSON Export:} Serialize current nodes and edges to JSON format with proper indentation.
+\end{itemize}
+
+\subsubsection{Storage Module Requirements}
+
+\begin{itemize}
+    \item \textbf{Save Flowchart:} Store flowchart data in PostgreSQL database with UUID primary key and timestamp tracking.
+    
+    \item \textbf{Retrieve Flowchart:} Fetch flowchart by UUID and reconstruct editor state.
+    
+    \item \textbf{Update Flowchart:} Modify existing flowchart title or flow data with updated\_at timestamp refresh.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+\subsubsection{Performance Requirements}
+
+\begin{itemize}
+    \item \textbf{Image Analysis:} Complete image analysis within 3-5 seconds for standard flowchart images (up to 1024x1024 pixels).
+    
+    \item \textbf{Text-to-Flowchart:} Generate flowchart from text prompt within 2-3 seconds.
+    
+    \item \textbf{Editor Operations:} Execute node drag-drop, undo/redo, and auto-layout within 100ms for smooth user experience.
+    
+    \item \textbf{API Response:} Maintain API response times under 200ms for standard database operations.
+    
+    \item \textbf{Page Load:} Achieve initial page load under 2 seconds with optimized asset delivery.
+    
+    \item \textbf{Concurrent Users:} Support at least 50 concurrent users without performance degradation.
+\end{itemize}
+
+\subsubsection{Usability Requirements}
+
+\begin{itemize}
+    \item \textbf{Intuitive Interface:} Design interface requiring minimal training for users with basic computer skills.
+    
+    \item \textbf{Clear Error Messages:} Provide actionable error messages with guidance for resolution.
+    
+    \item \textbf{Responsive Design:} Ensure comfortable usage on desktop monitors, tablets, and mobile phones.
+    
+    \item \textbf{Theme Consistency:} Maintain consistent appearance across dark and light themes with smooth transitions.
+    
+    \item \textbf{Helpful Tooltips:} Include tooltips for all toolbar buttons explaining their functionality.
+    
+    \item \textbf{Keyboard Shortcuts:} Support common keyboard shortcuts for undo/redo and delete operations.
+\end{itemize}
+
+\subsubsection{Reliability Requirements}
+
+\begin{itemize}
+    \item \textbf{Uptime:} Maintain 99\% availability during normal business hours.
+    
+    \item \textbf{Error Recovery:} Implement graceful error handling with fallback mechanisms for AI processing failures.
+    
+    \item \textbf{Data Persistence:} Ensure data integrity with transaction support for database operations.
+    
+    \item \textbf{Input Validation:} Validate all user inputs on both client and server sides to prevent invalid data.
+    
+    \item \textbf{Backup:} Support database backup and restore procedures for disaster recovery.
+\end{itemize}
+
+\subsubsection{Security Requirements}
+
+\begin{itemize}
+    \item \textbf{API Key Protection:} Store Gemini API key in environment variables, never in client-side code.
+    
+    \item \textbf{Input Sanitization:} Sanitize all user inputs to prevent injection attacks.
+    
+    \item \textbf{CORS Configuration:} Restrict API access to allowed origins (localhost for development, production domain for deployment).
+    
+    \item \textbf{SQL Injection Prevention:} Use parameterized queries for all database operations.
+    
+    \item \textbf{Environment Separation:} Maintain separate configuration for development, testing, and production environments.
+\end{itemize}
+
+\section{System Architecture Overview}
+
+\begin{figure}[h]
+\centering
+\fbox{\begin{minipage}{0.8\textwidth}
+\centering
+\textbf{Three-Tier Architecture}
+\begin{itemize}
+    \item \textbf{Presentation Layer:} React 18, React Flow, Tailwind CSS
+    \item \textbf{Application Layer:} FastAPI (Python), Gemini AI Integration
+    \item \textbf{Data Layer:} PostgreSQL Database with JSONB Support
+\end{itemize}
+\end{minipage}}
+\caption{Automated Diagram Digitization Three-Tier Architecture}
+\label{fig:architecture}
+\end{figure}
+
+The Automated Diagram Digitization system follows a three-tier architecture with clear separation of concerns:
+
+\begin{itemize}
+    \item \textbf{Presentation Layer:} Handles all user interaction through React components, including the input page with tabs for different input methods, the diagram editor with React Flow, and the sidebar with draggable shape palette.
+    
+    \item \textbf{Application Layer:} Implements business logic using FastAPI, exposing RESTful endpoints for image analysis, text-to-flowchart generation, and database operations. Integrates with Google Gemini AI for intelligent recognition.
+    
+    \item \textbf{Data Layer:} Manages persistence through PostgreSQL database with JSONB column for storing complete React Flow state, enabling flexible schema while maintaining query performance.
+\end{itemize}
+
+This separation enables each tier to evolve independently, with the ability to scale components based on demand.
+
+\section{System Modules}
+
+\subsection{Input Module}
+Handles three input methods: image upload with drag-drop interface, text prompt with multi-line textarea, and JSON import with file upload. Validates input formats, provides visual feedback, and prepares data for AI processing.
+
+\subsection{AI Processing Module}
+Interfaces with Google Gemini AI using custom system prompts for image analysis and text-to-flowchart conversion. Parses JSON responses, handles errors with regex fallback, and ensures proper ID generation for edges.
+
+\subsection{Editor Module}
+Renders nodes and edges using React Flow with custom node components for each shape type. Implements drag-drop from sidebar, undo/redo with snapshot history, auto-layout with column-based clustering, edge labeling via double-click, and comprehensive styling options.
+
+\subsection{Export Module}
+Provides PNG export using html-to-image library, SVG export using React Flow's SVG renderer, and JSON export of current flow state. Handles file download with appropriate naming based on flowchart title.
+
+\subsection{Storage Module}
+Manages PostgreSQL database operations including save, retrieve, and update of flowcharts. Implements UUID-based identification, timestamp tracking, and JSONB storage for flow data.
+
+\section{User Roles and Permissions}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Role} & \textbf{Permissions} \\
+\hline
+User (All) & Upload images, enter text prompts, import JSON \\
+\hline
+User (All) & Create, edit, and delete flowcharts \\
+\hline
+User (All) & Export diagrams (PNG, SVG, JSON) \\
+\hline
+User (All) & Toggle theme (dark/light mode) \\
+\hline
+User (All) & Save and retrieve flowcharts from database \\
+\hline
+\end{tabular}
+\caption{User Roles and Access Levels}
+\label{tab:roles}
+\end{table}
+
+The system currently implements a single user role with full access to all features, as authentication is not required for basic usage. Future enhancements may include user authentication with role-based access for collaborative features.
+
+\section{Summary}
+
+The system study has established clear requirements for the Automated Diagram Digitization project, addressing critical gaps in automated shape recognition, text extraction, connection detection, and interactive editing. The analysis of existing systems revealed significant inefficiencies in manual redrawing, lack of automation, and limited editing capabilities.
+
+The proposed system directly addresses these challenges through AI-powered recognition, multiple input methods, comprehensive editing features, and flexible export options. Feasibility analysis confirms that the solution is technically achievable using proven technologies (FastAPI, React, PostgreSQL, Gemini AI), operationally practical with an intuitive user interface, and economically beneficial through time savings and open-source cost structure.
+
+The modular architecture with clear separation of concerns positions Automated Diagram Digitization to effectively transform how users convert hand-drawn diagrams into editable digital formats, improving productivity and workflow efficiency for students, educators, software developers, and business professionals.
