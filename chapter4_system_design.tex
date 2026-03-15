@@ -117,27 +117,27 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
     \renewcommand{\arraystretch}{1.2}
     \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|}
         \hline
-        \textbf{Column} & \textbf{Data Type} & \textbf{Description \& Constraints} \\
+        \textbf{Column} & \textbf{Data Type}                       & \textbf{Description \& Constraints} \\
         \hline
         id
-            & UUID
-            & Primary key, default gen\_random\_uuid() \\
+                        & UUID
+                        & Primary key, default gen\_random\_uuid()                                       \\
         \hline
         title
-            & VARCHAR(255)
-            & Flowchart title, default 'Untitled' \\
+                        & VARCHAR(255)
+                        & Flowchart title, default 'Untitled'                                            \\
         \hline
         flow\_data
-            & JSONB
-            & Complete node/edge data, NOT NULL \\
+                        & JSONB
+                        & Complete node/edge data, NOT NULL                                              \\
         \hline
         created\_at
-            & TIMESTAMPTZ
-            & Creation timestamp, default now() \\
+                        & TIMESTAMPTZ
+                        & Creation timestamp, default now()                                              \\
         \hline
         updated\_at
-            & TIMESTAMPTZ
-            & Last update timestamp, default now() \\
+                        & TIMESTAMPTZ
+                        & Last update timestamp, default now()                                           \\
         \hline
     \end{tabular}
     \caption{Flowcharts Table Schema}
@@ -149,13 +149,13 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
 
 \begin{itemize}
     \item \texttt{CREATE INDEX idx\_flowcharts\_id ON flowcharts(id);} -- Primary key index for fast lookup by UUID.
-    
+
     \item \texttt{CREATE INDEX idx\_flowcharts\_created\_at ON flowcharts(created\_at);} -- Optimizes queries sorting by creation date.
-    
+
     \item \texttt{CREATE INDEX idx\_flowcharts\_updated\_at ON flowcharts(updated\_at);} -- Optimizes queries sorting by update date.
-    
+
     \item \texttt{CREATE INDEX idx\_flowcharts\_title ON flowcharts(title);} -- Enables fast search by title (for future search functionality).
-    
+
     \item \texttt{CREATE INDEX idx\_flowcharts\_gin\_nodes ON flowcharts USING gin ((flow\_data -> 'nodes'));} -- GIN index for querying inside JSONB nodes array.
 \end{itemize}
 
@@ -241,19 +241,19 @@ Error responses follow a consistent JSON structure containing detail message and
     \renewcommand{\arraystretch}{1.3}
     \begin{tabular}{|>{\raggedright\arraybackslash}p{1.8cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{5.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Method} & \textbf{Endpoint} & \textbf{Description} & \textbf{Request Body} \\
+        \textbf{Method} & \textbf{Endpoint}  & \textbf{Description}                     & \textbf{Request Body}                             \\
         \hline
-        POST & /analyze & Upload flowchart image for AI analysis & multipart/form-data (image file) \\
+        POST            & /analyze           & Upload flowchart image for AI analysis   & multipart/form-data (image file)                  \\
         \hline
-        POST & /analyze/algorithm & Generate flowchart from text description & JSON: \{ "prompt": "text" \} \\
+        POST            & /analyze/algorithm & Generate flowchart from text description & JSON: \{ "prompt": "text" \}                      \\
         \hline
-        POST & /flowcharts & Create new flowchart in database & JSON: \{ "title": "...", "flow\_data": \{...\} \} \\
+        POST            & /flowcharts        & Create new flowchart in database         & JSON: \{ "title": "...", "flow\_data": \{...\} \} \\
         \hline
-        GET  & /flowcharts/\{id\} & Retrieve flowchart by UUID & - \\
+        GET             & /flowcharts/\{id\} & Retrieve flowchart by UUID               & -                                                 \\
         \hline
-        PUT  & /flowcharts/\{id\} & Update existing flowchart & JSON with partial updates \\
+        PUT             & /flowcharts/\{id\} & Update existing flowchart                & JSON with partial updates                         \\
         \hline
-        GET  & / & Health check endpoint & - \\
+        GET             & /                  & Health check endpoint                    & -                                                 \\
         \hline
     \end{tabular}
     \caption{Core API Endpoints}
@@ -335,11 +335,11 @@ The input module handles all user input methods before AI processing. Components
 
 \begin{itemize}
     \item \textbf{Image Upload Component}: Drag-drop zone with file picker fallback, file type validation (PNG, JPG, WebP), file size validation, preview thumbnail, and upload progress indicator.
-    
+
     \item \textbf{Text Prompt Component}: Multi-line textarea with placeholder text, character count (optional), example prompt button, and submit with loading state.
-    
+
     \item \textbf{JSON Import Component}: Textarea for JSON paste with syntax highlighting, file upload button for .json files, JSON validation with error messaging, and format preview option.
-    
+
     \item \textbf{Tab Navigation}: Tabbed interface switching between input methods with active state styling and form reset on tab change.
 \end{itemize}
 
@@ -350,13 +350,13 @@ The AI processing module interfaces with Google Gemini AI and handles response p
 
 \begin{itemize}
     \item \textbf{Gemini API Client}: Configured with API key from environment variables, handles authentication, and sends requests with appropriate system prompts.
-    
+
     \item \textbf{Image Processor}: Uses Pillow to open uploaded images, resizes to thumbnail (1024x1024 max) for optimal API performance, and maintains aspect ratio.
-    
+
     \item \textbf{Prompt Manager}: Stores and manages system prompts for image analysis and text-to-flowchart generation, combines user input with system prompts.
-    
+
     \item \textbf{Response Parser}: Parses JSON responses from Gemini, handles malformed responses using regex extraction (\textbackslash{}(\textbackslash.*\textbackslash{})), ensures edge IDs exist (generates e\{source\}-\{target\} if missing), and validates required fields.
-    
+
     \item \textbf{Error Handler}: Catches and logs API errors, returns user-friendly error messages, and provides fallback responses when possible.
 \end{itemize}
 
@@ -367,19 +367,19 @@ The editor module is the core interactive component for diagram creation and mod
 
 \begin{itemize}
     \item \textbf{React Flow Canvas}: Renders nodes and edges with background grid, supports zooming and panning, and handles selection and deletion.
-    
+
     \item \textbf{Sidebar Palette}: Displays draggable shape icons (start, process, decision, io) with SVG icons, implements HTML5 drag-drop with data transfer, and provides visual feedback during drag.
-    
+
     \item \textbf{Custom Node Components}: BaseNode with common functionality, ProcessNode with rectangle shape, StartNode with rounded rectangle (pill shape), DecisionNode with diamond shape (clip-path polygon), and InputNode with parallelogram shape (skew transform).
-    
+
     \item \textbf{Node Resizer}: Uses React Flow's NodeResizer component, visible only when node selected, maintains minimum dimensions (80x40 for most nodes, 120x120 for decision), and preserves text readability.
-    
+
     \item \textbf{Edge Label Editor}: Double-click handler on edges, inline input popup at mouse position, Enter key saves, Escape cancels, and blur saves automatically.
-    
+
     \item \textbf{Undo/Redo System}: Snapshot-based history using useState, takeSnapshot before operations, undo restores previous state, redo restores next state, and keyboard shortcuts (Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z).
-    
+
     \item \textbf{Auto-Layout Engine}: Column-based clustering algorithm, calculates true center X for each node, clusters within tolerance (150px), snaps nodes to average column positions, and updates edge types based on alignment.
-    
+
     \item \textbf{Styling Controls}: Color picker for nodes and edges, text styling buttons (bold, italic), font size dropdown (10-20px), and style application to selected elements.
 \end{itemize}
 
@@ -390,11 +390,11 @@ The export module handles all diagram export functionality. Components include:
 
 \begin{itemize}
     \item \textbf{PNG Exporter}: Uses html-to-image library to capture canvas element, creates download link with data URL, and names file using flowchart title.
-    
+
     \item \textbf{SVG Exporter}: Leverages React Flow's built-in SVG export capabilities, generates vector graphics with proper scaling, and maintains styling.
-    
+
     \item \textbf{JSON Exporter}: Serializes current nodes and edges to JSON string with pretty printing (2-space indent), creates blob with application/json type, and triggers download.
-    
+
     \item \textbf{Export Menu}: Dropdown menu with export options, icons for each format, and disabled state during export operations.
 \end{itemize}
 
@@ -407,11 +407,11 @@ The storage module manages database operations for flowchart persistence. Compon
 
 \begin{itemize}
     \item \textbf{Database Client}: Async SQLAlchemy engine with connection pooling, configured with DATABASE\_URL from environment, and SSL enabled for production.
-    
+
     \item \textbf{Create Operation}: Inserts new flowchart with title and flow\_data, returns generated UUID and timestamps, and handles validation errors.
-    
+
     \item \textbf{Read Operation}: Retrieves flowchart by UUID using SELECT query, returns 404 if not found, and parses JSONB flow\_data.
-    
+
     \item \textbf{Update Operation}: Updates title or flow\_data with partial updates, refreshes updated\_at timestamp, and returns updated record.
 \end{itemize}
 
@@ -422,11 +422,11 @@ The theme module manages dark/light mode switching. Components include:
 
 \begin{itemize}
     \item \textbf{Theme Context}: React context providing theme state and toggle function, consumed by all components needing theme awareness.
-    
+
     \item \textbf{Theme Toggle Button}: Button with sun/moon icons, toggles between dark and light modes, and updates localStorage with preference.
-    
+
     \item \textbf{CSS Variables}: Root-level CSS variables for node backgrounds, borders, text colors, and canvas background, dynamically updated on theme change.
-    
+
     \item \textbf{Persistence}: localStorage stores user theme preference, initial theme loaded from localStorage or defaults to dark mode.
 \end{itemize}
 
@@ -510,108 +510,40 @@ LABEL RULES:
 
 \section{Algorithm Design}
 
+\justifying
+The Automated Diagram Digitization platform incorporates several internal algorithms to support diagram generation, layout organization, and editing functionality. These algorithms ensure that generated flowcharts remain visually structured, readable, and easy to modify. Two important algorithms implemented in the system are the column-based auto layout algorithm and the snapshot-based undo and redo algorithm.
+
 \subsection{Column-based Auto Layout Algorithm}
 
 \justifying
-The auto-layout algorithm clusters nodes by their X-coordinates to create aligned columns, ensuring professional diagram appearance.
+The column-based auto layout algorithm is responsible for organizing nodes in a flowchart so that they appear visually aligned and structured. When diagrams are generated automatically by the AI system or manually edited by users, node positions may not always be perfectly aligned. The auto layout algorithm corrects this by grouping nodes into vertical columns based on their horizontal positions.
 
-\begin{lstlisting}[language=Python,
-    caption={Column-based Auto Layout Algorithm Pseudocode},
-    label={lst:autolayout},
-    breaklines=true,
-    columns=flexible,
-    keepspaces=true]
-function normaliseAndSnap(nodes):
-    // Step 1: Initialize max widths per node type
-    maxWidths = {
-        start: 100,
-        process: 150,
-        io: 150,
-        decision: 120
-    }
-    
-    // Step 2: Update with actual node widths
-    for node in nodes:
-        maxWidths[node.type] = max(maxWidths[node.type], node.width)
-    
-    // Step 3: Calculate true center X for each node
-    nodesWithCenters = nodes.map(node => ({
-        ...node,
-        trueCenterX: node.position.x + maxWidths[node.type] / 2,
-        finalWidth: maxWidths[node.type]
-    }))
-    
-    // Step 4: Sort by center X
-    sortedNodes = sort(nodesWithCenters by trueCenterX)
-    
-    // Step 5: Cluster nodes within tolerance
-    columns = []
-    tolerance = 150
-    
-    for node in sortedNodes:
-        existingCol = find(columns where 
-            abs(col.averageCenterX - node.trueCenterX) < tolerance)
-        if existingCol:
-            existingCol.centerValues.push(node.trueCenterX)
-            existingCol.averageCenterX = average(existingCol.centerValues)
-        else:
-            columns.push({
-                centerValues: [node.trueCenterX],
-                averageCenterX: node.trueCenterX
-            })
-    
-    // Step 6: Reposition nodes to column averages
-    result = []
-    for node in nodesWithCenters:
-        col = find(columns where 
-            abs(col.averageCenterX - node.trueCenterX) < tolerance)
-        node.position.x = col.averageCenterX - node.finalWidth / 2
-        result.push(node)
-    
-    return result
-\end{lstlisting}
+The algorithm begins by determining the maximum width required for each node type. Node types such as start nodes, process nodes, decision nodes, and input/output nodes may have different sizes. By determining the largest width for each type, the algorithm ensures visual consistency across the diagram.
 
-\subsection{Undo/Redo with Snapshot History}
+After establishing the node widths, the algorithm calculates the horizontal center position of each node using its current position and width. These center positions are then used to sort the nodes along the horizontal axis. Sorting enables the algorithm to identify nodes that are positioned near one another.
 
-\begin{lstlisting}[language=JavaScript,
-    caption={Undo/Redo Algorithm Pseudocode},
-    label={lst:undo},
-    breaklines=true,
-    columns=flexible,
-    keepspaces=true]
-function takeSnapshot():
-    snapshot = {
-        nodes: deepCopy(currentNodes),
-        edges: deepCopy(currentEdges)
-    }
-    past.push(snapshot)
-    future.clear()
+Once sorted, the algorithm performs a clustering process in which nodes whose center positions fall within a defined tolerance range are grouped together into a single column. Each column maintains an average center value calculated from all nodes assigned to that group.
 
-function undo():
-    if past.length > 0:
-        currentSnapshot = {nodes: currentNodes, edges: currentEdges}
-        future.unshift(currentSnapshot)
-        previousSnapshot = past.pop()
-        setNodes(previousSnapshot.nodes)
-        setEdges(previousSnapshot.edges)
+In the final stage, the algorithm repositions each node so that its center aligns with the calculated average center of its column. This ensures that nodes belonging to the same logical stage of a flowchart appear vertically aligned while maintaining their original vertical ordering. As a result, the flowchart becomes visually balanced and easier to interpret.
 
-function redo():
-    if future.length > 0:
-        currentSnapshot = {nodes: currentNodes, edges: currentEdges}
-        past.push(currentSnapshot)
-        nextSnapshot = future.shift()
-        setNodes(nextSnapshot.nodes)
-        setEdges(nextSnapshot.edges)
+\subsection{Undo and Redo Snapshot Algorithm}
 
-// Keyboard handlers
-onKeyDown:
-    if (ctrlKey and key == 'z' and not shiftKey):
-        undo()
-    else if (ctrlKey and key == 'z' and shiftKey):
-        redo()
-    else if (ctrlKey and key == 'y'):
-        redo()
-\end{lstlisting}
+\justifying
+The platform includes an undo and redo mechanism that allows users to revert or restore modifications made while editing diagrams. This feature is implemented using a snapshot-based history management algorithm.
+
+Whenever a user performs an operation that modifies the diagram, such as adding a node, deleting an edge, moving an element, or changing text content, the system captures a snapshot representing the complete state of the diagram at that moment. Each snapshot contains the full set of nodes and edges currently present in the flowchart.
+
+Snapshots are stored in a history structure consisting of two stacks referred to as the \textit{past} stack and the \textit{future} stack. The past stack records previous states of the diagram, while the future stack stores states that can be restored through redo operations.
+
+When a user performs an undo operation, the system retrieves the most recent snapshot from the past stack and restores the diagram to that earlier state. At the same time, the current state of the diagram is stored in the future stack, allowing it to be restored later if necessary.
+
+If the user performs a redo operation, the system retrieves the next snapshot from the future stack and applies it to the diagram. The previously restored state is then returned to the past stack. This two-stack mechanism allows users to move backward and forward through their editing history without losing information.
+
+Keyboard shortcuts such as \texttt{Ctrl+Z} for undo and \texttt{Ctrl+Y} or \texttt{Ctrl+Shift+Z} for redo provide quick access to these operations, improving usability during diagram editing.
+
+\justifying
+Together, these algorithms ensure that diagrams remain organized and editable while providing users with flexible control over the editing process. The auto layout algorithm enhances visual clarity by maintaining alignment among nodes, while the snapshot-based history system provides reliable recovery from editing mistakes.
+
 
 % =============================================================================
 % 4.8 ERROR HANDLING DESIGN
@@ -626,11 +558,11 @@ The system implements comprehensive error handling at multiple levels to ensure 
 
 \begin{itemize}
     \item \textbf{Malformed JSON}: Uses regex extraction to find JSON block within text response: \texttt{re.search(r'(\textbackslash{}\{\textbackslash{}.*\textbackslash{}\}\textbackslash{})', text, re.DOTALL)}.
-    
+
     \item \textbf{Unescaped Characters}: Uses \texttt{json.loads(json\_str, strict=False)} to handle unescaped newlines within strings.
-    
+
     \item \textbf{Missing Fields}: Validates required fields (nodes, edges) and provides defaults if missing.
-    
+
     \item \textbf{Missing Edge IDs}: Automatically generates IDs in format \texttt{e\{source\}-\{target\}} if not provided by AI.
 \end{itemize}
 
@@ -638,9 +570,9 @@ The system implements comprehensive error handling at multiple levels to ensure 
 
 \begin{itemize}
     \item \textbf{400 Bad Request}: Returned for missing prompt field, invalid JSON format, or validation failures.
-    
+
     \item \textbf{404 Not Found}: Returned when flowchart ID does not exist in database.
-    
+
     \item \textbf{500 Internal Server Error}: Returned for AI API failures, database errors, or unexpected exceptions with error logging.
 \end{itemize}
 
@@ -648,9 +580,9 @@ The system implements comprehensive error handling at multiple levels to ensure 
 
 \begin{itemize}
     \item \textbf{File Upload Errors}: Validates file type and size before upload, displays user-friendly error messages.
-    
+
     \item \textbf{JSON Import Errors}: Validates JSON syntax, displays line and column of error with descriptive message.
-    
+
     \item \textbf{API Request Errors}: Catches fetch errors, displays toast notifications, and provides retry options.
 \end{itemize}
 
@@ -666,31 +598,31 @@ The Automated Diagram Digitization platform implements multiple optimization str
 \textbf{Backend Optimization:}
 \begin{itemize}
     \item \textbf{Image Resizing}: Thumbnail resizing to 1024x1024 max before sending to Gemini API reduces payload size and processing time.
-    
+
     \item \textbf{Connection Pooling}: SQLAlchemy connection pooling with configurable pool size (5-20 connections) minimizes connection overhead.
-    
+
     \item \textbf{Async Operations}: FastAPI async endpoints with await for database and AI operations improve concurrency.
-    
+
     \item \textbf{JSONB Indexing}: GIN indexes on flow\_data for potential future querying requirements.
 \end{itemize}
 
 \textbf{Frontend Optimization:}
 \begin{itemize}
     \item \textbf{React Flow Performance}: Uses virtualization for large diagrams, limits re-renders with memo and useCallback.
-    
+
     \item \textbf{Debounced Operations}: Auto-save and auto-layout debounced to prevent excessive operations during rapid edits.
-    
+
     \item \textbf{Lazy Loading}: Code splitting with React.lazy for editor component (loaded only when needed).
-    
+
     \item \textbf{CSS Variables}: Theme switching uses CSS variable updates instead of full re-renders.
 \end{itemize}
 
 \textbf{AI Optimization:}
 \begin{itemize}
     \item \textbf{Prompt Engineering}: Temperature=0 for deterministic outputs, response\_mime\_type="application/json" for structured responses.
-    
+
     \item \textbf{Image Optimization}: Thumbnail resizing reduces API latency and costs.
-    
+
     \item \textbf{Caching}: Consider caching frequent prompts or responses for future implementation.
 \end{itemize}
 
