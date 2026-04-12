@@ -1,3 +1,6 @@
+% chapter3\_system\_study.tex
+% Automated Diagram Digitization -- System Study Chapter
+
 \chapter{System Study}
 \label{ch:systemstudy}
 
@@ -29,7 +32,7 @@ The existing process of digitizing flowcharts and diagrams faces several critica
 
 \subsection{Disadvantages of Existing System}
 
-The limitations of current diagram digitization approaches can be summarized as follows. These shortcomings collectively result in a workflow that is inefficient, error-prone, and poorly suited for users who require quick and accurate conversion of hand-drawn diagrams into editable digital formats. Each disadvantage identified below directly contributed to the motivation for developing the Automated Diagram Digitization system.
+The limitations of current diagram digitization approaches can be summarized as follows. These shortcomings collectively result in a workflow that is inefficient, error-prone, and poorly suited for users who require quick and accurate conversion of diagrams into editable digital formats. Each disadvantage identified below directly contributed to the motivation for developing the Automated Diagram Digitization system.
 
 \begin{enumerate}
     \item No automated shape recognition capability for hand-drawn or printed flowcharts
@@ -50,12 +53,12 @@ The Automated Diagram Digitization system is designed to address all of the shor
 
 \subsection{System Overview}
 
-The Automated Diagram Digitization system is a web-based platform that combines AI-powered recognition with an interactive diagram editor. The system provides a complete workflow from hand-drawn sketch to editable digital diagram:
+The Automated Diagram Digitization system is a web-based platform that combines AI-powered recognition with an interactive diagram editor. The system provides a complete workflow from printed diagrams to editable digital diagram:
 
 \begin{enumerate}
     \item \textbf{AI-Powered Recognition:} Uses Google's Gemini AI with custom prompts to analyze uploaded flowchart images, identify shapes (process, decision, start/end, input/output), extract embedded text, and recognize connection paths between nodes.
 
-    \item \textbf{Multiple Input Methods:} Supports three input modes—image upload for existing diagrams, text description for algorithm-to-flowchart conversion, and JSON import for existing flow data.
+    \item \textbf{Multiple Input Methods:} Supports three input modes-image upload for existing diagrams, text description for algorithm-to-flowchart conversion, and JSON import for existing flow data.
 
     \item \textbf{Interactive Diagram Editor:} Provides drag-drop from shape palette, undo/redo with snapshot history, auto-layout for clean alignment, node resizing with text adaptation, and edge labeling via double-click.
 
@@ -94,13 +97,13 @@ A thorough feasibility study was conducted to evaluate whether the proposed syst
 The project utilizes proven, mature technologies that have demonstrated reliability across numerous production deployments. Each component was selected based on its stability, community support, and suitability for the specific requirements of the platform. The combination of FastAPI, React, PostgreSQL, and Google Gemini AI forms a well-integrated and production-ready technology stack that minimizes implementation risk while maximizing developer productivity.
 
 \begin{enumerate}
-    \item \textbf{Backend:} FastAPI provides high-performance asynchronous API endpoints with automatic OpenAPI documentation, making development and testing efficient.
+    \item \textbf{Backend:} FastAPI provides high-performance asynchronous API endpoints with automatic OpenAPI documentation, making development and testing efficient.~\cite{fastapi}
     
-    \item \textbf{AI Integration:} Google Gemini API offers state-of-the-art multimodal capabilities for image analysis and text generation, with extensive documentation and community support.
+    \item \textbf{AI Integration:} Google Gemini API offers state-of-the-art multimodal capabilities for image analysis and text generation, with extensive documentation and community support.~\cite{gemini}
     
-    \item \textbf{Frontend:} React 18 with Vite provides optimal performance with fast refresh and efficient rendering, while React Flow offers specialized diagramming capabilities.
+    \item \textbf{Frontend:} React 18 with Vite provides optimal performance with fast refresh and efficient rendering, while React Flow offers specialized diagramming capabilities.~\cite{react}
     
-    \item \textbf{Database:} PostgreSQL with JSONB support provides robust data persistence with ACID compliance and flexible schema for storing complex flowchart data.
+    \item \textbf{Database:} PostgreSQL with JSONB support provides robust data persistence with ACID compliance and flexible schema for storing complex flowchart data.~\cite{postgresql}
     
     \item \textbf{Deployment:} The modular architecture supports cloud deployment with horizontal scaling capabilities as user numbers grow.
 \end{enumerate}
@@ -109,7 +112,7 @@ Each technology has extensive community support and a track record of handling p
 
 \subsection{Operational Feasibility}
 
-Beyond technical considerations, the system must also be operationally feasible — that is, practically usable by the intended audience with minimal training or specialized knowledge. The following points outline how the design of the platform ensures smooth day-to-day operation.
+Beyond technical considerations, the system must also be operationally feasible -- that is, practically usable by the intended audience with minimal training or specialized knowledge. The following points outline how the design of the platform ensures smooth day-to-day operation.
 
 \begin{enumerate}
     \item \textbf{User-Friendly Interface:} The input page features a tabbed interface with clear options for image upload, text prompt, and JSON import, requiring minimal user training.
@@ -165,7 +168,7 @@ The input module is responsible for collecting diagram data from the user in var
 The AI processing module handles the communication with Google Gemini AI to perform shape recognition, text extraction, and connection detection. The following requirements ensure that AI interactions are accurate, robust, and capable of producing well-structured flowchart data.
 
 \begin{enumerate}
-    \item \textbf{Shape Recognition:} Identify four basic shape types—process (rectangle), decision (diamond), start/end (oval), and input/output (parallelogram)—from uploaded images.
+    \item \textbf{Shape Recognition:} Identify four basic shape types-process (rectangle), decision (diamond), start/end (oval), and input/output (parallelogram)-from uploaded images.
     
     \item \textbf{Text Extraction:} Extract text from shapes with proper line break preservation using \textbackslash n characters for multi-line labels.
     
@@ -224,7 +227,7 @@ The storage module manages the persistence of flowchart data across user session
 
 \subsection{Non-Functional Requirements}
 
-Non-functional requirements define the quality attributes of the system rather than its specific behaviors. They describe how well the system performs its functions — covering aspects such as speed, usability, reliability, and security. These requirements are essential for ensuring a positive user experience and long-term system sustainability.
+Non--functional requirements define the quality attributes of the system rather than its specific behaviors. They describe how well the system performs its functions -- covering aspects such as speed, usability, reliability, and security. These requirements are essential for ensuring a positive user experience and long-term system sustainability.
 
 \subsubsection{Performance Requirements}
 
@@ -297,7 +300,7 @@ Security requirements address the protection of system resources, user inputs, a
 \section{System Architecture Overview}
 
 The system architecture defines the structural organization of the Automated Diagram Digitization platform, describing how its components interact and how responsibilities are distributed across layers. A clear architectural foundation is essential for ensuring that the system remains maintainable, extensible, and robust as new features are added over time.
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \fbox{\begin{minipage}{0.8\textwidth}
 \centering
@@ -312,7 +315,7 @@ The system architecture defines the structural organization of the Automated Dia
 \label{fig:architecture}
 \end{figure}
 
-The Automated Diagram Digitization system follows a three-tier architecture with clear separation of concerns. This design ensures that each layer is responsible for a distinct set of tasks, reducing coupling between components and enabling independent development, testing, and scaling of each tier.
+The Automated Diagram Digitization system follows a three-tier architecture with clear separation of concerns. This design ensures that each layer is responsible for a distinct set of tasks, reducing coupling between components and enabling independent development, testing, and scaling of each tier.(Refer Figure~\ref{fig:architecture}: Automated Diagram Digitization Three-Tier Architecture)
 
 \begin{enumerate}
     \item \textbf{Presentation Layer:} Handles all user interaction through React components, including the input page with tabs for different input methods, the diagram editor with React Flow, and the sidebar with draggable shape palette.
@@ -356,9 +359,9 @@ Manages PostgreSQL database operations including save, retrieve, and update of f
 
 \section{User Roles and Permissions}
 
-Access control defines how different users interact with the system and what actions they are permitted to perform. In the current version of the Automated Diagram Digitization platform, the system operates without mandatory user authentication, making all features accessible to any user. The system currently implements a single user role with full access to all features, as authentication is not required for basic usage. Future enhancements may include user authentication with role-based access for collaborative features. The table below summarizes the permissions associated with the general user role.
+Access control defines how different users interact with the system and what actions they are permitted to perform. In the current version of the Automated Diagram Digitization platform, the system operates without mandatory user authentication, making all features accessible to any user. The system currently implements a single user role with full access to all features, as authentication is not required for basic usage. Future enhancements may include user authentication with role-based access for collaborative features. The table below summarizes the permissions associated with the general user role. (Refer Table~\ref{tab:roles}: User Roles and Access Levels).
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{|l|l|}
 \hline
@@ -384,8 +387,8 @@ User (All) & Save and retrieve flowcharts from database \\
 
 The system study has established clear requirements for the Automated Diagram Digitization project, addressing critical gaps in automated shape recognition, text extraction, connection detection, and interactive editing. The analysis of existing systems revealed significant inefficiencies in manual redrawing, lack of automation, and limited editing capabilities. Traditional diagramming tools require users to recreate diagrams manually, which increases the time required for digitization and often leads to inconsistencies in layout and formatting. These limitations highlight the need for a system that can intelligently interpret diagram structures while also providing flexible editing capabilities.
 
-The proposed system directly addresses these challenges through AI-powered recognition, multiple input methods, comprehensive editing features, and flexible export options. By integrating advanced AI capabilities with an intuitive web-based editor, the platform enables users to transform hand-drawn diagrams into structured digital flowcharts with minimal effort. Feasibility analysis confirms that the solution is technically achievable using proven technologies such as FastAPI, React, PostgreSQL, and Google Gemini AI. These technologies provide a stable and scalable foundation while ensuring efficient processing of diagram data.
+The proposed system directly addresses these challenges through AI-powered recognition, multiple input methods, comprehensive editing features, and flexible export options. By integrating advanced AI capabilities with an intuitive web-based editor, the platform enables users to transform flowchart diagrams into structured digital flowcharts with minimal effort. Feasibility analysis confirms that the solution is technically achievable using proven technologies such as FastAPI, React, PostgreSQL, and Google Gemini AI. These technologies provide a stable and scalable foundation while ensuring efficient processing of diagram data.
 
 From an operational perspective, the system offers a user-friendly interface that simplifies the overall workflow from diagram input to final export. Users can upload images, describe algorithms using text prompts, or import existing JSON structures, making the system adaptable to different working styles. Economically, the use of open-source technologies and cloud-based infrastructure reduces development and operational costs while providing long-term sustainability.
 
-Overall, the modular architecture with clear separation of concerns positions Automated Diagram Digitization as a reliable solution for modern diagram digitization challenges. By combining AI-based analysis with interactive editing tools, the platform significantly improves productivity and workflow efficiency. This approach enables students, educators, software developers, and business professionals to convert hand-drawn diagrams into accurate digital representations while maintaining flexibility for further customization and refinement.
+Overall, the modular architecture with clear separation of concerns positions Automated Diagram Digitization as a reliable solution for modern diagram digitization challenges. By combining AI-based analysis with interactive editing tools, the platform significantly improves productivity and workflow efficiency. This approach enables students, educators, software developers, and business professionals to convert flowchart diagrams into accurate digital representations while maintaining flexibility for further customization and refinement.

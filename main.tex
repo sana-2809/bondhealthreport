@@ -1,10 +1,11 @@
 % !TeX root = main.tex
-\documentclass[12pt,b4paper]{report}
+\documentclass[12pt]{report}
 
 % Packages
 \usepackage[utf8]{inputenc}
+\usepackage[b4paper]{geometry}
+\geometry{paperwidth=250mm, paperheight=353mm}
 \usepackage{graphicx}
-\usepackage{geometry}
 \usepackage{setspace}
 \usepackage{titlesec}
 \usepackage{hyperref}
@@ -16,6 +17,10 @@
 \usepackage{amsmath}
 \usepackage{cite}
 \usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{inconsolata}
 
 \fancypagestyle{plain}{
 \fancyhf{}
@@ -27,14 +32,14 @@
 \usepackage{enumitem}
 \usepackage{xspace}
 \usepackage{microtype}
-\usepackage{bookmark}  % Fix for cross-reference and outline issues
+\usepackage{bookmark}  % Fix for cross--reference and outline issues
 \usepackage{ragged2e}  % Better text justification
 \usepackage{longtable}     % For tables that span multiple pages
 \usepackage{array}         % For better table column formatting
 \usepackage{booktabs}      % For professional tables
 \usepackage{verbatim}      % For code blocks with \begin{verbatim}
 \usepackage{float}  % For [H] placement
-\usepackage{tabularx}  % For auto-width tables
+\usepackage{tabularx}  % For auto--width tables
 \usepackage{needspace}
 \usepackage{mathptmx}
 \setlength{\emergencystretch}{3em}
@@ -253,15 +258,15 @@
 \pagestyle{reportstyle}
 \pagenumbering{arabic}
 
-\include{chapter1_introduction}
-\include{chapter2_literature_review}
-\include{chapter3_system_study}
-\include{chapter4_system_design}
-\include{chapter5_implementation}
-\include{chapter6_technologies}
-\include{chapter7_testing}
-\include{chapter8_future_scope}
-\include{chapter9_conclusion}
+\include{chapter1\_introduction}
+\include{chapter2\_literature\_review}
+\include{chapter3\_system\_study}
+\include{chapter4\_system\_design}
+\include{chapter5\_implementation}
+\include{chapter6\_technologies}
+\include{chapter7\_testing}
+\include{chapter8\_future\_scope}
+\include{chapter9\_conclusion}
 
 \include{references}
 \include{appendix}

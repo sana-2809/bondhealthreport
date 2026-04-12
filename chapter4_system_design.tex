@@ -1,4 +1,4 @@
-% chapter4_system_design.tex
+% chapter4\_system\_design.tex
 % Automated Diagram Digitization - System Design Chapter
 
 \chapter{System Design}
@@ -14,9 +14,9 @@ This chapter presents the comprehensive system design of the Automated Diagram D
 \section{System Architecture Overview}
 
 \justifying
-The Automated Diagram Digitization platform is built on a robust three-tier architecture ensuring scalability, maintainability, and security while providing seamless integration between the React frontend, FastAPI backend, and PostgreSQL database. This architectural model separates the system into three logical layers: the presentation layer responsible for user interaction, the application layer that implements the business logic and AI processing, and the data layer that manages persistent storage.
+The Automated Diagram Digitization platform is built on a robust three-tier architecture ensuring scalability, maintainability, and security while providing seamless integration between the React frontend, FastAPI backend, and PostgreSQL database. This architectural model separates the system into three logical layers: the presentation layer responsible for user interaction, the application layer that implements the business logic and AI processing, and the data layer that manages persistent storage.~\cite{clean-arch}
 
-Such separation of concerns allows each tier to operate independently while communicating through well-defined interfaces. This improves maintainability because modifications in one layer do not directly affect the others. It also enables future scalability, allowing the frontend, backend, and database components to be deployed or upgraded independently based on system demand.
+Such separation of concerns allows each tier to operate independently while communicating through well-defined interfaces. This improves maintainability because modifications in one layer do not directly affect the others. It also enables future scalability, allowing the frontend, backend, and database components to be deployed or upgraded independently based on system demand.(Refer Figure~\ref{fig:ch4-architecture}: Three-Tier System Architecture of Automated Diagram Digitization Platform).
 
 \begin{figure}[ht]
     \centering
@@ -47,7 +47,7 @@ This layer acts as the central processing unit of the system, coordinating commu
 \justifying
 The data layer manages all persistent storage using PostgreSQL with JSONB support for flexible schema storage. Key features include UUID v4 primary keys for distributed generation without coordination, JSONB columns for storing complete React Flow state (nodes and edges), timestamp tracking with timezone support for created\_at and updated\_at fields, foreign key constraints where applicable, and connection pooling for optimal performance.
 
-The database layer also supports efficient querying and reliable storage of flowchart data even as the number of diagrams grows over time. PostgreSQL’s support for JSONB enables the system to store complex node and edge structures without requiring rigid relational schemas for every property. This flexibility allows the platform to support future enhancements such as additional node types, styling options, or metadata fields without requiring major database redesign.
+The database layer also supports efficient querying and reliable storage of flowchart data even as the number of diagrams grows over time. PostgreSQL's support for JSONB enables the system to store complex node and edge structures without requiring rigid relational schemas for every property. This flexibility allows the platform to support future enhancements such as additional node types, styling options, or metadata fields without requiring major database redesign.
 
 
 % =============================================================================
@@ -62,7 +62,7 @@ Data Flow Diagrams (DFDs) provide a graphical representation of how information 
 \subsection{Image Upload and Analysis Flow}
 
 \justifying
-The image analysis process enables users to upload flowchart images for automatic digitization. The workflow proceeds as follows: the user selects an image file via drag-drop or file picker, the frontend validates file type and size, the image is sent to the backend via multipart/form-data, the backend processes the image using Pillow (resizing to thumbnail), the image is sent to Gemini AI with the system prompt, the AI returns JSON with nodes and edges, the backend parses the response and ensures edge IDs exist, and the frontend renders the flowchart in the editor. The user can then edit, save, or export the diagram.
+The image analysis process enables users to upload flowchart images for automatic digitization. The workflow proceeds as follows: the user selects an image file via drag-drop or file picker, the frontend validates file type and size, the image is sent to the backend via multipart/form-data, the backend processes the image using Pillow (resizing to thumbnail), the image is sent to Gemini AI with the system prompt, the AI returns JSON with nodes and edges, the backend parses the response and ensures edge IDs exist, and the frontend renders the flowchart in the editor. The user can then edit, save, or export the diagram.(Refer Figure~\ref{fig:chapter4--image--flow}: Image Upload and Analysis Data Flow Diagram).
 
 \begin{figure}[ht]
     \centering
@@ -88,7 +88,7 @@ The JSON import/export functionality enables data portability and integration wi
 \section{Use Case Diagram}
 
 \justifying
-The Use Case Diagram (UCD) for the Automated Diagram Digitization platform describes the interactions between the system's single actor -- the user -- and the various functional capabilities the platform provides. Since the system does not implement user authentication, all features are accessible to any visitor. The diagram captures the complete set of actions a user can perform within the system, from uploading a flowchart image to exporting the final diagram.
+The Use Case Diagram (UCD) for the Automated Diagram Digitization platform describes the interactions between the system's single actor -- the user -- and the various functional capabilities the platform provides. Since the system does not implement user authentication, all features are accessible to any visitor. The diagram captures the complete set of actions a user can perform within the system, from uploading a flowchart image to exporting the final diagram.(Refer Figure~\ref{fig:use--case--diagram}: Use Case Diagram for Automated Diagram Digitization).~\cite{sommerville}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth,height=0.97\textheight,keepaspectratio]{image/use-case-diagram.png}
@@ -103,7 +103,7 @@ The Use Case Diagram (UCD) for the Automated Diagram Digitization platform descr
 \section{Database Schema Design (PostgreSQL)}
 
 \justifying
-The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB support, providing reliable data persistence, ACID compliance, and flexible schema for storing complex flowchart data. The schema uses UUID primary keys, timestamp tracking, and JSONB columns for flow data storage.
+The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB support, providing reliable data persistence, ACID compliance, and flexible schema for storing complex flowchart data.The schema uses UUID primary keys, timestamp tracking, and JSONB columns for flow data storage. The database entity-relationship diagram is shown in (Refer Figure~\ref{fig:schema}: Database Entity-Relationship Diagram).~\cite{postgresql}
 
 \begin{table}[ht]
     \centering
@@ -125,9 +125,9 @@ The schema follows best practices for web applications, uses \texttt{created\_at
 All timestamp columns use \texttt{TIMESTAMPTZ} rather than a timezone-naive type, storing values in UTC and allowing the application layer to convert to the user's local timezone at render time. This is particularly important for a platform that may be deployed across different geographical regions. Consistent UTC storage eliminates ambiguity in timestamp comparisons.
 
 \justifying
-The schema is managed through a versioned migration system using Alembic (SQLAlchemy migrations), capturing every structural change as an incremental script across development, staging, and production environments. This ensures consistent database evolution across all deployments.
+The schema is managed through a versioned migration system using Alembic (SQLAlchemy migrations), capturing every structural change as an incremental script across development, staging, and production environments. This ensures consistent database evolution across all deployments.~\cite{sqlalchemy}
 
-The following table provides a concise summary of the \texttt{flowcharts} table structure as implemented in PostgreSQL.
+The following table provides a concise summary of the \texttt{flowcharts} table structure as implemented in PostgreSQL. (Refer Table~\ref{tab:database-schema}: Flowcharts Table Schema).
 
 \begin{table}[H]
     \small
@@ -139,10 +139,10 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
         \hline
         id
                         & UUID
-                        & Primary key, default gen\_random\_uuid()                                       \\
+                        & Primary key, default gen\_random\_uuid ()                                       \\
         \hline
         title
-                        & VARCHAR(255)
+                        & VARCHAR (255)
                         & Flowchart title, default 'Untitled'                                            \\
         \hline
         flow\_data
@@ -151,11 +151,11 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
         \hline
         created\_at
                         & TIMESTAMPTZ
-                        & Creation timestamp, default now()                                              \\
+                        & Creation timestamp, default now ()                                              \\
         \hline
         updated\_at
                         & TIMESTAMPTZ
-                        & Last update timestamp, default now()                                           \\
+                        & Last update timestamp, default now ()                                           \\
         \hline
     \end{tabular}
     \caption{Flowcharts Table Schema}
@@ -166,13 +166,13 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
 \textbf{Database Indexes for Performance Optimization:}
 
 \begin{enumerate}
-    \item \texttt{CREATE INDEX idx\_flowcharts\_id ON flowcharts(id);} -- Primary key index for fast lookup by UUID.
+    \item \texttt{CREATE INDEX idx\_flowcharts\_id ON flowcharts (id);} -- Primary key index for fast lookup by UUID.
 
-    \item \texttt{CREATE INDEX idx\_flowcharts\_created\_at ON flowcharts(created\_at);} -- Optimizes queries sorting by creation date.
+    \item \texttt{CREATE INDEX idx\_flowcharts\_created\_at ON flowcharts (created\_at);} -- Optimizes queries sorting by creation date.
 
-    \item \texttt{CREATE INDEX idx\_flowcharts\_updated\_at ON flowcharts(updated\_at);} -- Optimizes queries sorting by update date.
+    \item \texttt{CREATE INDEX idx\_flowcharts\_updated\_at ON flowcharts (updated\_at);} -- Optimizes queries sorting by update date.
 
-    \item \texttt{CREATE INDEX idx\_flowcharts\_title ON flowcharts(title);} -- Enables fast search by title (for future search functionality).
+    \item \texttt{CREATE INDEX idx\_flowcharts\_title ON flowcharts (title);} -- Enables fast search by title (for future search functionality).
 
     \item \texttt{CREATE INDEX idx\_flowcharts\_gin\_nodes ON flowcharts USING gin ((flow\_data -> 'nodes'));} -- GIN index for querying inside JSONB nodes array.
 \end{enumerate}
@@ -244,11 +244,12 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
 \section{API Design (RESTful Endpoints)}
 
 \justifying
-The Automated Diagram Digitization platform implements a comprehensive RESTful API following industry best practices, serving as the communication backbone between the React frontend and FastAPI backend. Endpoints are resource-oriented, use appropriate HTTP methods, and consistent JSON response formats.
+The Automated Diagram Digitization platform implements a comprehensive RESTful API following industry best practices, serving as the communication backbone between the React frontend and FastAPI backend. Endpoints are resource-oriented, use appropriate HTTP methods, and consistent JSON response formats.~\cite{rest}
 
-The API is organised into logical resource groups: image analysis, text-to-flowchart generation, and flowchart management (CRUD operations). Middleware for CORS handling, request validation, and error handling is applied consistently. Incoming payloads are validated for type correctness, required fields, and domain constraints before any business logic executes.
+The API is organised into logical resource groups: image analysis, text-to-flowchart generation, and flowchart management (CRUD operations). Middleware for CORS handling, request validation, and error handling is applied consistently. Incoming payloads are validated for type correctness, required fields, and domain constraints before any business logic executes.~\cite{cors}
 
-Error responses follow a consistent JSON structure containing detail message and appropriate HTTP status codes: \texttt{200} for successful retrieval, \texttt{201} for resource creation, \texttt{400} for validation failures, \texttt{404} when a requested resource does not exist, and \texttt{500} for internal server errors.
+Error responses follow a consistent JSON structure containing detail message and appropriate HTTP status codes: \texttt{200} for successful retrieval, \texttt{201} for resource creation, \texttt{400} for validation failures, \texttt{404} when a requested resource does not exist, and \texttt{500} for internal server errors.(Refer Table~\ref{tab:api--endpoints}: Core API Endpoints).
+
 
 \begin{table}[H]
     \small
@@ -256,20 +257,33 @@ Error responses follow a consistent JSON structure containing detail message and
     \renewcommand{\arraystretch}{1.3}
     \begin{tabular}{|>{\raggedright\arraybackslash}p{1.8cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{5.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Method} & \textbf{Endpoint}  & \textbf{Description}                     & \textbf{Request Body}                             \\
+        \textbf{Method} & \textbf{Endpoint}  & \textbf{Description} & \textbf{Request Body} \\
         \hline
-        POST            & /analyze           & Upload flowchart image for AI analysis   & multipart/form-data (image file)                  \\
+
+        POST & /analyze & Upload flowchart image for AI analysis 
+        & multipart/form-data (image file) \\
         \hline
-        POST            & /analyze/algorithm & Generate flowchart from text description & JSON: \{ "prompt": "text" \}                      \\
+
+        POST & /analyze/algorithm & Generate flowchart from text description 
+        & \texttt{\{"prompt": "text"\}} \\
         \hline
-        POST            & /flowcharts        & Create new flowchart in database         & JSON: \{ "title": "...", "flow\_data": \{...\} \} \\
+
+        POST & /flowcharts & Create new flowchart in database 
+        & \texttt{\{"title": "...", "flow\_data": \{...\}\}} \\
         \hline
-        GET             & /flowcharts/\{id\} & Retrieve flowchart by UUID               & -                                                 \\
+
+        GET & /flowcharts/\{id\} & Retrieve flowchart by UUID 
+        & -- \\
         \hline
-        PUT             & /flowcharts/\{id\} & Update existing flowchart                & JSON with partial updates                         \\
+
+        PUT & /flowcharts/\{id\} & Update existing flowchart 
+        & JSON with partial updates \\
         \hline
-        GET             & /                  & Health check endpoint                    & -                                                 \\
+
+        GET & / & Health check endpoint 
+        & - \\
         \hline
+
     \end{tabular}
     \caption{Core API Endpoints}
     \label{tab:api-endpoints}
@@ -287,7 +301,7 @@ Host: localhost:8000
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
 
 ------WebKitFormBoundary
-Content-Disposition: form-data; name="file"; filename="flowchart.png"
+Content-Disposition: form-data; name="file\'\'; filename="flowchart.png\'\'
 Content-Type: image/png
 
 [image data]
@@ -585,9 +599,9 @@ The system implements comprehensive error handling at multiple levels to ensure 
 The backend implements several strategies to gracefully handle imperfect or malformed responses returned by the Gemini AI model. These mechanisms ensure the system can recover from common AI output issues without crashing or returning errors to the user.
 
 \begin{enumerate}
-    \item \textbf{Malformed JSON}: Uses regex extraction to find JSON block within text response: \texttt{re.search(r'(\textbackslash{}\{\textbackslash{}.*\textbackslash{}\}\textbackslash{})', text, re.DOTALL)}.
+    \item \textbf{Malformed JSON}: Uses regex extraction to find JSON block within text response: \texttt{re.search (r'(\textbackslash{}\{\textbackslash{}.*\textbackslash{}\}\textbackslash{})', text, re.DOTALL)}.
 
-    \item \textbf{Unescaped Characters}: Uses \texttt{json.loads(json\_str, strict=False)} to handle unescaped newlines within strings.
+    \item \textbf{Unescaped Characters}: Uses \texttt{json.loads (json\_str, strict=False)} to handle unescaped newlines within strings.
 
     \item \textbf{Missing Fields}: Validates required fields (nodes, edges) and provides defaults if missing.
 
@@ -653,7 +667,7 @@ The Automated Diagram Digitization platform implements multiple optimization str
 
 \textbf{AI Optimization:}
 \begin{enumerate}
-    \item \textbf{Prompt Engineering}: Temperature=0 for deterministic outputs, response\_mime\_type="application/json" for structured responses.
+    \item \textbf{Prompt Engineering}: Temperature = 0 for deterministic outputs, and \texttt{response\_mime\_type="application/json"} ensures structured responses.
 
     \item \textbf{Image Optimization}: Thumbnail resizing reduces API latency and costs.
 

@@ -7,11 +7,11 @@ This chapter details the implementation of the Automated Diagram Digitization sy
 \section{Development Environment Setup}
 \label{sec:dev-env}
 
-The backend runs on Python 3.9+ with the FastAPI framework. The database is a PostgreSQL instance with JSONB support for flexible schema storage. The frontend runs on Node.js v18+ with React 18 and Vite for fast development. Sensitive configuration values — database connection strings and Gemini API keys — are stored in a \texttt{.env} file at the project root and loaded via the \texttt{python-dotenv} package.
+The backend runs on Python 3.9+ with the FastAPI framework. The database is a PostgreSQL instance with JSONB support for flexible schema storage. The frontend runs on Node.js v18+ with React 18 and Vite for fast development. Sensitive configuration values -- database connection strings and Gemini API keys -- are stored in a \texttt{.env} file at the project root and loaded via the \texttt{python-dotenv} package.~\cite{fastapi,postgresql,react}
 
-The development workflow was organized using separate frontend and backend directories to maintain modularity. The frontend was developed using Node.js and npm for dependency management, while the backend used a Python virtual environment to isolate project libraries. This separation ensures that dependencies remain controlled and reproducible across different development machines.
+The development workflow was organized using separate frontend and backend directories to maintain modularity. The frontend was developed using Node.js and npm for dependency management, while the backend used a Python virtual environment to isolate project libraries. This separation ensures that dependencies remain controlled and reproducible across different development machines.~\cite{npm}
 
-Version control was maintained using Git, with the project repository hosted on GitHub. This enabled structured version tracking, collaborative development, and integration with deployment platforms. Source code changes were tested locally before being committed to the repository, ensuring stability of the application during development.
+Version control was maintained using Git, with the project repository hosted on GitHub. This enabled structured version tracking, collaborative development, and integration with deployment platforms. Source code changes were tested locally before being committed to the repository, ensuring stability of the application during development.~\cite{git}
 
 
 
@@ -47,7 +47,7 @@ React Flow is used as the primary diagram rendering library, enabling dynamic vi
 
 \subsection{Input Page}
 
-The input page provides three methods for creating flowcharts: image upload with drag-drop support, text prompt for algorithm description, and JSON import for existing flow data. A tabbed interface allows users to switch between input methods, with each tab showing the appropriate form controls.
+The input page provides three methods for creating flowcharts: image upload with drag-drop support, text prompt for algorithm description, and JSON import for existing flow data. A tabbed interface allows users to switch between input methods, with each tab showing the appropriate form controls. (Refer Figure~\ref{fig:input-page}: Input page showing three tabs for image upload, text prompt, and JSON import.)
 
 \begin{figure}[ht]
 \centering
@@ -58,7 +58,7 @@ The input page provides three methods for creating flowcharts: image upload with
 
 \subsection{Sidebar with Draggable Shapes}
 
-The sidebar displays four shape types: start/end (oval), process (rectangle), decision (diamond), and input/output (parallelogram). Each shape is represented by an SVG icon and a label. HTML5 drag-drop is implemented, with the shape type stored in the dataTransfer object for retrieval when dropped on the canvas.
+The sidebar displays four shape types: start/end (oval), process (rectangle), decision (diamond), and input/output (parallelogram). Each shape is represented by an SVG icon and a label. HTML5 drag-drop is implemented, with the shape type stored in the dataTransfer object for retrieval when dropped on the canvas. (Refer Figure~\ref{fig:sidebar}: Sidebar with draggable shape icons.)
 
 \begin{figure}[ht]
 \centering
@@ -69,7 +69,7 @@ The sidebar displays four shape types: start/end (oval), process (rectangle), de
 
 \subsection{Flowchart Editor}
 
-The flowchart editor is the core component for diagram creation and editing. It uses React Flow to render nodes and edges, with custom node components for each shape type. The canvas features a dot grid background, zoom and pan controls, and selection handling. Nodes can be resized using resize handles, with minimum dimensions enforced to maintain text readability.
+The flowchart editor is the core component for diagram creation and editing. It uses React Flow to render nodes and edges, with custom node components for each shape type. The canvas features a dot grid background, zoom and pan controls, and selection handling. Nodes can be resized using resize handles, with minimum dimensions enforced to maintain text readability. (Refer Figure~\ref{fig:editor}: Flowchart editor canvas with nodes, edges, and toolbar).
 
 \begin{figure}[ht]
 \centering
@@ -82,7 +82,7 @@ The flowchart editor is the core component for diagram creation and editing. It 
 
 Undo and redo operations are implemented using keyboard controls to allow quick correction of editing actions within the flowchart editor. The system listens for standard keyboard shortcuts and updates the diagram state accordingly. Pressing \texttt{Ctrl+Z} performs an undo operation, restoring the diagram to its previous state, while \texttt{Ctrl+Y} or \texttt{Ctrl+Shift+Z} performs a redo operation to reinstate the most recently undone action.
 
-The implementation relies on maintaining a history of diagram states. Whenever a modification occurs—such as node movement, edge creation, deletion, or label editing—the previous state of the nodes and edges is stored. During an undo operation, the editor restores the most recent saved state, ensuring that accidental changes can be reversed quickly. This approach improves usability and enables users to experiment with diagram modifications without the risk of permanently losing previous configurations.
+The implementation relies on maintaining a history of diagram states. Whenever a modification occurs -- such as node movement, edge creation, deletion, or label editing -- the previous state of the nodes and edges is stored. During an undo operation, the editor restores the most recent saved state, ensuring that accidental changes can be reversed quickly. This approach improves usability and enables users to experiment with diagram modifications without the risk of permanently losing previous configurations.
 
 \subsection{Custom Node Components}
 
@@ -100,7 +100,7 @@ Different visual styles are applied using CSS. Process nodes are rendered as rec
 
 \subsection{Auto-Layout Feature}
 
-The auto-layout feature uses a column-based clustering algorithm to align nodes neatly. It calculates the true center X-coordinate for each node, clusters nodes within a tolerance of 150 pixels, computes the average center for each cluster, and repositions nodes to align with their cluster's average. Edge types are automatically adjusted based on alignment — straight edges for vertically aligned nodes, smoothstep edges for others. This automatic arrangement improves the readability of complex diagrams by reducing overlaps and uneven spacing between nodes. As a result, users can quickly organize large flowcharts into a clean and structured layout with minimal manual adjustment.
+The auto-layout feature uses a column-based clustering algorithm to align nodes neatly. It calculates the true center X-coordinate for each node, clusters nodes within a tolerance of 150 pixels, computes the average center for each cluster, and repositions nodes to align with their cluster's average. Edge types are automatically adjusted based on alignment -- straight edges for vertically aligned nodes, smoothstep edges for others. This automatic arrangement improves the readability of complex diagrams by reducing overlaps and uneven spacing between nodes. As a result, users can quickly organize large flowcharts into a clean and structured layout with minimal manual adjustment.(Refer Figure~\ref{fig:autolayout}: Effect of the auto--layout feature on flowchart alignment).
 \begin{figure}[H]
 \centering
 
@@ -122,7 +122,7 @@ The auto-layout feature uses a column-based clustering algorithm to align nodes 
 
 \subsection{Edge Label Editing}
 
-Edge labels can be added or edited by double-clicking on any edge. An inline input popup appears at the mouse position, allowing the user to enter label text. Pressing Enter saves the label, Escape cancels, and clicking elsewhere also saves. Labels are displayed with a background box for readability, with styling that adapts to the current theme.
+Edge labels can be added or edited by double-clicking on any edge. An inline input popup appears at the mouse position, allowing the user to enter label text. Pressing Enter saves the label, Escape cancels, and clicking elsewhere also saves. Labels are displayed with a background box for readability, with styling that adapts to the current theme. (Refer Figure~\ref{fig:edgelabel}: Edge label editing popup on a decision branch.)
 
 \begin{figure}[H]
 \centering
@@ -163,7 +163,7 @@ The system supports both dark and light modes using CSS variables. A theme conte
 
 \subsection{Export Functionality}
 
-Three export formats are supported: PNG for sharing, SVG for vector graphics, and JSON for data portability. PNG export uses the html-to-image library to capture the canvas as a high-resolution image suitable for documents and presentations. SVG export uses React Flow’s built-in rendering to generate scalable graphics that maintain clarity at any resolution. JSON export stores the nodes and edges structure with formatted output, allowing diagrams to be saved, transferred, and re-imported for further editing without losing layout information.
+Three export formats are supported: PNG for sharing, SVG for vector graphics, and JSON for data portability. PNG export uses the html-to-image library to capture the canvas as a high-resolution image suitable for documents and presentations. SVG export uses React Flow's built-in rendering to generate scalable graphics that maintain clarity at any resolution. JSON export stores the nodes and edges structure with formatted output, allowing diagrams to be saved, transferred, and re-imported for further editing without losing layout information.
 
 Providing multiple export formats ensures that the generated diagrams can be used across different environments and workflows. PNG images are suitable for documentation and presentations, SVG files allow further editing in vector graphic tools, and JSON exports enable users to reload and continue editing diagrams later. This flexibility ensures that the system supports both visual sharing and structured data storage.
 

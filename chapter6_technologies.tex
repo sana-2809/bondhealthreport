@@ -2,7 +2,7 @@
 \label{ch:technologies}
 
 \section{Introduction}
-Automated Diagram Digitization leverages modern web technologies to create an intelligent flowchart recognition and editing platform. This chapter summarizes the key technologies, frameworks, and tools employed in the project.
+Automated Diagram Digitization leverages modern web technologies to create an intelligent flowchart recognition and editing platform. This chapter summarizes the key technologies, frameworks, and tools employed in the project. (Refer Table~\ref{tab:tech-stack}: Technology Stack Overview)
 
 \begin{table}[H]
     \centering
@@ -35,33 +35,35 @@ Automated Diagram Digitization leverages modern web technologies to create an in
 The frontend of the Automated Diagram Digitization system is built using a modern JavaScript technology stack designed for performance, developer productivity, and rich interactivity. The following subsections describe each frontend technology and its role within the application.
 
 \subsection{React 18 with Vite}
-React 18 provides the component-based architecture for building reusable UI elements. Vite serves as the build tool, offering fast development server startup with hot module replacement and optimized production builds.
+React 18 provides the component-based architecture for building reusable UI elements. Vite serves as the build tool, offering fast development server startup with hot module replacement and optimized production builds.~\cite{react,vite}
 
 \subsection{React Flow}
-React Flow is the core diagramming library used for rendering interactive flowcharts. Key features utilized include custom node rendering, connection handles, node resizing, edge styling, and background grid with zoom/pan controls.
+React Flow is the core diagramming library used for rendering interactive flowcharts. Key features utilized include custom node rendering, connection handles, node resizing, edge styling, and background grid with zoom/pan controls.~\cite{reactflow}
 
 \subsection{Tailwind CSS and Lucide React}
-Tailwind CSS provides utility-first styling for rapid UI development with consistent design patterns. Lucide React supplies modern SVG icons for the shape palette, toolbar buttons, and UI controls.
+Tailwind CSS provides utility-first styling for rapid UI development with consistent design patterns. Lucide React supplies modern SVG icons for the shape palette, toolbar buttons, and UI controls.~\cite{tailwind,lucide}
 
 \section{Backend Technologies}
 
-The backend services of the platform are implemented using a Python-based technology stack optimized for high-performance asynchronous processing, database interaction, and AI integration. The following subsections detail each component.
+The backend services of the platform are implemented using a Python--based technology stack optimized for high-performance asynchronous processing, database interaction, and AI integration. The following subsections detail each component.
 
 \subsection{FastAPI Framework}
-FastAPI serves as the backend framework, offering high performance comparable to Node.js with automatic OpenAPI documentation. Key features include:
+FastAPI serves as the backend framework, offering high performance comparable to Node.js with automatic OpenAPI documentation.~\cite{fastapi} 
+
+Key features include:
 \begin{enumerate}
     \item Asynchronous endpoint handling with async/await
     \item Automatic request validation using Pydantic models
-    \item Built-in CORS middleware configuration
+    \item Built-in CORS middleware configuration~\cite{cors}
     \item JSON response serialization
 \end{enumerate}
 
 \subsection{PostgreSQL with JSONB}
-PostgreSQL 15 provides reliable data persistence with JSONB support for flexible schema storage. The flowcharts table stores complete React Flow state (nodes and edges) in a JSONB column, allowing schema-less storage of varying node structures.
+PostgreSQL 15 provides reliable data persistence with JSONB support for flexible schema storage. The flowcharts table stores complete React Flow state (nodes and edges) in a JSONB column, allowing schema-less storage of varying node structures.~\cite{postgresql,jsonb}
 
 \subsection{SQLAlchemy (Async)}
 
-SQLAlchemy is a powerful and flexible ORM (Object-Relational Mapper) for Python that simplifies database interactions through high-level abstractions. The async version is used here to align with FastAPI's asynchronous processing model, ensuring that database queries do not block the event loop and allowing the backend to handle multiple concurrent requests efficiently.
+SQLAlchemy is a powerful and flexible ORM (Object-Relational Mapper) for Python that simplifies database interactions through high-level abstractions. The async version is used here to align with FastAPI's asynchronous processing model, ensuring that database queries do not block the event loop and allowing the backend to handle multiple concurrent requests efficiently.~\cite{sqlalchemy}
 
 SQLAlchemy serves as the async ORM for database operations, providing:
 \begin{enumerate}
@@ -73,7 +75,7 @@ SQLAlchemy serves as the async ORM for database operations, providing:
 
 \section{AI Integration}
 
-The AI capabilities of the platform are powered by Google's Gemini multimodal model, supported by the Pillow image processing library for preprocessing input images before submission to the API. The subsections below outline how each component contributes to intelligent diagram analysis.
+The AI capabilities of the platform are powered by Google's Gemini multimodal model, supported by the Pillow image processing library for preprocessing input images before submission to the API. The subsections below outline how each component contributes to intelligent diagram analysis.~\cite{gemini,pillow}
 
 \subsection{Google Gemini API}
 Gemini AI provides the multimodal intelligence for flowchart recognition and generation. The API is accessed via the official Python client library with custom system prompts engineered for accurate shape detection and text extraction.
@@ -86,15 +88,15 @@ Pillow handles image processing tasks including opening uploaded images, resizin
 The development process was supported by a set of well-established tools for version control, API testing, and environment management. These tools ensured a structured, collaborative, and consistent development workflow throughout the project lifecycle.
 
 \subsection{Version Control}
-Git with GitHub enables systematic code management using feature branches and pull requests. The repository maintains separate directories for backend and frontend code.
+Git with GitHub enables systematic code management using feature branches and pull requests. The repository maintains separate directories for backend and frontend code.~\cite{git}
 
 \subsection{API Testing}
-Postman is used extensively for testing and validating RESTful API endpoints during backend development, including image upload simulation and response validation.
+Postman is used extensively for testing and validating RESTful API endpoints during backend development, including image upload simulation and response validation.~\cite{postman}
 
 \subsection{Development Environment}
 
 The Automated Diagram Digitization system was developed using a modern web development environment designed to support efficient frontend and backend development. The backend services were implemented using Python with the FastAPI framework, while the frontend interface was developed using React with Vite.
-Development and debugging were performed using Visual Studio Code as the primary integrated development environment (IDE). Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent development setup. Version control was managed using Git, with the project repository hosted on GitHub. This enabled collaborative development, version tracking, and seamless integration with cloud deployment platforms.
+Development and debugging were performed using Visual Studio Code as the primary integrated development environment (IDE). Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent development setup. Version control was managed using Git, with the project repository hosted on GitHub. This enabled collaborative development, version tracking, and seamless integration with cloud deployment platforms.~\cite{python,vscode,npm}
 
 The development environment also included tools for API testing and debugging, allowing the team to validate backend endpoints and ensure proper communication between the frontend and backend components during development. To maintain high code quality and consistency, linting and formatting tools including ESLint and Prettier were integrated into the frontend workflow, while Black was employed for standardizing backend Python code. Browser-based developer tools and the React Developer Tools extension were extensively used for real-time debugging and performance profiling of the interactive canvas components. Database schema design and data verification were facilitated using pgAdmin, allowing for direct interaction with the PostgreSQL storage layer during development. Additionally, the built-in Swagger UI provided by FastAPI served as a critical tool for interactive API testing, enabling the validation of data structures and response formats before frontend integration.
 \vspace{1em}
@@ -114,6 +116,8 @@ Postman / Browser Testing & API testing and validation \\
 \caption{Development Environment Tools}
 \label{tab:dev-tools}
 \end{table}
+
+The development environment tools are summarised in (Refer Table~\ref{tab:dev-tools}: Development Environment Tools).
 
 \section{Project Structure}
 
@@ -195,7 +199,7 @@ Cross-Origin Resource Sharing (CORS) is configured in the FastAPI backend to res
 
 \subsection{Input Sanitization and Validation}
 
-All user-provided inputs --- including uploaded image files, text prompts, and JSON data --- are validated before processing. Image files are checked for allowed MIME types and size limits before being passed to the Gemini API. Text prompts are length-validated, and JSON imports are parsed with strict error handling to reject malformed or malicious payloads.
+All user-provided inputs -- including uploaded image files, text prompts, and JSON data -- are validated before processing. Image files are checked for allowed MIME types and size limits before being passed to the Gemini API. Text prompts are length-validated, and JSON imports are parsed with strict error handling to reject malformed or malicious payloads.
 
 \subsection{SQL Injection Prevention}
 
