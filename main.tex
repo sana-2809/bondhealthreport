@@ -150,29 +150,26 @@
 
 
 % Line spacing
-\setstretch{1.15}
+\setstretch{1.5}
 
 % Heading sizes
 \titleformat{\chapter}[display]
-  {\normalfont\bfseries\fontsize{16}{20}\selectfont}{\chaptertitlename\ \thechapter}{20pt}{}
+  {\normalfont\bfseries}{\fontsize{16}{20}\selectfont\chaptertitlename\ \thechapter}{20pt}{\fontsize{20}{24}\selectfont}
 \titlespacing*{\chapter}{0pt}{-20pt}{30pt}
 
 \titleformat{\section}
   {\normalfont\bfseries\fontsize{14}{16}\selectfont}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\bfseries\fontsize{14}{16}\selectfont}{\thesubsection}{1em}{}
+  {\normalfont\bfseries\fontsize{12}{14}\selectfont}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\bfseries\fontsize{14}{16}\selectfont}{\thesubsubsection}{1em}{}
+  {\normalfont\bfseries\fontsize{12}{14}\selectfont}{\thesubsubsection}{1em}{}
 
 % Hyperlink setup
 \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-    pdftitle={Bond Health Report},
+    hidelinks,
+    pdftitle={Automated Diagram Digitization - Mini Project Report},
     pdfpagemode=FullScreen,
 }
 
@@ -222,16 +219,26 @@
 
 \include{title}
 \include{certificate}
-\include{declaration}
 \include{acknowledgement}
+\include{declaration}
 \include{abstract}
 
 \pagestyle{footeronly}
-\tableofcontents
-\thispagestyle{footeronly}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
 \listoffigures
 \thispagestyle{footeronly}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
 \listoftables
+\thispagestyle{footeronly}
+
+\clearpage
+\tableofcontents
 \thispagestyle{footeronly}
 
 \clearpage
