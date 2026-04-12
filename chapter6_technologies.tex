@@ -81,7 +81,30 @@ Git with GitHub enables systematic code management using feature branches and pu
 Postman is used extensively for testing and validating RESTful API endpoints during backend development, including image upload simulation and response validation.
 
 \subsection{Development Environment}
-VS Code serves as the primary editor with extensions for Python, React, and Prettier. npm manages frontend dependencies while pip manages Python packages via requirements.txt.
+
+The Automated Diagram Digitization system was developed using a modern web development environment designed to support efficient frontend and backend development. The backend services were implemented using Python with the FastAPI framework, while the frontend interface was developed using React with Vite.
+
+Development and debugging were performed using Visual Studio Code as the primary integrated development environment (IDE). Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent development setup.
+
+Version control was managed using Git, with the project repository hosted on GitHub. This enabled collaborative development, version tracking, and seamless integration with cloud deployment platforms.
+
+The development environment also included tools for API testing and debugging, allowing the team to validate backend endpoints and ensure proper communication between the frontend and backend components during development.
+
+\begin{table}[H]
+\centering
+\caption{Development Environment Tools}
+\begin{tabular}{ll}
+\toprule
+Tool / Platform & Purpose \\
+\midrule
+Visual Studio Code & Code development and debugging \\
+Node.js and npm & Frontend dependency management \\
+Python Virtual Environment & Backend dependency isolation \\
+Git and GitHub & Version control and collaboration \\
+Postman / Browser Testing & API testing and validation \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Project Structure}
 
@@ -112,28 +135,63 @@ Automated Diagram Digitization follows a clear separation between frontend and b
 
 \section{Deployment Configuration}
 
-The application uses environment variables via python-dotenv for configuration:
-\begin{itemize}
-    \item \textbf{Development}: Local PostgreSQL with debug logging enabled
-    \item \textbf{Production}: Cloud PostgreSQL with connection pooling and SSL
-    \item \textbf{Gemini API}: API key stored securely in environment variables
-\end{itemize}
+The Automated Diagram Digitization platform is deployed using modern cloud hosting services to ensure accessibility, scalability, and reliable performance. The application follows a distributed deployment architecture in which the frontend interface and backend services are hosted on separate cloud platforms. This separation improves scalability and allows each component to be updated independently.
+
+\subsection{Deployment Architecture}
+
+The system deployment architecture consists of four primary components: the frontend client application, the backend API service, the PostgreSQL database, and the external AI service used for diagram recognition.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Component} & \textbf{Deployment Platform} \\
+\hline
+Frontend (React + Vite) & Vercel \\
+\hline
+Backend API (FastAPI) & Render \\
+\hline
+Database & PostgreSQL \\
+\hline
+AI Service & Google Gemini API \\
+\hline
+\end{tabular}
+\caption{Deployment Architecture Components}
+\label{tab:deployment}
+\end{table}
+
+\subsection{Frontend Deployment}
+
+The frontend application was deployed on the Vercel platform. Vercel provides optimized hosting for modern JavaScript applications and supports automatic builds and deployments through Git integration. Whenever changes are pushed to the project repository, Vercel automatically builds the React application and deploys it through a global content delivery network (CDN), ensuring fast loading times and high availability. This deployment model simplifies the release process by eliminating manual configuration steps. It also enables continuous deployment, allowing new updates and improvements to reach users quickly while maintaining consistent performance across geographic regions.
+
+\subsection{Backend Deployment}
+
+The backend API developed using the FastAPI framework is deployed on the Render cloud platform. Render hosts the backend service and exposes REST API endpoints that handle image analysis, text-to-flowchart generation, and database operations. The platform automatically manages HTTPS configuration, server scaling, and environment variable management. This ensures secure communication between the frontend and backend services at all times. Additionally, Render's containerized deployment environment allows the backend application to run reliably with minimal infrastructure maintenance.
+
+\subsection{Environment Configuration}
+
+Sensitive configuration values such as database connection strings and API keys are stored as environment variables within the deployment platforms. This ensures that confidential information is not stored directly in the application source code. The backend service retrieves these values at runtime to securely connect with the database and external AI services. Using environment variables also simplifies configuration management across development, testing, and production environments. This approach improves security while allowing the system to be easily deployed on different cloud platforms.
 
 \section{Advantages of Technology Stack}
 
 \subsection{Performance}
-FastAPI's async nature handles concurrent requests efficiently. React Flow's virtualization supports large diagrams. JSONB queries in PostgreSQL provide fast access to flowchart data.
+
+FastAPI's async nature handles concurrent requests efficiently. React Flow's virtualization supports large diagrams. JSONB queries in PostgreSQL provide fast access to flowchart data. The combination of asynchronous processing and efficient database querying reduces latency during diagram generation and editing. As a result, users experience smooth interactions even when working with complex diagrams containing multiple nodes and edges.
 
 \subsection{Developer Experience}
-FastAPI's automatic documentation simplifies API testing. React's component reusability accelerates UI development. Clear separation between frontend and backend enables parallel development.
+
+FastAPI's automatic documentation simplifies API testing. React's component reusability accelerates UI development. Clear separation between frontend and backend enables parallel development. This separation also allows developers to debug and maintain individual components without affecting other parts of the system. As a result, development cycles become faster and more organized.
 
 \subsection{Accuracy}
-Custom prompt engineering with Gemini AI ensures accurate shape recognition (92\%+). Column-based auto-layout algorithm produces professionally aligned diagrams.
+
+Custom prompt engineering with Gemini AI ensures accurate shape recognition (92\%+). Column-based auto-layout algorithm produces professionally aligned diagrams. The system carefully structures prompts to guide the AI model toward consistent diagram interpretation. This combination of AI recognition and layout algorithms significantly improves the accuracy and readability of generated flowcharts.
 
 \subsection{Cost-Effectiveness}
-Open-source technologies eliminate licensing costs. Gemini API offers competitive pricing with free tier for development. PostgreSQL provides enterprise features without vendor lock-in.
+
+Open-source technologies eliminate licensing costs. Gemini API offers competitive pricing with free tier for development. PostgreSQL provides enterprise features without vendor lock-in. Cloud hosting platforms such as Vercel and Render also offer free tiers suitable for development and testing. This reduces operational expenses while still supporting scalable deployment.
 
 \subsection{Scalability}
-Stateless FastAPI backend supports horizontal scaling. PostgreSQL JSONB allows schema evolution without migrations. React's efficient rendering handles complex diagrams.
+
+Stateless FastAPI backend supports horizontal scaling. PostgreSQL JSONB allows schema evolution without migrations. React's efficient rendering handles complex diagrams. This architecture allows the system to handle increasing numbers of users and diagrams without major structural changes. Additional computing resources can be added easily as demand grows.
 
 The combination of these technologies provides a solid foundation for an accurate, responsive, and maintainable diagram digitization platform serving students, educators, and professionals.

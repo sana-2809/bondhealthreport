@@ -131,8 +131,9 @@ Each technology has extensive community support and a track record of handling p
 
 \subsection{Functional Requirements}
 
-Based on user needs and system objectives, the following functional requirements have been identified:
+Based on user needs and system objectives, the following functional requirements have been identified. These requirements define the core capabilities that the system must provide in order to successfully digitize diagrams and allow users to interact with them efficiently. Functional requirements focus on the behavior of the system, including how users upload diagrams, how the system processes them using AI, and how the resulting diagrams can be edited and exported.
 
+The requirements were derived from analysis of existing diagramming tools, feedback from potential users, and evaluation of common challenges faced during manual diagram digitization. By clearly defining these requirements, the system ensures that each module contributes to a complete workflow from image input to editable digital diagram output.
 \subsubsection{Input Module Requirements}
 
 \begin{itemize}
@@ -201,6 +202,8 @@ Based on user needs and system objectives, the following functional requirements
 
 \subsubsection{Performance Requirements}
 
+Performance requirements define how efficiently the system must operate under normal usage conditions. Since the platform involves AI-based processing and interactive diagram editing, maintaining responsive system behavior is critical. Users expect quick analysis of uploaded diagrams and smooth interaction while editing nodes and connections. Therefore, response time and processing efficiency are key factors in ensuring a positive user experience.
+
 \begin{itemize}
     \item \textbf{Image Analysis:} Complete image analysis within 3-5 seconds for standard flowchart images (up to 1024x1024 pixels).
     
@@ -216,6 +219,8 @@ Based on user needs and system objectives, the following functional requirements
 \end{itemize}
 
 \subsubsection{Usability Requirements}
+
+Usability requirements focus on ensuring that the system remains accessible and easy to use for individuals with varying levels of technical expertise. Since the platform is intended for students, educators, and professionals, the interface must be intuitive and easy to navigate. A well-designed user interface reduces the learning curve and enables users to quickly perform tasks such as uploading diagrams, editing flowcharts, and exporting results.
 
 \begin{itemize}
     \item \textbf{Intuitive Interface:} Design interface requiring minimal training for users with basic computer skills.
@@ -233,6 +238,8 @@ Based on user needs and system objectives, the following functional requirements
 
 \subsubsection{Reliability Requirements}
 
+Reliability requirements ensure that the system operates consistently and maintains data integrity during normal usage. The application must be capable of handling unexpected errors, invalid inputs, or interruptions during AI processing. Implementing proper error handling and recovery mechanisms helps maintain system stability and prevents data loss during diagram editing and storage operations.
+
 \begin{itemize}
     \item \textbf{Uptime:} Maintain 99\% availability during normal business hours.
     
@@ -246,6 +253,8 @@ Based on user needs and system objectives, the following functional requirements
 \end{itemize}
 
 \subsubsection{Security Requirements}
+
+Security requirements address the protection of system resources, user inputs, and external API credentials. Since the application interacts with external AI services and database systems, proper safeguards must be implemented to prevent unauthorized access and malicious inputs. Secure storage of configuration data and careful validation of user inputs help maintain system integrity and prevent potential security vulnerabilities.
 
 \begin{itemize}
     \item \textbf{API Key Protection:} Store Gemini API key in environment variables, never in client-side code.
@@ -286,9 +295,13 @@ The Automated Diagram Digitization system follows a three-tier architecture with
     \item \textbf{Data Layer:} Manages persistence through PostgreSQL database with JSONB column for storing complete React Flow state, enabling flexible schema while maintaining query performance.
 \end{itemize}
 
-This separation enables each tier to evolve independently, with the ability to scale components based on demand.
+This separation enables each tier to evolve independently, with the ability to scale components based on demand. For example, improvements to the user interface can be implemented without modifying backend logic, while database optimizations can be performed independently of frontend components. Such modular design improves maintainability and allows developers to introduce new features without affecting other system components.
+
+Furthermore, the layered architecture simplifies system testing and debugging by isolating responsibilities across different layers. Each layer communicates with others through clearly defined interfaces, ensuring that the overall system remains organized, extensible, and adaptable to future enhancements.
 
 \section{System Modules}
+
+The Automated Diagram Digitization platform is organized into several functional modules, each responsible for a specific part of the overall workflow. This modular design simplifies development and maintenance while allowing individual components to be improved independently. Each module performs a well-defined task, ranging from handling user inputs to processing diagrams using AI and managing persistent storage of generated flowcharts.
 
 \subsection{Input Module}
 Handles three input methods: image upload with drag-drop interface, text prompt with multi-line textarea, and JSON import with file upload. Validates input formats, provides visual feedback, and prepares data for AI processing.
@@ -332,8 +345,10 @@ The system currently implements a single user role with full access to all featu
 
 \section{Summary}
 
-The system study has established clear requirements for the Automated Diagram Digitization project, addressing critical gaps in automated shape recognition, text extraction, connection detection, and interactive editing. The analysis of existing systems revealed significant inefficiencies in manual redrawing, lack of automation, and limited editing capabilities.
+The system study has established clear requirements for the Automated Diagram Digitization project, addressing critical gaps in automated shape recognition, text extraction, connection detection, and interactive editing. The analysis of existing systems revealed significant inefficiencies in manual redrawing, lack of automation, and limited editing capabilities. Traditional diagramming tools require users to recreate diagrams manually, which increases the time required for digitization and often leads to inconsistencies in layout and formatting. These limitations highlight the need for a system that can intelligently interpret diagram structures while also providing flexible editing capabilities.
 
-The proposed system directly addresses these challenges through AI-powered recognition, multiple input methods, comprehensive editing features, and flexible export options. Feasibility analysis confirms that the solution is technically achievable using proven technologies (FastAPI, React, PostgreSQL, Gemini AI), operationally practical with an intuitive user interface, and economically beneficial through time savings and open-source cost structure.
+The proposed system directly addresses these challenges through AI-powered recognition, multiple input methods, comprehensive editing features, and flexible export options. By integrating advanced AI capabilities with an intuitive web-based editor, the platform enables users to transform hand-drawn diagrams into structured digital flowcharts with minimal effort. Feasibility analysis confirms that the solution is technically achievable using proven technologies such as FastAPI, React, PostgreSQL, and Google Gemini AI. These technologies provide a stable and scalable foundation while ensuring efficient processing of diagram data.
 
-The modular architecture with clear separation of concerns positions Automated Diagram Digitization to effectively transform how users convert hand-drawn diagrams into editable digital formats, improving productivity and workflow efficiency for students, educators, software developers, and business professionals.
+From an operational perspective, the system offers a user-friendly interface that simplifies the overall workflow from diagram input to final export. Users can upload images, describe algorithms using text prompts, or import existing JSON structures, making the system adaptable to different working styles. Economically, the use of open-source technologies and cloud-based infrastructure reduces development and operational costs while providing long-term sustainability.
+
+Overall, the modular architecture with clear separation of concerns positions Automated Diagram Digitization as a reliable solution for modern diagram digitization challenges. By combining AI-based analysis with interactive editing tools, the platform significantly improves productivity and workflow efficiency. This approach enables students, educators, software developers, and business professionals to convert hand-drawn diagrams into accurate digital representations while maintaining flexibility for further customization and refinement.

@@ -14,11 +14,13 @@ This chapter presents the comprehensive system design of the Automated Diagram D
 \section{System Architecture Overview}
 
 \justifying
-The Automated Diagram Digitization platform is built on a robust three-tier architecture ensuring scalability, maintainability, and security while providing seamless integration between the React frontend, FastAPI backend, and PostgreSQL database, with clear separation of concerns between presentation, business logic, and data persistence layers.
+The Automated Diagram Digitization platform is built on a robust three-tier architecture ensuring scalability, maintainability, and security while providing seamless integration between the React frontend, FastAPI backend, and PostgreSQL database. This architectural model separates the system into three logical layers: the presentation layer responsible for user interaction, the application layer that implements the business logic and AI processing, and the data layer that manages persistent storage.
+
+Such separation of concerns allows each tier to operate independently while communicating through well-defined interfaces. This improves maintainability because modifications in one layer do not directly affect the others. It also enables future scalability, allowing the frontend, backend, and database components to be deployed or upgraded independently based on system demand.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.9\textwidth]{image/pic1.jpg}
+    \includegraphics[width=0.9\textwidth]{image/flow.jpg}
     \caption{Three-Tier System Architecture of Automated Diagram Digitization Platform}
     \label{fig:ch4-architecture}
 \end{figure}
@@ -31,15 +33,22 @@ The presentation layer serves as the user interface through which all users inte
 \justifying
 The interface is organized into two main sections: the input page with three tabs for image upload, text prompt, and JSON import; and the flowchart editor with a draggable shape sidebar, canvas area with background grid, and toolbar with undo/redo, auto-layout, export, and theme toggle controls.
 
+This structured interface design allows users to move smoothly between diagram input and editing stages without confusion. The tab-based input system ensures that multiple methods of diagram generation remain easily accessible, while the editor environment provides tools for refining and customizing the generated flowcharts. By combining these elements within a single interface, the platform offers a consistent workflow from diagram creation to final export.
+
 \subsection{Application Layer (Business Tier)}
 
 \justifying
 The application layer implements all business logic, validation, workflow orchestration, and AI integration using FastAPI with Python. Key components include RESTful API endpoints for image analysis and text-to-flowchart generation, integration with Google Gemini AI using custom prompts, request validation using Pydantic models, centralized error handling with regex fallback for malformed responses, and asynchronous database operations using SQLAlchemy.
 
+This layer acts as the central processing unit of the system, coordinating communication between the frontend interface, the AI processing service, and the database. By handling request validation, error handling, and response formatting in a centralized manner, the backend ensures consistent system behavior and simplifies debugging and maintenance tasks.
+
 \subsection{Data Layer (Database Tier)}
 
 \justifying
 The data layer manages all persistent storage using PostgreSQL with JSONB support for flexible schema storage. Key features include UUID v4 primary keys for distributed generation without coordination, JSONB columns for storing complete React Flow state (nodes and edges), timestamp tracking with timezone support for created\_at and updated\_at fields, foreign key constraints where applicable, and connection pooling for optimal performance.
+
+The database layer also supports efficient querying and reliable storage of flowchart data even as the number of diagrams grows over time. PostgreSQL’s support for JSONB enables the system to store complex node and edge structures without requiring rigid relational schemas for every property. This flexibility allows the platform to support future enhancements such as additional node types, styling options, or metadata fields without requiring major database redesign.
+
 
 % =============================================================================
 % 4.2 DATA FLOW DIAGRAMS
@@ -48,7 +57,7 @@ The data layer manages all persistent storage using PostgreSQL with JSONB suppor
 \section{Data Flow Diagrams}
 
 \justifying
-Data Flow Diagrams (DFDs) provide a graphical representation of how information moves through the Automated Diagram Digitization platform. This section describes the three most critical workflows.
+Data Flow Diagrams (DFDs) provide a graphical representation of how information moves through the Automated Diagram Digitization platform. They illustrate the sequence of data transformations that occur when users interact with the system, from initial input to final diagram output. By visualizing the movement of data between different system components, DFDs help clarify how the frontend interface, backend services, AI processing engine, and database interact during each workflow.
 
 \subsection{Image Upload and Analysis Flow}
 
@@ -57,7 +66,7 @@ The image analysis process enables users to upload flowchart images for automati
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.95\textwidth]{image/pic1.jpg}
+    \includegraphics[width=0.95\textwidth]{image/df.jpg}
     \caption{Image Upload and Analysis Data Flow Diagram}
     \label{fig:chapter4-image-flow}
 \end{figure}
@@ -83,7 +92,7 @@ The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB suppo
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{image/pic1.jpg}
+    \includegraphics[width=\textwidth]{image/arcch.jpg}
     \caption{Database Entity-Relationship Diagram}
     \label{fig:schema}
 \end{figure}
@@ -326,7 +335,9 @@ Content-Type: image/png
 \section{Module-wise Detailed Design}
 
 \justifying
-This section provides design specifications for each major module of the Automated Diagram Digitization platform, describing their component structure and interactions with other modules.
+This section provides design specifications for each major module of the Automated Diagram Digitization platform, describing their internal components and interactions with other modules. The modular architecture enables each functional component of the system to operate independently while contributing to the overall workflow. By separating responsibilities across modules, the system becomes easier to maintain, extend, and debug.
+
+Each module focuses on a specific task such as handling user input, processing AI-based recognition, editing diagrams, exporting results, or managing persistent storage. This modular approach ensures that enhancements or modifications to one part of the system can be implemented without significantly affecting other components.
 
 \subsection{Input Module}
 
@@ -511,7 +522,9 @@ LABEL RULES:
 \section{Algorithm Design}
 
 \justifying
-The Automated Diagram Digitization platform incorporates several internal algorithms to support diagram generation, layout organization, and editing functionality. These algorithms ensure that generated flowcharts remain visually structured, readable, and easy to modify. Two important algorithms implemented in the system are the column-based auto layout algorithm and the snapshot-based undo and redo algorithm.
+The Automated Diagram Digitization platform incorporates several internal algorithms to support diagram generation, layout organization, and editing functionality. These algorithms are responsible for maintaining structural consistency within generated diagrams and ensuring that editing operations remain efficient and reliable.
+
+Algorithmic design plays a critical role in transforming raw AI-generated data into visually organized flowcharts. By applying structured layout techniques and maintaining editing history through snapshot mechanisms, the system provides users with both automated organization and flexible manual control during diagram creation.
 
 \subsection{Column-based Auto Layout Algorithm}
 

@@ -3,20 +3,20 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Automated Diagram Digitization Three-Tier Architecture}}{12}{figure.caption.6}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Three-Tier System Architecture of Automated Diagram Digitization Platform}}{14}{figure.caption.8}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Image Upload and Analysis Data Flow Diagram}}{15}{figure.caption.9}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Database Entity-Relationship Diagram}}{16}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Three-Tier System Architecture of Automated Diagram Digitization Platform}}{16}{figure.caption.8}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Image Upload and Analysis Data Flow Diagram}}{17}{figure.caption.9}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Database Entity-Relationship Diagram}}{18}{figure.caption.10}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Project structure showing backend and frontend directories.}}{26}{figure.caption.13}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Image upload interface with drag-drop area and file selection.}}{27}{figure.caption.14}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Input page showing three tabs for image upload, text prompt, and JSON import.}}{27}{figure.caption.15}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Sidebar with draggable shape icons.}}{28}{figure.caption.16}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Flowchart editor canvas with nodes, edges, and toolbar.}}{28}{figure.caption.17}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Toolbar showing undo, redo, and auto-layout buttons.}}{29}{figure.caption.18}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Auto-layout applied showing nodes aligned in columns.}}{29}{figure.caption.19}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Edge label editing popup on a decision branch.}}{30}{figure.caption.20}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Same flowchart displayed in light mode.}}{30}{figure.caption.21}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Export options dropdown showing PNG, SVG, and JSON formats.}}{31}{figure.caption.22}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Input page showing three tabs for image upload, text prompt, and JSON import.}}{29}{figure.caption.13}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Sidebar with draggable shape icons.}}{29}{figure.caption.14}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Flowchart editor canvas with nodes, edges, and toolbar.}}{30}{figure.caption.15}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Image showing custom node components used in the flowchart editor.}}{30}{figure.caption.16}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Effect of the auto-layout feature on flowchart alignment.}}{31}{figure.caption.17}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Edge label editing popup on a decision branch.}}{31}{figure.caption.18}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Node color customization using the color picker.}}{32}{figure.caption.19}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Text styling options including bold, italic, and font size adjustment.}}{32}{figure.caption.20}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Same flowchart displayed in light mode.}}{33}{figure.caption.21}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Export options dropdown showing PNG, SVG, and JSON formats.}}{33}{figure.caption.22}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

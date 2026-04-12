@@ -2,218 +2,57 @@
 \label{ch:future}
 
 \section{Introduction}
-While Automated Diagram Digitization successfully delivers an intelligent flowchart recognition and editing solution, there is significant scope for enhancement. This chapter outlines potential improvements based on user feedback and emerging technology trends in AI, diagramming, and web applications.
+
+Although Automated Diagram Digitization successfully provides an AI-powered solution for converting flowchart images into editable digital diagrams, several opportunities remain for further improvement. As technologies in artificial intelligence, web applications, and collaborative tools continue to evolve, the system can be enhanced to provide greater flexibility, scalability, and usability. This chapter discusses potential future developments that could improve the capabilities of the platform and expand its range of applications.
 
 \section{Technical Enhancements}
 
-\subsection{Multi-format Export Expansion}
-Current support for PNG, SVG, and JSON can be extended:
-\begin{itemize}
-    \item PDF export for documentation and printing
-    \item Markdown export for integration with note-taking apps
-    \item HTML export for web embedding
-    \item Image formats (JPEG, WebP) with quality options
-\end{itemize}
+\subsection{Expanded Export Capabilities}
+
+Currently, the system supports exporting diagrams in PNG, SVG, and JSON formats. In future versions, additional export formats such as PDF and HTML could be introduced to support documentation, printing, and direct embedding in web pages. Support for other image formats such as JPEG or WebP with adjustable quality settings could also be added. These improvements would allow users to share and integrate diagrams more easily across different platforms and documentation workflows.
 
 \subsection{Collaborative Editing}
-Real-time multi-user collaboration features:
-\begin{itemize}
-    \item WebSocket-based live editing with Socket.io
-    \item User presence indicators showing who is viewing/editing
-    \item Change tracking and version history
-    \item Comment and annotation system for team feedback
-    \item Role-based permissions (view, edit, comment)
-\end{itemize}
 
-\subsection{Mobile Applications}
-Develop native mobile applications:
-\begin{itemize}
-    \item iOS app with Swift for on-the-go diagram capture
-    \item Android app with Kotlin for broader accessibility
-    \item Camera integration for direct flowchart capture
-    \item Offline mode with local storage and sync
-    \item Touch-optimized interface for smaller screens
-\end{itemize}
+A significant enhancement would be the introduction of real-time collaborative editing. Using technologies such as WebSockets or Socket.io, multiple users could simultaneously view and edit the same diagram. This would allow teams to brainstorm and refine process flows together. Additional features such as version history, user presence indicators, and change tracking could further support collaborative workflows in educational and professional environments.
+
+\subsection{Mobile Application Support}
+
+Another area for expansion is the development of dedicated mobile applications for Android and iOS platforms. Mobile support would allow users to capture flowcharts directly using a smartphone camera and immediately convert them into editable diagrams. A touch-optimized interface would enable users to modify diagrams conveniently on smaller screens. Offline functionality with synchronization capabilities could also allow users to continue working even without internet connectivity.
 
 \subsection{Advanced AI Capabilities}
-Enhance intelligent recognition features:
-\begin{itemize}
-    \item Hand-drawn shape recognition improvement with custom-trained models
-    \item Real-time video analysis for live diagram capture
-    \item Automatic diagram correction suggestions
-    \item Multiple layout algorithms (hierarchical, force-directed)
-    \item Style transfer to match professional templates
-\end{itemize}
+
+Future versions of the system could incorporate more advanced artificial intelligence techniques to improve recognition accuracy and expand diagram understanding. For example, custom-trained computer vision models could enhance the detection of hand-drawn shapes and handwritten text. Additional AI features might include automatic diagram correction suggestions, improved detection of complex connections, and support for multiple diagram layouts. Such improvements would further reduce manual editing effort after recognition.
 
 \section{Functional Enhancements}
 
 \subsection{Template Library}
-Pre-built flowchart templates for common scenarios:
-\begin{itemize}
-    \item Login/authentication flows
-    \item Approval processes (leave, purchase, hiring)
-    \item Common algorithms (sorting, searching)
-    \item Business process diagrams
-    \item User-contributed template marketplace
-\end{itemize}
 
-\subsection{BPMN Support}
-Extension to support Business Process Model and Notation:
-\begin{itemize}
-    \item Swimlanes for role-based process division
-    \item Events (start, end, intermediate)
-    \item Gateways (exclusive, parallel, inclusive)
-    \item Artifacts (data objects, groups, annotations)
-    \item Pool and lane visualization
-\end{itemize}
+Introducing a library of predefined templates could significantly improve usability for beginners. These templates could include commonly used flowcharts such as login processes, approval workflows, and standard algorithm representations. Users could start from a template and modify it instead of creating diagrams from scratch, thereby reducing development time and improving consistency.
 
-\subsection{UML Diagram Support}
-Expand beyond flowcharts to other diagram types:
-\begin{itemize}
-    \item Class diagrams for software design
-    \item Sequence diagrams for interaction modeling
-    \item Use case diagrams for requirements
-    \item Activity diagrams for workflow
-    \item State machine diagrams for system behavior
-\end{itemize}
+\subsection{Support for Additional Diagram Types}
 
-\subsection{Enhanced Styling Options}
-Additional customization features:
-\begin{itemize}
-    \item Gradient fills and pattern backgrounds
-    \item Custom font families (Google Fonts integration)
-    \item Shadow and glow effects
-    \item Connection line styles (dashed, dotted, curved)
-    \item Theme editor with custom color palettes
-\end{itemize}
+Currently, the system focuses primarily on flowcharts. In the future, the platform could be extended to support additional diagram types such as UML diagrams and business process models. For example, support for class diagrams, sequence diagrams, and activity diagrams could make the platform more useful for software engineering documentation. Similarly, BPMN elements such as swimlanes and gateways could be introduced for business process modeling.
 
 \section{User Experience Improvements}
 
-\subsection{Keyboard Shortcuts}
-Comprehensive shortcut support:
-\begin{itemize}
-    \item Copy/paste with Ctrl+C/Ctrl+V
-    \item Duplicate with Ctrl+D
-    \item Group/ungroup with Ctrl+G/Ctrl+Shift+G
-    \item Align options (left, right, top, bottom, center)
-    \item Quick shape insertion with keyboard
-\end{itemize}
+\subsection{Improved Keyboard Shortcuts}
 
-\subsection{Smart Guides and Snapping}
-Enhanced alignment assistance:
-\begin{itemize}
-    \item Dynamic alignment guides when moving nodes
-    \item Snap to grid with configurable grid size
-    \item Distance indicators between nodes
-    \item Auto-distribute for even spacing
-    \item Snap to other node edges and centers
-\end{itemize}
+The usability of the editor could be enhanced through a more comprehensive set of keyboard shortcuts. In addition to the existing undo and redo commands, shortcuts could be implemented for operations such as copying and pasting nodes, duplicating elements, grouping nodes, and aligning shapes. These features would improve productivity for advanced users who frequently work with large diagrams.
 
-\subsection{Accessibility}
-Compliance with WCAG 2.1 guidelines:
-\begin{itemize}
-    \item Screen reader support with ARIA labels
-    \item Keyboard navigation throughout
-    \item High contrast mode for visual impairments
-    \item Text scaling without layout breaks
-    \item Focus indicators for keyboard users
-\end{itemize}
+\subsection{Smart Alignment and Snapping}
 
-\section{Integration Capabilities}
-
-\subsection{Cloud Storage Integration}
-Connect with popular storage platforms:
-\begin{itemize}
-    \item Google Drive import/export
-    \item Dropbox synchronization
-    \item OneDrive integration
-    \item Automatic backup to cloud
-    \item Shared workspace folders
-\end{itemize}
-
-\subsection{Developer API}
-Public REST API for third-party integration:
-\begin{itemize}
-    \item Programmatic flowchart generation
-    \item Batch processing of multiple diagrams
-    \item Webhook notifications for completed analysis
-    \item API key management and rate limiting
-    \item SDK for popular languages (Python, JavaScript, Java)
-\end{itemize}
-
-\subsection{Learning Management System Integration}
-Educational institution connectivity:
-\begin{itemize}
-    \item Moodle plugin for assignment submission
-    \item Canvas integration for student diagrams
-    \item Google Classroom assignment sync
-    \item Grade export for teacher evaluation
-    \item Student progress tracking
-\end{itemize}
+Another useful improvement would be the implementation of smart alignment guides and snapping mechanisms. When users move nodes within the editor, visual alignment guides could appear to help position nodes relative to other elements. Grid snapping and automatic spacing adjustments could also help maintain visually balanced diagrams without requiring manual alignment.
 
 \section{Infrastructure Improvements}
 
-\subsection{User Authentication System}
-Add comprehensive user management:
-\begin{itemize}
-    \item Email/password registration and login
-    \item Social login (Google, GitHub, Microsoft)
-    \item Workspace/organization accounts
-    \item Role-based permissions (admin, editor, viewer)
-    \item Two-factor authentication for security
-\end{itemize}
+\subsection{User Authentication and Account Management}
+
+Currently, the system operates without a dedicated user account system. In future versions, authentication mechanisms could be introduced to allow users to securely save and manage their diagrams. Features such as email-based login, social authentication, and workspace management could enable users to organize multiple diagrams efficiently. Role-based permissions could also allow teams to manage access for viewing or editing diagrams.
 
 \subsection{Performance Optimization}
-Enhanced scalability features:
-\begin{itemize}
-    \item Redis caching for frequent queries
-    \item CDN for static assets
-    \item Database read replicas for reporting
-    \item Image optimization pipeline
-    \item Lazy loading for large diagrams
-\end{itemize}
 
-\subsection{Analytics Dashboard}
-Usage tracking and insights:
-\begin{itemize}
-    \item Diagram creation statistics
-    \item Most used shapes and features
-    \item User engagement metrics
-    \item Export format popularity
-    \item Performance monitoring and alerts
-\end{itemize}
-
-\section{Community and Collaboration}
-
-\begin{itemize}
-    \item Public diagram sharing with embed codes
-    \item Comment and feedback system on shared diagrams
-    \item User forums for tips and troubleshooting
-    \item Gallery of featured community diagrams
-    \item Tutorial creation and sharing platform
-\end{itemize}
-
-\section{Commercial Opportunities}
-
-\subsection{Subscription Tiers}
-Freemium model for sustainable development:
-\begin{itemize}
-    \item Free tier: Basic features, limited exports
-    \item Pro tier: Advanced AI, unlimited exports, templates
-    \item Team tier: Collaboration features, admin controls
-    \item Enterprise tier: SSO, on-premise deployment, SLA
-\end{itemize}
-
-\subsection{White Label Solution}
-Custom branding for organizations:
-\begin{itemize}
-    \item Custom domain support
-    \item Organization logo and theming
-    \item Private template libraries
-    \item Dedicated support and training
-    \item Usage analytics for administrators
-\end{itemize}
+As the number of users and stored diagrams increases, performance optimization will become increasingly important. Techniques such as caching frequently accessed data, optimizing database queries, and using content delivery networks for static assets could improve system responsiveness. Additional optimizations such as lazy loading and image compression could also enhance performance when handling large diagrams.
 
 \section{Conclusion}
 
-The future roadmap positions Automated Diagram Digitization for significant growth and evolution. Prioritized enhancements—collaborative editing, mobile applications, and advanced AI capabilities—will expand functionality and user reach. Infrastructure improvements including user authentication and performance optimization ensure scalability, while integration capabilities open new markets in education and enterprise. With a modular architecture and strong technical foundation, Automated Diagram Digitization is well-positioned for continuous evolution in the diagramming and visual documentation space.
+The future development of Automated Diagram Digitization offers numerous opportunities to enhance both functionality and usability. Improvements such as collaborative editing, mobile support, advanced AI-based recognition, and expanded export capabilities can significantly extend the system’s usefulness across educational, professional, and enterprise environments. With its modular architecture and strong technical foundation, the platform is well positioned to incorporate these enhancements and continue evolving as an intelligent diagram digitization solution.
