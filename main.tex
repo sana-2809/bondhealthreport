@@ -150,7 +150,7 @@
 \geometry{
     b4paper,
     top=1.2in,
-    bottom=1.3in,
+    bottom=1.2in,
     left=0.85in,
     right=0.85in,
     footskip=0.7in
@@ -249,7 +249,15 @@
 \thispagestyle{footeronly}
 
 \clearpage
-\begin{spacing}{1.62}
+\phantomsection
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\begin{spacing}{1.6}
+\lstlistoflistings
+\end{spacing}
+\thispagestyle{footeronly}
+
+\clearpage
+\begin{spacing}{1.6}
 \tableofcontents
 \end{spacing}
 \thispagestyle{footeronly}

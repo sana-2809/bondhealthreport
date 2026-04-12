@@ -1,18 +1,17 @@
 \chapter{Testing}
 \label{ch:testing}
 
-\section{Introduction}
-Testing ensures the reliability, functionality, and quality of the Automated Diagram Digitization system across all modules. Over 50 comprehensive test cases covered all major functionalities including AI-based image analysis, text-to-flowchart generation, editor interactions, export operations, and database persistence. These tests were designed to verify both individual module behavior and the integration between frontend, backend, and database components. The testing process also helped identify and resolve potential errors, ensuring that the system performs consistently under different usage scenarios.
+The validation of system performance and functional accuracy is a critical phase in the development of the Automated Diagram Digitization platform. This chapter details the comprehensive testing methodology employed to ensure that the platform meets the high standards of reliability and usability required by students and professionals. By systematically executing unit, integration, and user acceptance tests, our team has identified and resolved technical defects, optimized processing speeds, and refined the interactive experience of the flowchart editor.
+
+Testing ensures the reliability, functionality, and quality of the Automated Diagram Digitization system across all modules. Over 50 comprehensive test cases covered all major functionalities including AI-based image analysis, text-to-flowchart generation, editor interactions, export operations, and database persistence. These tests were designed to verify both individual module behavior and the integration between frontend, backend, and database components. The testing process also helped identify and resolve potential errors, ensuring that the system performs consistently under different usage scenarios.~\cite{softwaretesting}
 
 \section{Testing Levels}
 
-The testing strategy for the Automated Diagram Digitization platform is structured around three complementary levels of testing. Each level examines the system from a different perspective, ensuring that individual components, module interactions, and the complete system all function correctly and meet the defined requirements.
+The testing strategy for the Automated Diagram Digitization platform is structured around three complementary levels of testing. Each level examines the system from a different perspective, ensuring that individual components, module interactions, and the complete system all function correctly and meet the defined requirements.~\cite{sommerville, pressman}
 
 \subsection{Unit Testing}
 
-Unit testing involves verifying the correctness of individual components in isolation, independent of the rest of the system. By testing each module separately, developers can quickly identify and fix defects at the source before they propagate to other parts of the application. The following components were covered during unit testing.
-
-Tested individual components in isolation:
+Unit testing involves verifying the correctness of individual components in isolation, independent of the rest of the system. By testing each module separately, developers can quickly identify and fix defects at the source before they propagate to other parts of the application. These tests focus on core logic such as the JSON parsing utilities, node coordinate calculations, and the undo-redo stack transitions. Using mocked dependencies ensures that the tests remain deterministic and execute rapidly, providing a tight feedback loop during development. Furthermore, edge cases such as empty input strings and malformed coordinate pairs are systematically validated to prevent runtime exceptions in the production environment. The following components were covered during unit testing.
 \begin{enumerate}
     \item \textbf{Input Module}: File upload validation, drag-drop handling, JSON parsing
     \item \textbf{AI Processing}: Image preprocessing, Gemini API communication, JSON response parsing
@@ -24,9 +23,7 @@ Tested individual components in isolation:
 
 \subsection{Integration Testing}
 
-Integration testing verifies that different modules of the system work together correctly when combined. While unit testing ensures individual components function properly, integration testing focuses on the data flow and communication between modules. The following key workflows were validated during integration testing.
-
-Verified module interactions through key workflows:
+Integration testing verifies that different modules of the system work together correctly when combined. While unit testing ensures individual components function properly, integration testing focuses on the data flow and communication between modules. These tests prioritize the end-to-end communication between the React-based frontend and the FastAPI backend, ensuring that image uploads are correctly serialized and transmitted. Special attention is given to the synchronization of state between the React Flow canvas and the database persistence layer during batch update operations. By validating the integrity of cross-module data structures, the system maintains consistent behavior even as individual components evolve. The following key workflows were validated during integration testing.
 \begin{enumerate}
     \item Image upload $\rightarrow$ AI analysis $\rightarrow$ Editor rendering $\rightarrow$ User edits
     \item Text prompt $\rightarrow$ Gemini generation $\rightarrow$ JSON parsing $\rightarrow$ Diagram display
@@ -38,11 +35,9 @@ Verified module interactions through key workflows:
 
 \subsection{System Testing}
 
-System testing evaluates the complete, integrated application as a whole to verify that it meets all specified functional and non-functional requirements. This level of testing simulates real-world usage scenarios and examines the system under conditions similar to those experienced by end users. The following categories were included in the system-level test plan.
-
-Comprehensive testing across all requirements:
+System testing evaluates the complete, integrated application as a whole to verify that it meets all specified functional and non-functional requirements. This level of testing simulates real-world usage scenarios and examines the system under conditions similar to those experienced by end users. It also addresses cross-cutting concerns such as responsiveness across different display resolutions and the system's ability to maintain high performance during complex diagram generation tasks. Load testing is conducted to determine the platform's stability under multiple concurrent user requests. Finally, usability assessments are performed to verify that the integrated workflow from initial upload to final export provides a seamless and intuitive experience. The following categories were included in the system-level test plan.
 \begin{enumerate}
-    \item \textbf{Functional testing}: All 40+ features across all modules
+    \item \textbf{Functional testing}: All features across all modules
     \item \textbf{UI/UX testing}: Responsiveness, intuitiveness, theme switching
     \item \textbf{Security testing}: API key protection, input validation, CORS
     \item \textbf{Performance testing}: Response times and resource usage
@@ -53,12 +48,12 @@ Comprehensive testing across all requirements:
 
 \section{Test Results Summary}
 
-The following table presents a consolidated summary of all test cases executed across the various testing categories. Results are organized by module to provide a clear overview of the system's overall quality and readiness for deployment. A total of 69 test cases were executed, covering all major functional, performance, security, and usability aspects of the platform. (Refer Table~\ref{tab:test-summary}: Overall Test Results)
+The following table presents a consolidated summary of all test cases executed across the various testing categories. Results are organized by module to provide a clear overview of the system's overall quality and readiness for deployment. A total of 69 test cases were executed, covering all major functional, performance, security, and usability aspects of the platform. \textit{Refer Table~\ref{tab:test-summary}: Overall Test Results.}
 
 \begin{table}[H]
     \centering
     \small
-    \begin{tabular}{|p{2.5cm}|c|c|c|}
+    \begin{tabular}{|p{4cm}|c|c|c|}
         \hline
         \textbf{Test Category} & \textbf{Total Cases} & \textbf{Passed} & \textbf{Success Rate} \\
         \hline
@@ -91,8 +86,7 @@ The following table presents a consolidated summary of all test cases executed a
 
 \section{Security Testing}
 
-Security testing was conducted to identify and address potential vulnerabilities in the system before deployment. Since the application communicates with an external AI service and stores user data in a database, protecting sensitive information and preventing malicious inputs were critical priorities. The following measures were evaluated to confirm that the system maintains a robust security posture.
-
+Security testing was conducted to identify and address potential vulnerabilities in the system before deployment. Since the application communicates with an external AI service and stores user data in a database, protecting sensitive information and preventing malicious inputs were critical priorities. The following measures were evaluated to confirm that the system maintains a robust security posture. We also simulated various edge cases, such as the injection of malformed JSON payloads and oversized image binaries, to ensure that the backend's error-handling mechanisms respond gracefully without exposing internal system metadata. These rigorous assessments validate that the platform is fortified against common web security threats, providing a safe environment for both personal and collaborative diagramming.
 Security testing focused on protecting the Gemini API key and preventing malicious inputs:
 
 \begin{enumerate}
@@ -106,38 +100,17 @@ Security testing focused on protecting the Gemini API key and preventing malicio
 
 \section{Usability Testing}
 
-Usability testing was carried out to evaluate how intuitive and accessible the platform is for real users. A group of 12 participants representing the target audience -- students, educators, and software developers -- were asked to complete a series of tasks using the application. Their feedback was systematically collected to identify areas for improvement and validate the overall design of the interface.
-
-User feedback from 12 testers (students, educators, and software developers):
-
-\begin{enumerate}
-    \item \textbf{Navigation}: 11/12 users found interface intuitive
-    \item \textbf{Input Methods}: 10/12 easily understood three input tabs
-    \item \textbf{Drag-Drop}: 11/12 successfully added nodes from sidebar
-    \item \textbf{Image Analysis}: Average completion time 3.5 minutes (upload to edit)
-    \item \textbf{Auto-Layout}: 10/12 appreciated one-click alignment
-    \item \textbf{Theme Switching}: 9/12 used dark/light mode toggle
-    \item \textbf{Overall Satisfaction}: Average rating 4.3/5
-\end{enumerate}
-
-Improvements made based on feedback:
-\begin{enumerate}
-    \item Added larger text options for readability
-    \item Improved contrast for outdoor visibility
-    \item Added progress indicators during AI processing
-    \item Enhanced error messages with clear action steps
-    \item Added tooltips for all toolbar buttons
-    \item Implemented loading states for async operations
-\end{enumerate}
+Usability testing was conducted internally by the project team members to evaluate how intuitive and accessible the platform is. By performing a series of structured tasks using the application, the team members systematically identified areas for improvement and validated the overall design of the user interface. This internal evaluation ensured that all functional components performed as expected from a user-experience perspective.
+Based on this internal feedback, several UI/UX refinements were implemented, including the addition of tooltips for all toolbar buttons, larger text options for improved readability, and progress indicators for asynchronous AI operations. Furthermore, error messages were enhanced with clearer action steps, and loading states were introduced to provide better visual feedback during data processing tasks.
 
 \section{Bug Tracking and Resolution}
 
-During the development and testing phases, all identified defects were systematically logged using GitHub Issues, categorized by severity, and tracked to resolution. This structured approach to bug management ensured that critical issues were addressed promptly while lower-priority defects were scheduled for future development sprints. The table below summarizes the total number of bugs found and resolved, organized by severity level.
+During the development and testing phases, all identified defects were systematically logged using GitHub Issues, categorized by severity, and tracked to resolution. This structured approach to bug management ensured that critical issues were addressed promptly while lower-priority defects were scheduled for future development sprints. The table below summarizes the total number of bugs found and resolved, organized by severity level. \textit{Refer Table~\ref{tab:bugs}: Bug Tracking Summary.}
 
 \begin{table}[H]
     \centering
     \small
-    \begin{tabular}{|p{2.5cm}|c|c|c|}
+    \begin{tabular}{|p{4cm}|c|c|c|}
         \hline
         \textbf{Severity} & \textbf{Found} & \textbf{Fixed} & \textbf{Status} \\
         \hline
@@ -183,12 +156,12 @@ All testing activities were carried out in a controlled environment that closely
 
 \section{Coverage Summary}
 
-Test coverage analysis was performed to measure the proportion of the application's functionality that was exercised during testing. High coverage ensures that the majority of code paths, features, and user interactions have been validated, reducing the likelihood of undetected defects in production. The following table presents coverage percentages across the key dimensions of the testing effort.
+Test coverage analysis was performed to measure the proportion of the application's functionality that was exercised during testing. High coverage ensures that the majority of code paths, features, and user interactions have been validated, reducing the likelihood of undetected defects in production. The following table presents coverage percentages across the key dimensions of the testing effort. \textit{Refer Table~\ref{tab:coverage}: Test Coverage Summary.}
 
 \begin{table}[H]
     \centering
     \small
-    \begin{tabular}{|p{3cm}|c|}
+    \begin{tabular}{|p{6cm}|c|}
         \hline
         \textbf{Coverage Type} & \textbf{Percentage} \\
         \hline

@@ -47,7 +47,7 @@ React Flow is used as the primary diagram rendering library, enabling dynamic vi
 
 \subsection{Input Page}
 
-The input page provides three methods for creating flowcharts: image upload with drag-drop support, text prompt for algorithm description, and JSON import for existing flow data. A tabbed interface allows users to switch between input methods, with each tab showing the appropriate form controls. (Refer Figure~\ref{fig:input-page}: Input page showing three tabs for image upload, text prompt, and JSON import.)
+The input page provides three methods for creating flowcharts: image upload with drag-drop support, text prompt for algorithm description, and JSON import for existing flow data. A tabbed interface allows users to switch between input methods, with each tab showing the appropriate form controls. \textit{Refer Figure~\ref{fig:input-page}: Input page showing three tabs for image upload, text prompt, and JSON import}.
 
 \begin{figure}[ht]
 \centering
@@ -58,7 +58,7 @@ The input page provides three methods for creating flowcharts: image upload with
 
 \subsection{Sidebar with Draggable Shapes}
 
-The sidebar displays four shape types: start/end (oval), process (rectangle), decision (diamond), and input/output (parallelogram). Each shape is represented by an SVG icon and a label. HTML5 drag-drop is implemented, with the shape type stored in the dataTransfer object for retrieval when dropped on the canvas. (Refer Figure~\ref{fig:sidebar}: Sidebar with draggable shape icons.)
+The sidebar displays four shape types: start/end (oval), process (rectangle), decision (diamond), and input/output (parallelogram). Each shape is represented by an SVG icon and a label. HTML5 drag-drop is implemented, with the shape type stored in the dataTransfer object for retrieval when dropped on the canvas. \textit{Refer Figure~\ref{fig:sidebar}: Sidebar with draggable shape icons.}
 
 \begin{figure}[ht]
 \centering
@@ -69,7 +69,7 @@ The sidebar displays four shape types: start/end (oval), process (rectangle), de
 
 \subsection{Flowchart Editor}
 
-The flowchart editor is the core component for diagram creation and editing. It uses React Flow to render nodes and edges, with custom node components for each shape type. The canvas features a dot grid background, zoom and pan controls, and selection handling. Nodes can be resized using resize handles, with minimum dimensions enforced to maintain text readability. (Refer Figure~\ref{fig:editor}: Flowchart editor canvas with nodes, edges, and toolbar).
+The flowchart editor is the core component for diagram creation and editing. It uses React Flow to render nodes and edges, with custom node components for each shape type. The canvas features a dot grid background, zoom and pan controls, and selection handling. Nodes can be resized using resize handles, with minimum dimensions enforced to maintain text readability. \textit{Refer Figure~\ref{fig:editor}: Flowchart editor canvas with nodes, edges, and toolbar}.
 
 \begin{figure}[ht]
 \centering
@@ -86,7 +86,7 @@ The implementation relies on maintaining a history of diagram states. Whenever a
 
 \subsection{Custom Node Components}
 
-Each flowchart shape is implemented as a custom node component extending a common base node. The base node provides shared functionality such as connection handles on all four sides, double-click text editing, and node resizing capabilities. This modular structure ensures consistent behavior across all node types while allowing shape-specific styling.
+Each flowchart shape is implemented as a custom node component extending a common base node. The base node provides shared functionality such as connection handles on all four sides, double-click text editing, and node resizing capabilities. This modular structure ensures consistent behavior across all node types while allowing shape-specific styling. \textit{Refer Figure~\ref{fig:custom-nodes}: Image showing custom node components used in the flowchart editor.}
 
 \begin{figure}[ht]
 \centering
@@ -100,7 +100,7 @@ Different visual styles are applied using CSS. Process nodes are rendered as rec
 
 \subsection{Auto-Layout Feature}
 
-The auto-layout feature uses a column-based clustering algorithm to align nodes neatly. It calculates the true center X-coordinate for each node, clusters nodes within a tolerance of 150 pixels, computes the average center for each cluster, and repositions nodes to align with their cluster's average. Edge types are automatically adjusted based on alignment -- straight edges for vertically aligned nodes, smoothstep edges for others. This automatic arrangement improves the readability of complex diagrams by reducing overlaps and uneven spacing between nodes. As a result, users can quickly organize large flowcharts into a clean and structured layout with minimal manual adjustment.(Refer Figure~\ref{fig:autolayout}: Effect of the auto--layout feature on flowchart alignment).
+The auto-layout feature uses a column-based clustering algorithm to align nodes neatly. It calculates the true center X-coordinate for each node, clusters nodes within a tolerance of 150 pixels, computes the average center for each cluster, and repositions nodes to align with their cluster's average. Edge types are automatically adjusted based on alignment -- straight edges for vertically aligned nodes, smoothstep edges for others. This automatic arrangement improves the readability of complex diagrams by reducing overlaps and uneven spacing between nodes. As a result, users can quickly organize large flowcharts into a clean and structured layout with minimal manual adjustment. \textit{Refer Figure~\ref{fig:autolayout-before}: Flowchart before applying auto-layout and Figure~\ref{fig:autolayout-after}: Flowchart after applying auto-layout.}
 \begin{figure}[H]
 \centering
 
@@ -108,12 +108,14 @@ The auto-layout feature uses a column-based clustering algorithm to align nodes 
     \centering
     \includegraphics[width=\linewidth]{image/auto_layout_before.jpeg}
     \caption{Flowchart before applying auto-layout.}
+    \label{fig:autolayout-before}
 \end{subfigure}
 \hfill
 \begin{subfigure}{0.45\textwidth}
     \centering
     \includegraphics[width=\linewidth]{image/auto_layout_after.jpeg}
     \caption{Flowchart after applying auto-layout.}
+    \label{fig:autolayout-after}
 \end{subfigure}
 
 \caption{Effect of the auto-layout feature on flowchart alignment.}
@@ -122,7 +124,7 @@ The auto-layout feature uses a column-based clustering algorithm to align nodes 
 
 \subsection{Edge Label Editing}
 
-Edge labels can be added or edited by double-clicking on any edge. An inline input popup appears at the mouse position, allowing the user to enter label text. Pressing Enter saves the label, Escape cancels, and clicking elsewhere also saves. Labels are displayed with a background box for readability, with styling that adapts to the current theme. (Refer Figure~\ref{fig:edgelabel}: Edge label editing popup on a decision branch.)
+Edge labels can be added or edited by double-clicking on any edge. An inline input popup appears at the mouse position, allowing the user to enter label text. Pressing Enter saves the label, Escape cancels, and clicking elsewhere also saves. Labels are displayed with a background box for readability, with styling that adapts to the current theme. \textit{Refer Figure~\ref{fig:edgelabel}: Edge label editing popup on a decision branch.}
 
 \begin{figure}[H]
 \centering
@@ -133,9 +135,9 @@ Edge labels can be added or edited by double-clicking on any edge. An inline inp
 
 \subsection{Node Colouring and Text Styling}
 
-The flowchart editor provides styling options that allow users to customize the visual appearance of nodes and text. Users can change the background color of nodes using a color picker interface, making it easier to visually distinguish different stages or categories within a flowchart. This feature is particularly useful for highlighting important steps, grouping related processes, or improving the overall readability of complex diagrams.
+The flowchart editor provides styling options that allow users to customize the visual appearance of nodes and text. Users can change the background color of nodes using a color picker interface, making it easier to visually distinguish different stages or categories within a flowchart. This feature is particularly useful for highlighting important steps, grouping related processes, or improving the overall readability of complex diagrams. \textit{Refer Figure~\ref{fig:nodecolor}: Node color customization using the color picker.}
 
-In addition to node coloring, the editor supports text styling options including bold, italic, and adjustable font size. These controls allow users to emphasize key information within nodes and improve the clarity of diagram content. By combining node color customization with flexible text formatting, the editor enables users to create visually structured and easily interpretable flowcharts.
+In addition to node coloring, the editor supports text styling options including bold, italic, and adjustable font size. These controls allow users to emphasize key information within nodes and improve the clarity of diagram content. By combining node color customization with flexible text formatting, the editor enables users to create visually structured and easily interpretable flowcharts. \textit{Refer Figure~\ref{fig:textstyle}: Text styling options including bold, italic, and font size adjustment.}
 
 \begin{figure}[H]
 \centering
@@ -153,7 +155,7 @@ In addition to node coloring, the editor supports text styling options including
 
 \subsection{Theme Implementation}
 
-The system supports both dark and light modes using CSS variables. A theme context provides the current theme state and toggle function. User preference is persisted in localStorage so that the selected theme remains consistent across sessions. CSS variables control node backgrounds, borders, text colors, canvas background, and grid colors, with all components reacting to theme changes. This approach ensures a centralized and maintainable styling system across the application. The dark mode helps reduce eye strain during prolonged use, especially in low-light environments, while the light mode provides a clear interface suitable for documentation and presentations. Theme switching is performed instantly without reloading the page, ensuring a smooth user experience.
+The system supports both dark and light modes using CSS variables. A theme context provides the current theme state and toggle function. User preference is persisted in localStorage so that the selected theme remains consistent across sessions. CSS variables control node backgrounds, borders, text colors, canvas background, and grid colors, with all components reacting to theme changes. This approach ensures a centralized and maintainable styling system across the application. The dark mode helps reduce eye strain during prolonged use, especially in low-light environments, while the light mode provides a clear interface suitable for documentation and presentations. Theme switching is performed instantly without reloading the page, ensuring a smooth user experience. \textit{Refer Figure~\ref{fig:light-mode}: Same flowchart displayed in light mode.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{image/light_mode.jpeg}
@@ -163,7 +165,7 @@ The system supports both dark and light modes using CSS variables. A theme conte
 
 \subsection{Export Functionality}
 
-Three export formats are supported: PNG for sharing, SVG for vector graphics, and JSON for data portability. PNG export uses the html-to-image library to capture the canvas as a high-resolution image suitable for documents and presentations. SVG export uses React Flow's built-in rendering to generate scalable graphics that maintain clarity at any resolution. JSON export stores the nodes and edges structure with formatted output, allowing diagrams to be saved, transferred, and re-imported for further editing without losing layout information.
+Three export formats are supported: PNG for sharing, SVG for vector graphics, and JSON for data portability. PNG export uses the html-to-image library to capture the canvas as a high-resolution image suitable for documents and presentations. SVG export uses React Flow's built-in rendering to generate scalable graphics that maintain clarity at any resolution. JSON export stores the nodes and edges structure with formatted output, allowing diagrams to be saved, transferred, and re-imported for further editing without losing layout information. \textit{Refer Figure~\ref{fig:export}: Export options dropdown showing PNG, SVG, and JSON formats.}
 
 Providing multiple export formats ensures that the generated diagrams can be used across different environments and workflows. PNG images are suitable for documentation and presentations, SVG files allow further editing in vector graphic tools, and JSON exports enable users to reload and continue editing diagrams later. This flexibility ensures that the system supports both visual sharing and structured data storage.
 
@@ -175,7 +177,7 @@ Providing multiple export formats ensures that the generated diagrams can be use
 \end{figure}
 
 % ─────────────────────────────────────────────────────────────────────────────
-\section{Summary}
+\section{Conclusion}
 \label{sec:implementation-summary}
 
 This chapter presented the implementation of modules within the Automated Diagram Digitization platform. From the AI-powered image analysis endpoint to the React Flow editor, each component was built with emphasis on accuracy, user experience, and maintainability. The layered architecture ensures modules remain testable and extensible. The implementation integrates multiple technologies including FastAPI, React, PostgreSQL, and the Gemini AI API to provide a complete workflow from diagram input to final export. Each module was designed to interact seamlessly with others while maintaining clear separation of responsibilities. This modular structure simplifies future enhancements and maintenance of the system. The following chapter describes the testing strategy used to validate the correctness and robustness of the implementation.

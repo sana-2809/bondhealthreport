@@ -315,7 +315,7 @@ The system architecture defines the structural organization of the Automated Dia
 \label{fig:architecture}
 \end{figure}
 
-The Automated Diagram Digitization system follows a three-tier architecture with clear separation of concerns. This design ensures that each layer is responsible for a distinct set of tasks, reducing coupling between components and enabling independent development, testing, and scaling of each tier.(Refer Figure~\ref{fig:architecture}: Automated Diagram Digitization Three-Tier Architecture)
+The Automated Diagram Digitization system follows a three-tier architecture with clear separation of concerns. This design ensures that each layer is responsible for a distinct set of tasks, reducing coupling between components and enabling independent development, testing, and scaling of each tier. \textit{Refer Figure~\ref{fig:architecture}: Automated Diagram Digitization Three-Tier Architecture}
 
 \begin{enumerate}
     \item \textbf{Presentation Layer:} Handles all user interaction through React components, including the input page with tabs for different input methods, the diagram editor with React Flow, and the sidebar with draggable shape palette.
@@ -359,7 +359,7 @@ Manages PostgreSQL database operations including save, retrieve, and update of f
 
 \section{User Roles and Permissions}
 
-Access control defines how different users interact with the system and what actions they are permitted to perform. In the current version of the Automated Diagram Digitization platform, the system operates without mandatory user authentication, making all features accessible to any user. The system currently implements a single user role with full access to all features, as authentication is not required for basic usage. Future enhancements may include user authentication with role-based access for collaborative features. The table below summarizes the permissions associated with the general user role. (Refer Table~\ref{tab:roles}: User Roles and Access Levels).
+Access control defines how different users interact with the system and what actions they are permitted to perform. In the current version of the Automated Diagram Digitization platform, the system operates without mandatory user authentication, making all features accessible to any user. The system currently implements a single user role with full access to all features, as authentication is not required for basic usage. Future enhancements may include user authentication with role-based access for collaborative features. The table below summarizes the permissions associated with the general user role. \textit{Refer Table~\ref{tab:roles}: User Roles and Access Levels}.
 
 \begin{table}[ht]
 \centering
@@ -383,7 +383,7 @@ User (All) & Save and retrieve flowcharts from database \\
 \end{table}
 
 
-\section{Summary}
+\section{Conclusion}
 
 The system study has established clear requirements for the Automated Diagram Digitization project, addressing critical gaps in automated shape recognition, text extraction, connection detection, and interactive editing. The analysis of existing systems revealed significant inefficiencies in manual redrawing, lack of automation, and limited editing capabilities. Traditional diagramming tools require users to recreate diagrams manually, which increases the time required for digitization and often leads to inconsistencies in layout and formatting. These limitations highlight the need for a system that can intelligently interpret diagram structures while also providing flexible editing capabilities.
 

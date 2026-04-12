@@ -16,7 +16,7 @@ This chapter presents the comprehensive system design of the Automated Diagram D
 \justifying
 The Automated Diagram Digitization platform is built on a robust three-tier architecture ensuring scalability, maintainability, and security while providing seamless integration between the React frontend, FastAPI backend, and PostgreSQL database. This architectural model separates the system into three logical layers: the presentation layer responsible for user interaction, the application layer that implements the business logic and AI processing, and the data layer that manages persistent storage.~\cite{clean-arch}
 
-Such separation of concerns allows each tier to operate independently while communicating through well-defined interfaces. This improves maintainability because modifications in one layer do not directly affect the others. It also enables future scalability, allowing the frontend, backend, and database components to be deployed or upgraded independently based on system demand.(Refer Figure~\ref{fig:ch4-architecture}: Three-Tier System Architecture of Automated Diagram Digitization Platform).
+Such separation of concerns allows each tier to operate independently while communicating through well-defined interfaces. This improves maintainability because modifications in one layer do not directly affect the others. It also enables future scalability, allowing the frontend, backend, and database components to be deployed or upgraded independently based on system demand. \textit{Refer Figure~\ref{fig:ch4-architecture}: Three-Tier System Architecture of Automated Diagram Digitization Platform}.
 
 \begin{figure}[ht]
     \centering
@@ -62,7 +62,7 @@ Data Flow Diagrams (DFDs) provide a graphical representation of how information 
 \subsection{Image Upload and Analysis Flow}
 
 \justifying
-The image analysis process enables users to upload flowchart images for automatic digitization. The workflow proceeds as follows: the user selects an image file via drag-drop or file picker, the frontend validates file type and size, the image is sent to the backend via multipart/form-data, the backend processes the image using Pillow (resizing to thumbnail), the image is sent to Gemini AI with the system prompt, the AI returns JSON with nodes and edges, the backend parses the response and ensures edge IDs exist, and the frontend renders the flowchart in the editor. The user can then edit, save, or export the diagram.(Refer Figure~\ref{fig:chapter4--image--flow}: Image Upload and Analysis Data Flow Diagram).
+The image analysis process enables users to upload flowchart images for automatic digitization. The workflow proceeds as follows: the user selects an image file via drag-drop or file picker, the frontend validates file type and size, the image is sent to the backend via multipart/form-data, the backend processes the image using Pillow (resizing to thumbnail), the image is sent to Gemini AI with the system prompt, the AI returns JSON with nodes and edges, the backend parses the response and ensures edge IDs exist, and the frontend renders the flowchart in the editor. The user can then edit, save, or export the diagram. \textit{Refer Figure~\ref{fig:chapter4-image-flow}: Image Upload and Analysis Data Flow Diagram}.
 
 \begin{figure}[ht]
     \centering
@@ -88,7 +88,7 @@ The JSON import/export functionality enables data portability and integration wi
 \section{Use Case Diagram}
 
 \justifying
-The Use Case Diagram (UCD) for the Automated Diagram Digitization platform describes the interactions between the system's single actor -- the user -- and the various functional capabilities the platform provides. Since the system does not implement user authentication, all features are accessible to any visitor. The diagram captures the complete set of actions a user can perform within the system, from uploading a flowchart image to exporting the final diagram.(Refer Figure~\ref{fig:use--case--diagram}: Use Case Diagram for Automated Diagram Digitization).~\cite{sommerville}
+The Use Case Diagram (UCD) for the Automated Diagram Digitization platform describes the interactions between the system's single actor -- the user -- and the various functional capabilities the platform provides. The diagram captures the complete set of actions a user can perform within the system, from uploading a flowchart image to exporting the final diagram. The diagram illustrates the pivotal roles of the image analysis and text-to-flowchart generation modules, which serve as the primary entry points for system interaction. Users interact with the canvas interface to perform refined editing operations, such as modifying node labels, adjusting spatial configurations, and managing edge connections. Furthermore, the inclusion of an automated layout feature and persistent synchronization indicates a design focused on minimizing manual effort during diagram digitization. This comprehensive mapping of system functionality ensures that all intended user workflows are clearly defined and technically feasible within the platform's architectural boundaries. \textit{Refer Figure~\ref{fig:use-case-diagram}: Use Case Diagram for Automated Diagram Digitization}.~\cite{sommerville}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth,height=0.97\textheight,keepaspectratio]{image/use-case-diagram.png}
@@ -103,7 +103,7 @@ The Use Case Diagram (UCD) for the Automated Diagram Digitization platform descr
 \section{Database Schema Design (PostgreSQL)}
 
 \justifying
-The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB support, providing reliable data persistence, ACID compliance, and flexible schema for storing complex flowchart data.The schema uses UUID primary keys, timestamp tracking, and JSONB columns for flow data storage. The database entity-relationship diagram is shown in (Refer Figure~\ref{fig:schema}: Database Entity-Relationship Diagram).~\cite{postgresql}
+The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB support, providing reliable data persistence, ACID compliance, and flexible schema for storing complex flowchart data.The schema uses UUID primary keys, timestamp tracking, and JSONB columns for flow data storage.~\cite{postgresql}
 
 \begin{table}[ht]
     \centering
@@ -114,20 +114,15 @@ The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB suppo
 
 \justifying
 The Entity-Relationship diagram above illustrates the database structure. At the center is the \texttt{flowcharts} table, which stores all flowchart data. Each flowchart has a unique UUID identifier, a title string, a JSONB column containing the complete React Flow state (nodes and edges), and timestamp columns for creation and last update tracking.
-
-\justifying
 The JSONB column provides flexibility to store varying node and edge structures without requiring schema changes. Each node object contains id, type, position coordinates, data (including label), width, height, and optional styling properties. Each edge object contains id, source, target, optional label, type (smoothstep/straight), markerEnd for arrows, and optional styling properties.
+The schema follows best practices for web applications, uses \texttt{created\_at} and \texttt{updated\_at} timestamps with timezone support for audit compliance, applies indexes on frequently queried columns, and uses UUID primary keys for security benefits over sequential integers. The JSONB column supports indexing on specific fields if needed for performance. \textit{Refer Figure~\ref{fig:schema}: Database Entity-Relationship Diagram.}
 
 \justifying
-The schema follows best practices for web applications, uses \texttt{created\_at} and \texttt{updated\_at} timestamps with timezone support for audit compliance, applies indexes on frequently queried columns, and uses UUID primary keys for security benefits over sequential integers. The JSONB column supports indexing on specific fields if needed for performance.
+All timestamp columns use \texttt{TIMESTAMPTZ} rather than a timezone-naive type, storing values in UTC and allowing the application layer to convert to the user's local timezone at render time. This is particularly important for a platform that may be deployed across different geographical regions. Consistent UTC storage eliminates ambiguity in timestamp comparisons.~\cite{sqlalchemy}
 
 \justifying
-All timestamp columns use \texttt{TIMESTAMPTZ} rather than a timezone-naive type, storing values in UTC and allowing the application layer to convert to the user's local timezone at render time. This is particularly important for a platform that may be deployed across different geographical regions. Consistent UTC storage eliminates ambiguity in timestamp comparisons.
-
-\justifying
-The schema is managed through a versioned migration system using Alembic (SQLAlchemy migrations), capturing every structural change as an incremental script across development, staging, and production environments. This ensures consistent database evolution across all deployments.~\cite{sqlalchemy}
-
-The following table provides a concise summary of the \texttt{flowcharts} table structure as implemented in PostgreSQL. (Refer Table~\ref{tab:database-schema}: Flowcharts Table Schema).
+The schema is managed through a versioned migration system using Alembic (SQLAlchemy migrations), capturing every structural change as an incremental script across development, staging, and production environments. This ensures consistent database evolution across all deployments.
+The following table provides a concise summary of the \texttt{flowcharts} table structure as implemented in PostgreSQL. \textit{Refer Table~\ref{tab:database-schema}: Flowcharts Table Schema}.
 
 \begin{table}[H]
     \small
@@ -162,8 +157,10 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
     \label{tab:database-schema}
 \end{table}
 
-\vspace{0.3cm}
-\textbf{Database Indexes for Performance Optimization:}
+\subsection{Database Indexes for Performance Optimization}
+
+\justifying
+Database indexing is essential for maintaining high performance and responsiveness as the storage volume of flowcharts grows. The following indexes were implemented to optimize common query patterns, ensuring that diagram retrieval, sorting, and JSON-based searches remain efficient. By creating these targeted indexes, the system avoids full table scans during data retrieval, significantly reducing the latency of API calls. This is particularly crucial for the JSONB columns, where specialized GIN indexes enable the database to efficiently traverse nested flowchart data.
 
 \begin{enumerate}
     \item \texttt{CREATE INDEX idx\_flowcharts\_id ON flowcharts (id);} -- Primary key index for fast lookup by UUID.
@@ -177,13 +174,17 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
     \item \texttt{CREATE INDEX idx\_flowcharts\_gin\_nodes ON flowcharts USING gin ((flow\_data -> 'nodes'));} -- GIN index for querying inside JSONB nodes array.
 \end{enumerate}
 
-\textbf{Sample flow\_data JSON Structure:}
+\subsection{Sample flow\_data JSON Structure}
 
+\justifying
+The \texttt{flow\_data} column stores the serialized state of the React Flow canvas, encompassing all structural and visual information of the diagram in a single JSON object. The sample below illustrates how nodes and edges are represented, including their unique identifiers, coordinate positions, and specific styling attributes required for consistent rendering. \textit{Refer Listing~\ref{lst:flowdata}: Sample flow\_data JSON Structure}.
 \begin{lstlisting}[
     caption={Sample flow\_data JSON Structure},
     label={lst:flowdata},
     breaklines=true,
-    columns=flexible]
+    columns=flexible,
+    float=tp,
+    basicstyle=\ttfamily\normalsize]
 {
   "nodes": [
     {
@@ -238,17 +239,15 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
 \end{lstlisting}
 
 % =============================================================================
-% 4.4 API DESIGN
+% 4.5 API DESIGN
 % =============================================================================
 
 \section{API Design (RESTful Endpoints)}
 
 \justifying
-The Automated Diagram Digitization platform implements a comprehensive RESTful API following industry best practices, serving as the communication backbone between the React frontend and FastAPI backend. Endpoints are resource-oriented, use appropriate HTTP methods, and consistent JSON response formats.~\cite{rest}
+The Automated Diagram Digitization platform implements a comprehensive RESTful API following industry best practices, serving as the communication backbone between the React frontend and FastAPI backend. Endpoints are resource-oriented, use appropriate HTTP methods, and consistent JSON response formats. The API is organised into logical resource groups: image analysis, text-to-flowchart generation, and flowchart management (CRUD operations). Middleware for CORS handling, request validation, and error handling is applied consistently. Incoming payloads are validated for type correctness, required fields, and domain constraints before any business logic executes.~\cite{rest,cors}
 
-The API is organised into logical resource groups: image analysis, text-to-flowchart generation, and flowchart management (CRUD operations). Middleware for CORS handling, request validation, and error handling is applied consistently. Incoming payloads are validated for type correctness, required fields, and domain constraints before any business logic executes.~\cite{cors}
-
-Error responses follow a consistent JSON structure containing detail message and appropriate HTTP status codes: \texttt{200} for successful retrieval, \texttt{201} for resource creation, \texttt{400} for validation failures, \texttt{404} when a requested resource does not exist, and \texttt{500} for internal server errors.(Refer Table~\ref{tab:api--endpoints}: Core API Endpoints).
+Error responses follow a consistent JSON structure containing detail message and appropriate HTTP status codes: \texttt{200} for successful retrieval, \texttt{201} for resource creation, \texttt{400} for validation failures, \texttt{404} when a requested resource does not exist, and \texttt{500} for internal server errors. \textit{Refer Table~\ref{tab:api-endpoints}: Core API Endpoints}.
 
 
 \begin{table}[H]
@@ -289,7 +288,10 @@ Error responses follow a consistent JSON structure containing detail message and
     \label{tab:api-endpoints}
 \end{table}
 
-\textbf{Sample Request - Image Analysis:}
+\subsection{Sample Request - Image Analysis}
+
+\justifying
+The image analysis request is initiated when a user uploads a diagram through the web interface. The frontend packages the image file as a multipart/form-data payload, ensuring that large binaries are transmitted efficiently. This request is sent to the \texttt{/analyze} endpoint, where the application layer prepares the file for processing by the AI back-end. \textit{Refer Listing~\ref{lst:image-request}: Image Analysis API Request.}
 
 \begin{lstlisting}[
     caption={Image Analysis API Request},
@@ -308,7 +310,10 @@ Content-Type: image/png
 ------WebKitFormBoundary--
 \end{lstlisting}
 
-\textbf{Sample Response - Image Analysis:}
+\subsection{Sample Response - Image Analysis}
+
+\justifying
+Upon successful analysis, the system returns a structured JSON object representing the digitized flowchart. This response contains specific arrays for nodes and edges, defining shapes, labels, and directional connections. This structured format allows the React Flow engine to instantly recreate the visual diagram on the user's canvas. \textit{Refer Listing~\ref{lst:image-response}: Image Analysis API Response.}
 
 \begin{lstlisting}[language=TeX,
     caption={Image Analysis API Response},
@@ -349,20 +354,18 @@ Content-Type: image/png
 \end{lstlisting}
 
 % =============================================================================
-% 4.5 MODULE-WISE DETAILED DESIGN
+% 4.6 MODULE-WISE DETAILED DESIGN
 % =============================================================================
 
 \section{Module-wise Detailed Design}
 
 \justifying
-This section provides design specifications for each major module of the Automated Diagram Digitization platform, describing their internal components and interactions with other modules. The modular architecture enables each functional component of the system to operate independently while contributing to the overall workflow. By separating responsibilities across modules, the system becomes easier to maintain, extend, and debug.
-
-Each module focuses on a specific task such as handling user input, processing AI-based recognition, editing diagrams, exporting results, or managing persistent storage. This modular approach ensures that enhancements or modifications to one part of the system can be implemented without significantly affecting other components.
+This section provides design specifications for each major module of the Automated Diagram Digitization platform, describing their internal components and interactions with other modules. The modular architecture enables each functional component of the system to operate independently while contributing to the overall workflow. By separating responsibilities across modules, the system becomes easier to maintain, extend, and debug. Each module focuses on a specific task such as handling user input, processing AI-based recognition, editing diagrams, exporting results, or managing persistent storage. This modular approach ensures that enhancements or modifications to one part of the system can be implemented without significantly affecting other components.
 
 \subsection{Input Module}
 
 \justifying
-The input module handles all user input methods before AI processing. Components include:
+The input module serves as the primary entry point for all diagram data, supporting multiple ingestion channels including image uploads, natural language prompts, and JSON imports. It performs essential data validation and pre-processing to ensure that incoming information is correctly formatted for the AI recognition and editing layers. Components include:
 
 \begin{enumerate}
     \item \textbf{Image Upload Component}: Drag-drop zone with file picker fallback, file type validation (PNG, JPG, WebP), file size validation, preview thumbnail, and upload progress indicator.
@@ -377,7 +380,7 @@ The input module handles all user input methods before AI processing. Components
 \subsection{AI Processing Module}
 
 \justifying
-The AI processing module interfaces with Google Gemini AI and handles response parsing. Components include:
+The AI processing module coordinates the interaction between the system and the Google Gemini API, acting as the bridge for flowchart recognition. It manages the lifecycle of AI requests, from initial prompt construction and image optimization to the final parsing of unstructured AI output into system-compatible objects. Components include:
 
 \begin{enumerate}
     \item \textbf{Gemini API Client}: Configured with API key from environment variables, handles authentication, and sends requests with appropriate system prompts.
@@ -394,7 +397,7 @@ The AI processing module interfaces with Google Gemini AI and handles response p
 \subsection{Editor Module}
 
 \justifying
-The editor module is the core interactive component for diagram creation and modification. Components include:
+The editor module provides a high-performance interactive workspace where users can refine and personalize their digitized diagrams. Built on React Flow, it handles complex state management and real-time canvas updates, ensuring a seamless experience when dragging, resizing, or styling flowchart components. Components include:
 
 \begin{enumerate}
     \item \textbf{React Flow Canvas}: Renders nodes and edges with background grid, supports zooming and panning, and handles selection and deletion.
@@ -417,7 +420,7 @@ The editor module is the core interactive component for diagram creation and mod
 \subsection{Export Module}
 
 \justifying
-The export module handles all diagram export functionality. Components include:
+The export module facilitates the final stage of the diagram workflow by converting the internal JSON state into shareable and portable formats. It supports high-resolution image generation for documentation as well as structured data exports, allowing users to move their work between different platforms or archival systems. Components include:
 
 \begin{enumerate}
     \item \textbf{PNG Exporter}: Uses html-to-image library to capture canvas element, creates download link with data URL, and names file using flowchart title.
@@ -434,7 +437,7 @@ The export module handles all diagram export functionality. Components include:
 \subsection{Storage Module}
 
 \justifying
-The storage module manages database operations for flowchart persistence. Components include:
+The storage module is responsible for the persistent management of flowchart data, ensuring that user work is saved reliably and can be retrieved across sessions. It leverages SQLAlchemy to provide an asynchronous abstraction over the PostgreSQL database, utilizing the JSONB data type to store complex diagram states with high performance and flexibility. Components include:
 
 \begin{enumerate}
     \item \textbf{Database Client}: Async SQLAlchemy engine with connection pooling, configured with DATABASE\_URL from environment, and SSL enabled for production.
@@ -449,7 +452,7 @@ The storage module manages database operations for flowchart persistence. Compon
 \subsection{Theme Module}
 
 \justifying
-The theme module manages dark/light mode switching. Components include:
+The theme module delivers a customized visual experience by managing the application's appearance settings. It coordinates the synchronization of dark and light mode preferences using React Context and CSS variables, ensuring that theme changes are applied instantly throughout the entire component hierarchy without requiring a full page reload. Components include:
 
 \begin{enumerate}
     \item \textbf{Theme Context}: React context providing theme state and toggle function, consumed by all components needing theme awareness.
@@ -462,18 +465,18 @@ The theme module manages dark/light mode switching. Components include:
 \end{enumerate}
 
 % =============================================================================
-% 4.6 AI PROMPT DESIGN
+% 4.7 AI PROMPT DESIGN
 % =============================================================================
 
 \section{AI Prompt Design}
 
 \justifying
-The system uses two specialized prompts for Gemini AI, carefully engineered for accurate flowchart recognition and generation.
+Prompt design is a critical component of the system's intelligence, where natural language instructions are meticulously structured to guide the Google Gemini model. These prompts define the rules for shape recognition, coordinate systems, and JSON formatting, ensuring that the AI provides deterministic and physically accurate flowchart representations.
 
 \subsection{Image Analysis System Prompt}
 
 \justifying
-The image analysis system prompt is carefully engineered to instruct Gemini AI to act as an Optical Graph Recognition engine. It defines strict rules for identifying node shapes, extracting positional coordinates, determining edge connections, and returning the result as raw structured JSON compatible with React Flow.
+The image analysis system prompt is carefully engineered to instruct Gemini AI to act as an Optical Graph Recognition engine. It defines strict rules for identifying node shapes, extracting positional coordinates, determining edge connections, and returning the result as raw structured JSON compatible with React Flow. By specifying a normalized coordinate system (0-1000), the prompt ensures that the spatial relationships between nodes are preserved regardless of the original image's aspect ratio. It also enforces a strict mapping of visual shapes to specific system-defined node types, such as 'process' for rectangles and 'decision' for diamonds, to maintain graphical consistency. Additionally, the prompt explicitly forbids the inclusion of conversational preamble or markdown formatting, which significantly reduces parsing overhead on the application server. This deterministic approach allows the backend to reliably transform raw visual data into a serialized state that can be immediately rendered by the React Flow engine. \textit{Refer Listing~\ref{lst:image-prompt}: Image Analysis System Prompt}.
 
 \begin{lstlisting}[language=Python,
     caption={Image Analysis System Prompt},
@@ -511,7 +514,7 @@ Follow these strict rules:
 \subsection{Text-to-Flowchart System Prompt}
 
 \justifying
-The text-to-flowchart system prompt guides Gemini AI in converting natural language process descriptions into structured React Flow JSON. It specifies the allowed node types, layout sizing rules, edge connection conventions, and label formatting requirements to ensure consistent and well-structured flowchart output.
+The text-to-flowchart system prompt guides Gemini AI in converting natural language process descriptions into structured React Flow JSON. It specifies the allowed node types, layout sizing rules, edge connection conventions, and label formatting requirements to ensure consistent and well-structured flowchart output. Furthermore, the prompt identifies specific semantic markers within the algorithm description to determine decision branches and iterative loops, ensuring that complex logical structures are translated with high fidelity. This instructional framework minimizes the risk of structural ambiguity, allowing the AI to generate a functional diagram that accurately reflects the user’s original algorithmic intent. \textit{Refer Listing~\ref{lst:text-prompt}: Text-to-Flowchart System Prompt}.
 
 \begin{lstlisting}[language=Python,
     caption={Text-to-Flowchart System Prompt},
@@ -542,43 +545,29 @@ LABEL RULES:
 \end{lstlisting}
 
 % =============================================================================
-% 4.7 ALGORITHM DESIGN
+% 4.8 ALGORITHM DESIGN
 % =============================================================================
 
 \section{Algorithm Design}
 
 \justifying
-The Automated Diagram Digitization platform incorporates several internal algorithms to support diagram generation, layout organization, and editing functionality. These algorithms are responsible for maintaining structural consistency within generated diagrams and ensuring that editing operations remain efficient and reliable.
-
-Algorithmic design plays a critical role in transforming raw AI-generated data into visually organized flowcharts. By applying structured layout techniques and maintaining editing history through snapshot mechanisms, the system provides users with both automated organization and flexible manual control during diagram creation.
+The Automated Diagram Digitization platform incorporates several internal algorithms to support diagram generation, layout organization, and editing functionality. These algorithms are responsible for maintaining structural consistency within generated diagrams and ensuring that editing operations remain efficient and reliable. Algorithmic design plays a critical role in transforming raw AI-generated data into visually organized flowcharts. By applying structured layout techniques and maintaining editing history through snapshot mechanisms, the system provides users with both automated organization and flexible manual control during diagram creation.
 
 \subsection{Column-based Auto Layout Algorithm}
 
 \justifying
-The column-based auto layout algorithm is responsible for organizing nodes in a flowchart so that they appear visually aligned and structured. When diagrams are generated automatically by the AI system or manually edited by users, node positions may not always be perfectly aligned. The auto layout algorithm corrects this by grouping nodes into vertical columns based on their horizontal positions.
+The column-based auto layout algorithm is responsible for organizing nodes in a flowchart so that they appear visually aligned and structured. When diagrams are generated automatically by the AI system or manually edited by users, node positions may not always be perfectly aligned. The auto layout algorithm corrects this by grouping nodes into vertical columns based on their horizontal positions. The algorithm begins by determining the maximum width required for each node type. Node types such as start nodes, process nodes, decision nodes, and input/output nodes may have different sizes. By determining the largest width for each type, the algorithm ensures visual consistency across the diagram.
 
-The algorithm begins by determining the maximum width required for each node type. Node types such as start nodes, process nodes, decision nodes, and input/output nodes may have different sizes. By determining the largest width for each type, the algorithm ensures visual consistency across the diagram.
-
-After establishing the node widths, the algorithm calculates the horizontal center position of each node using its current position and width. These center positions are then used to sort the nodes along the horizontal axis. Sorting enables the algorithm to identify nodes that are positioned near one another.
-
-Once sorted, the algorithm performs a clustering process in which nodes whose center positions fall within a defined tolerance range are grouped together into a single column. Each column maintains an average center value calculated from all nodes assigned to that group.
-
-In the final stage, the algorithm repositions each node so that its center aligns with the calculated average center of its column. This ensures that nodes belonging to the same logical stage of a flowchart appear vertically aligned while maintaining their original vertical ordering. As a result, the flowchart becomes visually balanced and easier to interpret.
+After establishing the node widths, the algorithm calculates the horizontal center position of each node using its current position and width. These center positions are then used to sort the nodes along the horizontal axis. Sorting enables the algorithm to identify nodes that are positioned near one another. Once sorted, the algorithm performs a clustering process in which nodes whose center positions fall within a defined tolerance range are grouped together into a single column. Each column maintains an average center value calculated from all nodes assigned to that group. In the final stage, the algorithm repositions each node so that its center aligns with the calculated average center of its column. This ensures that nodes belonging to the same logical stage of a flowchart appear vertically aligned while maintaining their original vertical ordering. As a result, the flowchart becomes visually balanced and easier to interpret.
 
 \subsection{Undo and Redo Snapshot Algorithm}
 
 \justifying
-The platform includes an undo and redo mechanism that allows users to revert or restore modifications made while editing diagrams. This feature is implemented using a snapshot-based history management algorithm.
+The platform includes an undo and redo mechanism that allows users to revert or restore modifications made while editing diagrams. This feature is implemented using a snapshot-based history management algorithm. Whenever a user performs an operation that modifies the diagram, such as adding a node, deleting an edge, moving an element, or changing text content, the system captures a snapshot representing the complete state of the diagram at that moment. Each snapshot contains the full set of nodes and edges currently present in the flowchart.
 
-Whenever a user performs an operation that modifies the diagram, such as adding a node, deleting an edge, moving an element, or changing text content, the system captures a snapshot representing the complete state of the diagram at that moment. Each snapshot contains the full set of nodes and edges currently present in the flowchart.
+Snapshots are stored in a history structure consisting of two stacks referred to as the \textit{past} stack and the \textit{future} stack. The past stack records previous states of the diagram, while the future stack stores states that can be restored through redo operations. When a user performs an undo operation, the system retrieves the most recent snapshot from the past stack and restores the diagram to that earlier state. At the same time, the current state of the diagram is stored in the future stack, allowing it to be restored later if necessary.
 
-Snapshots are stored in a history structure consisting of two stacks referred to as the \textit{past} stack and the \textit{future} stack. The past stack records previous states of the diagram, while the future stack stores states that can be restored through redo operations.
-
-When a user performs an undo operation, the system retrieves the most recent snapshot from the past stack and restores the diagram to that earlier state. At the same time, the current state of the diagram is stored in the future stack, allowing it to be restored later if necessary.
-
-If the user performs a redo operation, the system retrieves the next snapshot from the future stack and applies it to the diagram. The previously restored state is then returned to the past stack. This two-stack mechanism allows users to move backward and forward through their editing history without losing information.
-
-Keyboard shortcuts such as \texttt{Ctrl+Z} for undo and \texttt{Ctrl+Y} or \texttt{Ctrl+Shift+Z} for redo provide quick access to these operations, improving usability during diagram editing.
+If the user performs a redo operation, the system retrieves the next snapshot from the future stack and applies it to the diagram. The previously restored state is then returned to the past stack. This two-stack mechanism allows users to move backward and forward through their editing history without losing information. Keyboard shortcuts such as \texttt{Ctrl+Z} for undo and \texttt{Ctrl+Y} or \texttt{Ctrl+Shift+Z} for redo provide quick access to these operations, improving usability during diagram editing.
 
 \justifying
 Together, these algorithms ensure that diagrams remain organized and editable while providing users with flexible control over the editing process. The auto layout algorithm enhances visual clarity by maintaining alignment among nodes, while the snapshot-based history system provides reliable recovery from editing mistakes.
@@ -591,7 +580,7 @@ Together, these algorithms ensure that diagrams remain organized and editable wh
 \section{Error Handling Design}
 
 \justifying
-The system implements comprehensive error handling at multiple levels to ensure robustness.
+A resilient system requires careful planning for unexpected inputs and external service failures. The platform's error handling design uses a multi-layered approach to detect, log, and recover from issues occurring during AI processing, database interactions, or client-side operations, maintaining a stable experience for the end user.
 
 \subsection{AI Response Error Handling}
 
@@ -641,9 +630,12 @@ The frontend implements client-side validation and error display mechanisms to p
 \section{Performance Optimization}
 
 \justifying
-The Automated Diagram Digitization platform implements multiple optimization strategies to ensure responsive user experiences.
+Providing a seamless and responsive user interface is essential for professional diagramming tools. Our performance optimization strategy focuses on reducing latency and minimizing resource consumption across all system layers, from efficient binary transmission on the backend to optimized rendering cycles in the interactive editor.
 
-\textbf{Backend Optimization:}
+\subsection{Backend Optimization}
+
+\justifying
+Backend performance is optimized through techniques that minimize processing time and maximize throughput. By implementing advanced image pre-processing before API calls and leveraging asynchronous database operations, the system can handle concurrent requests while maintaining low response times for data-intensive tasks.
 \begin{enumerate}
     \item \textbf{Image Resizing}: Thumbnail resizing to 1024x1024 max before sending to Gemini API reduces payload size and processing time.
 
@@ -654,7 +646,10 @@ The Automated Diagram Digitization platform implements multiple optimization str
     \item \textbf{JSONB Indexing}: GIN indexes on flow\_data for potential future querying requirements.
 \end{enumerate}
 
-\textbf{Frontend Optimization:}
+\subsection{Frontend Optimization}
+
+\justifying
+The frontend utilizes modern React optimization patterns to ensure that the interactive canvas remains smooth even with hundreds of nodes. Techniques such as component memoization, virtualization of large datasets, and code-splitting are employed to minimize the main-thread workload and reduce the initial application bundle size.
 \begin{enumerate}
     \item \textbf{React Flow Performance}: Uses virtualization for large diagrams, limits re-renders with memo and useCallback.
 
@@ -665,7 +660,10 @@ The Automated Diagram Digitization platform implements multiple optimization str
     \item \textbf{CSS Variables}: Theme switching uses CSS variable updates instead of full re-renders.
 \end{enumerate}
 
-\textbf{AI Optimization:}
+\subsection{AI Optimization}
+
+\justifying
+AI interactions are optimized to balance recognition accuracy with operational speed. By fine-tuning prompt lengths, using deterministic parameters (temperature=0), and pre-scaling images to optimal resolutions, the system reduces API costs and provides faster feedback loops during diagram digitization and generation.
 \begin{enumerate}
     \item \textbf{Prompt Engineering}: Temperature = 0 for deterministic outputs, and \texttt{response\_mime\_type="application/json"} ensures structured responses.
 
@@ -678,7 +676,7 @@ The Automated Diagram Digitization platform implements multiple optimization str
 % 4.10 SUMMARY
 % =============================================================================
 
-\section{Summary}
+\section{Conclusion}
 
 \justifying
 This chapter has presented the complete system design of the Automated Diagram Digitization platform, spanning the three-tier architecture, data flow diagrams, database schema, API design, module specifications, AI prompt design, algorithms, error handling, and performance optimization strategies. The design decisions reflect consistent priorities: accurate AI-powered recognition, intuitive user experience, robust error handling, and scalable architecture.

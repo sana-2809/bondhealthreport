@@ -1,8 +1,12 @@
 \chapter{Technologies Used}
 \label{ch:technologies}
 
+The selection of a modern and robust technology stack is a fundamental prerequisite for building a high-performance system like Automated Diagram Digitization. This chapter provides a detailed examination of the frameworks, libraries, and tools utilized in the development of the platform, outlining the technical rationale behind each choice. The architecture is designed to be modular, ensuring that the frontend interface, backend logic, and AI processing services remain loosely coupled for maximum scalability and maintainability.
+
+The development of this platform leverages a full--stack JavaScript and Python ecosystem, combining the agility of React for the user interface with the high performance of FastAPI for backend services. By integrating Google’s state--of--the--art Gemini AI models for multimodal analysis and PostgreSQL for reliable data persistence, the system achieves a balance between advanced intelligent capabilities and enterprise--grade stability. These technologies collectively enable the platform to handle complex diagram recognition tasks while providing a smooth, responsive experience for the end user.
+
 \section{Introduction}
-Automated Diagram Digitization leverages modern web technologies to create an intelligent flowchart recognition and editing platform. This chapter summarizes the key technologies, frameworks, and tools employed in the project. (Refer Table~\ref{tab:tech-stack}: Technology Stack Overview)
+Automated Diagram Digitization leverages modern web technologies to create an intelligent flowchart recognition and editing platform. This chapter summarizes the key technologies, frameworks, and tools employed in the project. \textit{Refer Table~\ref{tab:tech-stack}: Technology Stack Overview.}
 
 \begin{table}[H]
     \centering
@@ -98,7 +102,7 @@ Postman is used extensively for testing and validating RESTful API endpoints dur
 The Automated Diagram Digitization system was developed using a modern web development environment designed to support efficient frontend and backend development. The backend services were implemented using Python with the FastAPI framework, while the frontend interface was developed using React with Vite.
 Development and debugging were performed using Visual Studio Code as the primary integrated development environment (IDE). Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent development setup. Version control was managed using Git, with the project repository hosted on GitHub. This enabled collaborative development, version tracking, and seamless integration with cloud deployment platforms.~\cite{python,vscode,npm}
 
-The development environment also included tools for API testing and debugging, allowing the team to validate backend endpoints and ensure proper communication between the frontend and backend components during development. To maintain high code quality and consistency, linting and formatting tools including ESLint and Prettier were integrated into the frontend workflow, while Black was employed for standardizing backend Python code. Browser-based developer tools and the React Developer Tools extension were extensively used for real-time debugging and performance profiling of the interactive canvas components. Database schema design and data verification were facilitated using pgAdmin, allowing for direct interaction with the PostgreSQL storage layer during development. Additionally, the built-in Swagger UI provided by FastAPI served as a critical tool for interactive API testing, enabling the validation of data structures and response formats before frontend integration.
+The development environment also included tools for API testing and debugging, allowing the team to validate backend endpoints and ensure proper communication between the frontend and backend components during development. To maintain high code quality and consistency, linting and formatting tools including ESLint and Prettier were integrated into the frontend workflow, while Black was employed for standardizing backend Python code. Browser-based developer tools and the React Developer Tools extension were extensively used for real-time debugging and performance profiling of the interactive canvas components. Database schema design and data verification were facilitated using pgAdmin, allowing for direct interaction with the PostgreSQL storage layer during development. Additionally, the built-in Swagger UI provided by FastAPI served as a critical tool for interactive API testing, enabling the validation of data structures and response formats before frontend integration. \textit{Refer Table~\ref{tab:dev-tools}: Development Environment Tools.}
 \vspace{1em}
 \begin{table}[H]
 \centering
@@ -117,7 +121,6 @@ Postman / Browser Testing & API testing and validation \\
 \label{tab:dev-tools}
 \end{table}
 
-The development environment tools are summarised in (Refer Table~\ref{tab:dev-tools}: Development Environment Tools).
 
 \section{Project Structure}
 
@@ -148,7 +151,7 @@ A well-organized project structure is essential for maintaining code clarity and
 
 \section{Deployment Configuration}
 
-The Automated Diagram Digitization platform is deployed using modern cloud hosting services to ensure accessibility, scalability, and reliable performance. The application follows a distributed deployment architecture in which the frontend interface and backend services are hosted on separate cloud platforms. This separation improves scalability and allows each component to be updated independently.
+The Automated Diagram Digitization platform is deployed using modern cloud hosting services to ensure accessibility, scalability, and reliable performance. The application follows a distributed deployment architecture in which the frontend interface and backend services are hosted on separate cloud platforms. This separation improves scalability and allows each component to be updated independently. \textit{Refer Table~\ref{tab:deployment}: Deployment Architecture Components.}
 
 \subsection{Deployment Architecture}
 
@@ -233,4 +236,6 @@ Open-source technologies eliminate licensing costs. Gemini API offers competitiv
 
 Stateless FastAPI backend supports horizontal scaling. PostgreSQL JSONB allows schema evolution without migrations. React's efficient rendering handles complex diagrams. This architecture allows the system to handle increasing numbers of users and diagrams without major structural changes. Additional computing resources can be added easily as demand grows.
 
-The combination of these technologies provides a solid foundation for an accurate, responsive, and maintainable diagram digitization platform serving students, educators, and professionals.
+\section{Conclusion}
+
+The technological framework described in this chapter provides the foundational infrastructure required for the Automated Diagram Digitization platform to achieve its functional and performance objectives. By strategically selecting high-performance tools such as FastAPI for backend efficiency, React Flow for interactive diagramming, and Google’s Gemini AI for multimodal recognition, the platform ensures a responsive and reliable user experience. These technologies, supported by a scalable PostgreSQL data layer and professional development tools, collectively enable the seamless transition from physical sketching to a structured digital environment. The robust nature of this technology stack not only fulfills current requirements but also provides the necessary extensibility for future technical enhancements.
