@@ -5,11 +5,13 @@ The system study phase involves understanding existing diagram digitization chal
 
 \section{Existing System}
 
+The current landscape of diagram digitization tools presents several significant challenges that limit their effectiveness in real-world usage. This section examines the key problems encountered by users today and summarizes the disadvantages that motivate the development of a more intelligent approach.
+
 \subsection{Current Diagram Digitization Challenges}
 
-The existing process of digitizing flowcharts and diagrams faces several critical challenges that impact user productivity and diagram quality:
+The existing process of digitizing flowcharts and diagrams faces several critical challenges that impact user productivity and diagram quality. These challenges arise from the fundamental limitations of current tools, which were designed primarily for manual diagram creation rather than automated recognition. Understanding these issues is essential for motivating the design decisions made in the proposed system.
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Manual Redrawing Required:} Users must manually recreate diagrams using tools like Microsoft Visio, Lucidchart, or draw.io, a time-consuming process that can take 15-30 minutes for moderately complex flowcharts. This not only wastes time but also introduces errors in the recreation process.
 
     \item \textbf{Lack of Automated Recognition:} Current systems cannot automatically identify shapes, text, and connections from images of hand-drawn or printed flowcharts. Users must manually identify each shape, type the text, and draw connections, defeating the purpose of digitization.
@@ -23,13 +25,13 @@ The existing process of digitizing flowcharts and diagrams faces several critica
     \item \textbf{No Intelligent Editing Features:} Automated tools typically lack post-recognition editing capabilities such as auto-layout for clean alignment, undo/redo for error correction, text styling for readability, and edge labeling for decision branches.
 
     \item \textbf{Export Limitations:} Many tools offer limited export options, restricting users to a single format that may not suit their needs for documentation, sharing, or further processing.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Disadvantages of Existing System}
 
-The limitations of current diagram digitization approaches can be summarized as follows:
+The limitations of current diagram digitization approaches can be summarized as follows. These shortcomings collectively result in a workflow that is inefficient, error-prone, and poorly suited for users who require quick and accurate conversion of hand-drawn diagrams into editable digital formats. Each disadvantage identified below directly contributed to the motivation for developing the Automated Diagram Digitization system.
 
-\begin{itemize}
+\begin{enumerate}
     \item No automated shape recognition capability for hand-drawn or printed flowcharts
     \item Inability to detect connections and directional relationships between nodes
     \item Poor handling of handwritten text within diagram shapes
@@ -40,15 +42,17 @@ The limitations of current diagram digitization approaches can be summarized as 
     \item No support for text-to-flowchart generation from algorithm descriptions
     \item Absence of auto-layout for clean diagram alignment after recognition
     \item No theme switching (dark/light mode) for user comfort
-\end{itemize}
+\end{enumerate}
 
 \section{Proposed System}
+
+The Automated Diagram Digitization system is designed to address all of the shortcomings identified in the existing system analysis. This section provides a high-level overview of the proposed solution and outlines the specific advantages it offers over traditional approaches.
 
 \subsection{System Overview}
 
 The Automated Diagram Digitization system is a web-based platform that combines AI-powered recognition with an interactive diagram editor. The system provides a complete workflow from hand-drawn sketch to editable digital diagram:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{AI-Powered Recognition:} Uses Google's Gemini AI with custom prompts to analyze uploaded flowchart images, identify shapes (process, decision, start/end, input/output), extract embedded text, and recognize connection paths between nodes.
 
     \item \textbf{Multiple Input Methods:} Supports three input modes—image upload for existing diagrams, text description for algorithm-to-flowchart conversion, and JSON import for existing flow data.
@@ -62,11 +66,13 @@ The Automated Diagram Digitization system is a web-based platform that combines 
     \item \textbf{Theme Support:} Implements dark/light mode toggle with persistent user preference stored in localStorage for comfortable viewing.
 
     \item \textbf{Persistent Storage:} Enables saving and retrieving flowcharts using PostgreSQL database with UUID-based identification and timestamp tracking.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Advantages of Proposed System}
 
-\begin{itemize}
+The following advantages illustrate how the proposed system directly resolves the limitations identified in the existing system, delivering a more automated, flexible, and feature-rich experience for end users.
+
+\begin{enumerate}
     \item Automatic shape identification eliminates manual redrawing, saving significant time and effort
     \item Text extraction with proper line breaks preserves readability and original formatting
     \item Connection detection automatically creates edges with correct directional arrows
@@ -77,15 +83,17 @@ The Automated Diagram Digitization system is a web-based platform that combines 
     \item Auto-layout ensures professional appearance with properly aligned diagrams
     \item Theme switching reduces eye strain during extended editing sessions
     \item Persistent storage enables workflow continuity across sessions
-\end{itemize}
+\end{enumerate}
 
 \section{Feasibility Study}
 
+A thorough feasibility study was conducted to evaluate whether the proposed system can be successfully developed and deployed within the available resources. The study examines technical, operational, and economic dimensions to confirm that the project is both achievable and sustainable.
+
 \subsection{Technical Feasibility}
 
-The project utilizes proven, mature technologies that have demonstrated reliability across numerous production deployments:
+The project utilizes proven, mature technologies that have demonstrated reliability across numerous production deployments. Each component was selected based on its stability, community support, and suitability for the specific requirements of the platform. The combination of FastAPI, React, PostgreSQL, and Google Gemini AI forms a well-integrated and production-ready technology stack that minimizes implementation risk while maximizing developer productivity.
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Backend:} FastAPI provides high-performance asynchronous API endpoints with automatic OpenAPI documentation, making development and testing efficient.
     
     \item \textbf{AI Integration:} Google Gemini API offers state-of-the-art multimodal capabilities for image analysis and text generation, with extensive documentation and community support.
@@ -95,13 +103,15 @@ The project utilizes proven, mature technologies that have demonstrated reliabil
     \item \textbf{Database:} PostgreSQL with JSONB support provides robust data persistence with ACID compliance and flexible schema for storing complex flowchart data.
     
     \item \textbf{Deployment:} The modular architecture supports cloud deployment with horizontal scaling capabilities as user numbers grow.
-\end{itemize}
+\end{enumerate}
 
 Each technology has extensive community support and a track record of handling production-scale applications, reducing implementation risk.
 
 \subsection{Operational Feasibility}
 
-\begin{itemize}
+Beyond technical considerations, the system must also be operationally feasible — that is, practically usable by the intended audience with minimal training or specialized knowledge. The following points outline how the design of the platform ensures smooth day-to-day operation.
+
+\begin{enumerate}
     \item \textbf{User-Friendly Interface:} The input page features a tabbed interface with clear options for image upload, text prompt, and JSON import, requiring minimal user training.
     
     \item \textbf{Intuitive Editor:} Drag-drop from shape palette, familiar undo/redo shortcuts (Ctrl+Z, Ctrl+Y), and double-click edge labeling follow common software conventions.
@@ -111,11 +121,13 @@ Each technology has extensive community support and a track record of handling p
     \item \textbf{Minimal Maintenance:} The system is designed for automatic error recovery with fallback mechanisms for malformed AI responses.
     
     \item \textbf{Responsive Design:} The interface adapts to different screen sizes, ensuring usability on desktop, tablet, and mobile devices.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Economic Feasibility}
 
-\begin{itemize}
+The economic feasibility of the proposed system was assessed by examining the costs associated with development, deployment, and ongoing maintenance. The analysis confirms that the project can be delivered within a reasonable budget and provides measurable returns in terms of time savings and productivity gains.
+
+\begin{enumerate}
     \item \textbf{Open-Source Technologies:} FastAPI, React, PostgreSQL, and related libraries are open-source with no licensing costs, minimizing initial investment.
     
     \item \textbf{Cost-Effective AI:} Google Gemini API offers competitive pricing with free tier options for development and testing phases.
@@ -125,9 +137,11 @@ Each technology has extensive community support and a track record of handling p
     \item \textbf{Scalable Architecture:} The system can be deployed on cloud infrastructure with pay-as-you-grow pricing, avoiding large upfront infrastructure costs.
     
     \item \textbf{Return on Investment:} Educational institutions and businesses can achieve positive ROI through improved productivity and reduced manual effort.
-\end{itemize}
+\end{enumerate}
 
 \section{Requirements Analysis}
+
+Requirements analysis is a critical phase that bridges the gap between problem identification and system design. It involves identifying, documenting, and organizing the specific capabilities and constraints that the system must fulfill. The requirements for Automated Diagram Digitization were gathered through analysis of existing tools, evaluation of user needs, and review of the challenges identified in the system study.
 
 \subsection{Functional Requirements}
 
@@ -136,17 +150,21 @@ Based on user needs and system objectives, the following functional requirements
 The requirements were derived from analysis of existing diagramming tools, feedback from potential users, and evaluation of common challenges faced during manual diagram digitization. By clearly defining these requirements, the system ensures that each module contributes to a complete workflow from image input to editable digital diagram output.
 \subsubsection{Input Module Requirements}
 
-\begin{itemize}
+The input module is responsible for collecting diagram data from the user in various forms and preparing it for processing. The following requirements define the accepted input formats, validation rules, and interface behaviors that must be supported.
+
+\begin{enumerate}
     \item \textbf{Image Upload:} Support PNG, JPG, and WebP image formats with drag-drop interface, file size validation, and preview functionality.
     
     \item \textbf{Text Prompt:} Provide multi-line textarea for algorithm descriptions with character count and example placeholder.
     
     \item \textbf{JSON Import:} Accept JSON file upload with validation and error messaging for malformed data.
-\end{itemize}
+\end{enumerate}
 
 \subsubsection{AI Processing Requirements}
 
-\begin{itemize}
+The AI processing module handles the communication with Google Gemini AI to perform shape recognition, text extraction, and connection detection. The following requirements ensure that AI interactions are accurate, robust, and capable of producing well-structured flowchart data.
+
+\begin{enumerate}
     \item \textbf{Shape Recognition:} Identify four basic shape types—process (rectangle), decision (diamond), start/end (oval), and input/output (parallelogram)—from uploaded images.
     
     \item \textbf{Text Extraction:} Extract text from shapes with proper line break preservation using \textbackslash n characters for multi-line labels.
@@ -156,11 +174,13 @@ The requirements were derived from analysis of existing diagramming tools, feedb
     \item \textbf{Coordinate Estimation:} Calculate normalized coordinates on a 0-1000 scale for consistent positioning across different image sizes.
     
     \item \textbf{Error Handling:} Parse AI responses reliably with regex fallback for extracting JSON from text responses.
-\end{itemize}
+\end{enumerate}
 
 \subsubsection{Editor Module Requirements}
 
-\begin{itemize}
+The editor module provides an interactive canvas for users to view and modify the generated flowchart. It must support a rich set of interactions, including node manipulation, edge editing, styling, and layout management, to deliver a professional diagram editing experience.
+
+\begin{enumerate}
     \item \textbf{Drag-Drop Functionality:} Allow users to drag shapes from sidebar palette and drop onto canvas at desired positions.
     
     \item \textbf{Node Resizing:} Support node resizing with minimum dimensions and text adaptation to fit resized nodes.
@@ -176,35 +196,41 @@ The requirements were derived from analysis of existing diagramming tools, feedb
     \item \textbf{Color Customization:} Allow users to change node and edge colors through color picker interface.
     
     \item \textbf{Text Styling:} Provide controls for bold, italic, and font size adjustments for selected nodes.
-\end{itemize}
+\end{enumerate}
 
 \subsubsection{Export Module Requirements}
 
-\begin{itemize}
+The export module enables users to save or share their completed diagrams in formats suitable for various professional and academic contexts. The following requirements define the output formats and download behaviors that the system must support.
+
+\begin{enumerate}
     \item \textbf{PNG Export:} Capture the entire canvas as PNG image using html-to-image library.
     
     \item \textbf{SVG Export:} Generate SVG vector graphics using React Flow's SVG renderer.
     
     \item \textbf{JSON Export:} Serialize current nodes and edges to JSON format with proper indentation.
-\end{itemize}
+\end{enumerate}
 
 \subsubsection{Storage Module Requirements}
 
-\begin{itemize}
+The storage module manages the persistence of flowchart data across user sessions. It ensures that diagrams can be saved, retrieved, and updated reliably using a structured database backend, allowing users to continue their work at any point in time.
+
+\begin{enumerate}
     \item \textbf{Save Flowchart:} Store flowchart data in PostgreSQL database with UUID primary key and timestamp tracking.
     
     \item \textbf{Retrieve Flowchart:} Fetch flowchart by UUID and reconstruct editor state.
     
     \item \textbf{Update Flowchart:} Modify existing flowchart title or flow data with updated\_at timestamp refresh.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Non-Functional Requirements}
+
+Non-functional requirements define the quality attributes of the system rather than its specific behaviors. They describe how well the system performs its functions — covering aspects such as speed, usability, reliability, and security. These requirements are essential for ensuring a positive user experience and long-term system sustainability.
 
 \subsubsection{Performance Requirements}
 
 Performance requirements define how efficiently the system must operate under normal usage conditions. Since the platform involves AI-based processing and interactive diagram editing, maintaining responsive system behavior is critical. Users expect quick analysis of uploaded diagrams and smooth interaction while editing nodes and connections. Therefore, response time and processing efficiency are key factors in ensuring a positive user experience.
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Image Analysis:} Complete image analysis within 3-5 seconds for standard flowchart images (up to 1024x1024 pixels).
     
     \item \textbf{Text-to-Flowchart:} Generate flowchart from text prompt within 2-3 seconds.
@@ -216,13 +242,13 @@ Performance requirements define how efficiently the system must operate under no
     \item \textbf{Page Load:} Achieve initial page load under 2 seconds with optimized asset delivery.
     
     \item \textbf{Concurrent Users:} Support at least 50 concurrent users without performance degradation.
-\end{itemize}
+\end{enumerate}
 
 \subsubsection{Usability Requirements}
 
 Usability requirements focus on ensuring that the system remains accessible and easy to use for individuals with varying levels of technical expertise. Since the platform is intended for students, educators, and professionals, the interface must be intuitive and easy to navigate. A well-designed user interface reduces the learning curve and enables users to quickly perform tasks such as uploading diagrams, editing flowcharts, and exporting results.
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Intuitive Interface:} Design interface requiring minimal training for users with basic computer skills.
     
     \item \textbf{Clear Error Messages:} Provide actionable error messages with guidance for resolution.
@@ -234,13 +260,13 @@ Usability requirements focus on ensuring that the system remains accessible and 
     \item \textbf{Helpful Tooltips:} Include tooltips for all toolbar buttons explaining their functionality.
     
     \item \textbf{Keyboard Shortcuts:} Support common keyboard shortcuts for undo/redo and delete operations.
-\end{itemize}
+\end{enumerate}
 
 \subsubsection{Reliability Requirements}
 
 Reliability requirements ensure that the system operates consistently and maintains data integrity during normal usage. The application must be capable of handling unexpected errors, invalid inputs, or interruptions during AI processing. Implementing proper error handling and recovery mechanisms helps maintain system stability and prevents data loss during diagram editing and storage operations.
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Uptime:} Maintain 99\% availability during normal business hours.
     
     \item \textbf{Error Recovery:} Implement graceful error handling with fallback mechanisms for AI processing failures.
@@ -250,13 +276,13 @@ Reliability requirements ensure that the system operates consistently and mainta
     \item \textbf{Input Validation:} Validate all user inputs on both client and server sides to prevent invalid data.
     
     \item \textbf{Backup:} Support database backup and restore procedures for disaster recovery.
-\end{itemize}
+\end{enumerate}
 
 \subsubsection{Security Requirements}
 
 Security requirements address the protection of system resources, user inputs, and external API credentials. Since the application interacts with external AI services and database systems, proper safeguards must be implemented to prevent unauthorized access and malicious inputs. Secure storage of configuration data and careful validation of user inputs help maintain system integrity and prevent potential security vulnerabilities.
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{API Key Protection:} Store Gemini API key in environment variables, never in client-side code.
     
     \item \textbf{Input Sanitization:} Sanitize all user inputs to prevent injection attacks.
@@ -266,37 +292,37 @@ Security requirements address the protection of system resources, user inputs, a
     \item \textbf{SQL Injection Prevention:} Use parameterized queries for all database operations.
     
     \item \textbf{Environment Separation:} Maintain separate configuration for development, testing, and production environments.
-\end{itemize}
+\end{enumerate}
 
 \section{System Architecture Overview}
 
+The system architecture defines the structural organization of the Automated Diagram Digitization platform, describing how its components interact and how responsibilities are distributed across layers. A clear architectural foundation is essential for ensuring that the system remains maintainable, extensible, and robust as new features are added over time.
 \begin{figure}[h]
 \centering
 \fbox{\begin{minipage}{0.8\textwidth}
 \centering
 \textbf{Three-Tier Architecture}
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Presentation Layer:} React 18, React Flow, Tailwind CSS
     \item \textbf{Application Layer:} FastAPI (Python), Gemini AI Integration
     \item \textbf{Data Layer:} PostgreSQL Database with JSONB Support
-\end{itemize}
+\end{enumerate}
 \end{minipage}}
 \caption{Automated Diagram Digitization Three-Tier Architecture}
 \label{fig:architecture}
 \end{figure}
 
-The Automated Diagram Digitization system follows a three-tier architecture with clear separation of concerns:
+The Automated Diagram Digitization system follows a three-tier architecture with clear separation of concerns. This design ensures that each layer is responsible for a distinct set of tasks, reducing coupling between components and enabling independent development, testing, and scaling of each tier.
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Presentation Layer:} Handles all user interaction through React components, including the input page with tabs for different input methods, the diagram editor with React Flow, and the sidebar with draggable shape palette.
     
     \item \textbf{Application Layer:} Implements business logic using FastAPI, exposing RESTful endpoints for image analysis, text-to-flowchart generation, and database operations. Integrates with Google Gemini AI for intelligent recognition.
     
     \item \textbf{Data Layer:} Manages persistence through PostgreSQL database with JSONB column for storing complete React Flow state, enabling flexible schema while maintaining query performance.
-\end{itemize}
+\end{enumerate}
 
 This separation enables each tier to evolve independently, with the ability to scale components based on demand. For example, improvements to the user interface can be implemented without modifying backend logic, while database optimizations can be performed independently of frontend components. Such modular design improves maintainability and allows developers to introduce new features without affecting other system components.
-
 Furthermore, the layered architecture simplifies system testing and debugging by isolating responsibilities across different layers. Each layer communicates with others through clearly defined interfaces, ensuring that the overall system remains organized, extensible, and adaptable to future enhancements.
 
 \section{System Modules}
@@ -304,21 +330,33 @@ Furthermore, the layered architecture simplifies system testing and debugging by
 The Automated Diagram Digitization platform is organized into several functional modules, each responsible for a specific part of the overall workflow. This modular design simplifies development and maintenance while allowing individual components to be improved independently. Each module performs a well-defined task, ranging from handling user inputs to processing diagrams using AI and managing persistent storage of generated flowcharts.
 
 \subsection{Input Module}
+
+The input module serves as the entry point of the system, accepting user-provided data in multiple forms and preparing it for further processing by the AI engine and the diagram editor.
 Handles three input methods: image upload with drag-drop interface, text prompt with multi-line textarea, and JSON import with file upload. Validates input formats, provides visual feedback, and prepares data for AI processing.
 
 \subsection{AI Processing Module}
+
+The AI processing module coordinates communication with the external Gemini AI service, managing both outgoing requests and the parsing of structured responses returned by the model.
 Interfaces with Google Gemini AI using custom system prompts for image analysis and text-to-flowchart conversion. Parses JSON responses, handles errors with regex fallback, and ensures proper ID generation for edges.
 
 \subsection{Editor Module}
+
+The editor module forms the interactive heart of the platform, enabling users to view, manipulate, and refine the flowcharts generated by the AI processing module.
 Renders nodes and edges using React Flow with custom node components for each shape type. Implements drag-drop from sidebar, undo/redo with snapshot history, auto-layout with column-based clustering, edge labeling via double-click, and comprehensive styling options.
 
 \subsection{Export Module}
+
+The export module provides users with the ability to save and distribute their diagrams in formats suited to a range of professional and educational use cases.
 Provides PNG export using html-to-image library, SVG export using React Flow's SVG renderer, and JSON export of current flow state. Handles file download with appropriate naming based on flowchart title.
 
 \subsection{Storage Module}
+
+The storage module ensures long-term persistence of diagram data, allowing users to save their work and retrieve it in future sessions without loss of layout or content information.
 Manages PostgreSQL database operations including save, retrieve, and update of flowcharts. Implements UUID-based identification, timestamp tracking, and JSONB storage for flow data.
 
 \section{User Roles and Permissions}
+
+Access control defines how different users interact with the system and what actions they are permitted to perform. In the current version of the Automated Diagram Digitization platform, the system operates without mandatory user authentication, making all features accessible to any user. The system currently implements a single user role with full access to all features, as authentication is not required for basic usage. Future enhancements may include user authentication with role-based access for collaborative features. The table below summarizes the permissions associated with the general user role.
 
 \begin{table}[h]
 \centering
@@ -341,7 +379,6 @@ User (All) & Save and retrieve flowcharts from database \\
 \label{tab:roles}
 \end{table}
 
-The system currently implements a single user role with full access to all features, as authentication is not required for basic usage. Future enhancements may include user authentication with role-based access for collaborative features.
 
 \section{Summary}
 

@@ -82,7 +82,22 @@ The text-to-flowchart feature enables users to describe algorithms in natural la
 The JSON import/export functionality enables data portability and integration with other tools. For import: the user uploads a JSON file or pastes JSON into textarea, the frontend validates JSON format, the validated JSON is passed directly to the editor for rendering. For export: the user clicks the export button and selects format (JSON/PNG/SVG), for JSON export the current nodes and edges are serialized to JSON and downloaded as a file, for PNG export the canvas is captured using html-to-image and downloaded, for SVG export the React Flow SVG renderer generates vector graphics for download.
 
 % =============================================================================
-% 4.3 DATABASE SCHEMA DESIGN
+% 4.3 USE CASE DIAGRAM
+% =============================================================================
+
+\section{Use Case Diagram}
+
+\justifying
+The Use Case Diagram (UCD) for the Automated Diagram Digitization platform describes the interactions between the system's single actor -- the user -- and the various functional capabilities the platform provides. Since the system does not implement user authentication, all features are accessible to any visitor. The diagram captures the complete set of actions a user can perform within the system, from uploading a flowchart image to exporting the final diagram.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth,height=0.97\textheight,keepaspectratio]{image/use-case-diagram.png}
+    \caption{Use Case Diagram for Automated Diagram Digitization}
+    \label{fig:use-case-diagram}
+\end{figure}
+
+% =============================================================================
+% 4.4 DATABASE SCHEMA DESIGN
 % =============================================================================
 
 \section{Database Schema Design (PostgreSQL)}
@@ -90,34 +105,28 @@ The JSON import/export functionality enables data portability and integration wi
 \justifying
 The Automated Diagram Digitization platform utilizes PostgreSQL with JSONB support, providing reliable data persistence, ACID compliance, and flexible schema for storing complex flowchart data. The schema uses UUID primary keys, timestamp tracking, and JSONB columns for flow data storage.
 
-\begin{figure}[ht]
+\begin{table}[ht]
     \centering
-    \includegraphics[width=\textwidth]{image/arcch.jpg}
+    \includegraphics[width=0.8\textwidth,height=0.8\textheight,keepaspectratio]{image/arcch.jpg}
     \caption{Database Entity-Relationship Diagram}
     \label{fig:schema}
-\end{figure}
+\end{table}
 
 \justifying
-\noindent
 The Entity-Relationship diagram above illustrates the database structure. At the center is the \texttt{flowcharts} table, which stores all flowchart data. Each flowchart has a unique UUID identifier, a title string, a JSONB column containing the complete React Flow state (nodes and edges), and timestamp columns for creation and last update tracking.
 
 \justifying
-\noindent
 The JSONB column provides flexibility to store varying node and edge structures without requiring schema changes. Each node object contains id, type, position coordinates, data (including label), width, height, and optional styling properties. Each edge object contains id, source, target, optional label, type (smoothstep/straight), markerEnd for arrows, and optional styling properties.
 
 \justifying
-\noindent
 The schema follows best practices for web applications, uses \texttt{created\_at} and \texttt{updated\_at} timestamps with timezone support for audit compliance, applies indexes on frequently queried columns, and uses UUID primary keys for security benefits over sequential integers. The JSONB column supports indexing on specific fields if needed for performance.
 
 \justifying
-\noindent
 All timestamp columns use \texttt{TIMESTAMPTZ} rather than a timezone-naive type, storing values in UTC and allowing the application layer to convert to the user's local timezone at render time. This is particularly important for a platform that may be deployed across different geographical regions. Consistent UTC storage eliminates ambiguity in timestamp comparisons.
 
 \justifying
-\noindent
 The schema is managed through a versioned migration system using Alembic (SQLAlchemy migrations), capturing every structural change as an incremental script across development, staging, and production environments. This ensures consistent database evolution across all deployments.
 
-\noindent
 The following table provides a concise summary of the \texttt{flowcharts} table structure as implemented in PostgreSQL.
 
 \begin{table}[H]
@@ -156,7 +165,7 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
 \vspace{0.3cm}
 \textbf{Database Indexes for Performance Optimization:}
 
-\begin{itemize}
+\begin{enumerate}
     \item \texttt{CREATE INDEX idx\_flowcharts\_id ON flowcharts(id);} -- Primary key index for fast lookup by UUID.
 
     \item \texttt{CREATE INDEX idx\_flowcharts\_created\_at ON flowcharts(created\_at);} -- Optimizes queries sorting by creation date.
@@ -166,7 +175,7 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
     \item \texttt{CREATE INDEX idx\_flowcharts\_title ON flowcharts(title);} -- Enables fast search by title (for future search functionality).
 
     \item \texttt{CREATE INDEX idx\_flowcharts\_gin\_nodes ON flowcharts USING gin ((flow\_data -> 'nodes'));} -- GIN index for querying inside JSONB nodes array.
-\end{itemize}
+\end{enumerate}
 
 \textbf{Sample flow\_data JSON Structure:}
 
@@ -235,13 +244,10 @@ The following table provides a concise summary of the \texttt{flowcharts} table 
 \section{API Design (RESTful Endpoints)}
 
 \justifying
-\noindent
 The Automated Diagram Digitization platform implements a comprehensive RESTful API following industry best practices, serving as the communication backbone between the React frontend and FastAPI backend. Endpoints are resource-oriented, use appropriate HTTP methods, and consistent JSON response formats.
 
-\noindent
 The API is organised into logical resource groups: image analysis, text-to-flowchart generation, and flowchart management (CRUD operations). Middleware for CORS handling, request validation, and error handling is applied consistently. Incoming payloads are validated for type correctness, required fields, and domain constraints before any business logic executes.
 
-\noindent
 Error responses follow a consistent JSON structure containing detail message and appropriate HTTP status codes: \texttt{200} for successful retrieval, \texttt{201} for resource creation, \texttt{400} for validation failures, \texttt{404} when a requested resource does not exist, and \texttt{500} for internal server errors.
 
 \begin{table}[H]
@@ -344,7 +350,7 @@ Each module focuses on a specific task such as handling user input, processing A
 \justifying
 The input module handles all user input methods before AI processing. Components include:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Image Upload Component}: Drag-drop zone with file picker fallback, file type validation (PNG, JPG, WebP), file size validation, preview thumbnail, and upload progress indicator.
 
     \item \textbf{Text Prompt Component}: Multi-line textarea with placeholder text, character count (optional), example prompt button, and submit with loading state.
@@ -352,14 +358,14 @@ The input module handles all user input methods before AI processing. Components
     \item \textbf{JSON Import Component}: Textarea for JSON paste with syntax highlighting, file upload button for .json files, JSON validation with error messaging, and format preview option.
 
     \item \textbf{Tab Navigation}: Tabbed interface switching between input methods with active state styling and form reset on tab change.
-\end{itemize}
+\end{enumerate}
 
 \subsection{AI Processing Module}
 
 \justifying
 The AI processing module interfaces with Google Gemini AI and handles response parsing. Components include:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Gemini API Client}: Configured with API key from environment variables, handles authentication, and sends requests with appropriate system prompts.
 
     \item \textbf{Image Processor}: Uses Pillow to open uploaded images, resizes to thumbnail (1024x1024 max) for optimal API performance, and maintains aspect ratio.
@@ -369,14 +375,14 @@ The AI processing module interfaces with Google Gemini AI and handles response p
     \item \textbf{Response Parser}: Parses JSON responses from Gemini, handles malformed responses using regex extraction (\textbackslash{}(\textbackslash.*\textbackslash{})), ensures edge IDs exist (generates e\{source\}-\{target\} if missing), and validates required fields.
 
     \item \textbf{Error Handler}: Catches and logs API errors, returns user-friendly error messages, and provides fallback responses when possible.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Editor Module}
 
 \justifying
 The editor module is the core interactive component for diagram creation and modification. Components include:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{React Flow Canvas}: Renders nodes and edges with background grid, supports zooming and panning, and handles selection and deletion.
 
     \item \textbf{Sidebar Palette}: Displays draggable shape icons (start, process, decision, io) with SVG icons, implements HTML5 drag-drop with data transfer, and provides visual feedback during drag.
@@ -392,14 +398,14 @@ The editor module is the core interactive component for diagram creation and mod
     \item \textbf{Auto-Layout Engine}: Column-based clustering algorithm, calculates true center X for each node, clusters within tolerance (150px), snaps nodes to average column positions, and updates edge types based on alignment.
 
     \item \textbf{Styling Controls}: Color picker for nodes and edges, text styling buttons (bold, italic), font size dropdown (10-20px), and style application to selected elements.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Export Module}
 
 \justifying
 The export module handles all diagram export functionality. Components include:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{PNG Exporter}: Uses html-to-image library to capture canvas element, creates download link with data URL, and names file using flowchart title.
 
     \item \textbf{SVG Exporter}: Leverages React Flow's built-in SVG export capabilities, generates vector graphics with proper scaling, and maintains styling.
@@ -407,7 +413,7 @@ The export module handles all diagram export functionality. Components include:
     \item \textbf{JSON Exporter}: Serializes current nodes and edges to JSON string with pretty printing (2-space indent), creates blob with application/json type, and triggers download.
 
     \item \textbf{Export Menu}: Dropdown menu with export options, icons for each format, and disabled state during export operations.
-\end{itemize}
+\end{enumerate}
 
 % Section 4.5 Module-wise Detailed Design (around line 413)
 
@@ -416,7 +422,7 @@ The export module handles all diagram export functionality. Components include:
 \justifying
 The storage module manages database operations for flowchart persistence. Components include:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Database Client}: Async SQLAlchemy engine with connection pooling, configured with DATABASE\_URL from environment, and SSL enabled for production.
 
     \item \textbf{Create Operation}: Inserts new flowchart with title and flow\_data, returns generated UUID and timestamps, and handles validation errors.
@@ -424,14 +430,14 @@ The storage module manages database operations for flowchart persistence. Compon
     \item \textbf{Read Operation}: Retrieves flowchart by UUID using SELECT query, returns 404 if not found, and parses JSONB flow\_data.
 
     \item \textbf{Update Operation}: Updates title or flow\_data with partial updates, refreshes updated\_at timestamp, and returns updated record.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Theme Module}
 
 \justifying
 The theme module manages dark/light mode switching. Components include:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Theme Context}: React context providing theme state and toggle function, consumed by all components needing theme awareness.
 
     \item \textbf{Theme Toggle Button}: Button with sun/moon icons, toggles between dark and light modes, and updates localStorage with preference.
@@ -439,7 +445,7 @@ The theme module manages dark/light mode switching. Components include:
     \item \textbf{CSS Variables}: Root-level CSS variables for node backgrounds, borders, text colors, and canvas background, dynamically updated on theme change.
 
     \item \textbf{Persistence}: localStorage stores user theme preference, initial theme loaded from localStorage or defaults to dark mode.
-\end{itemize}
+\end{enumerate}
 
 % =============================================================================
 % 4.6 AI PROMPT DESIGN
@@ -451,6 +457,9 @@ The theme module manages dark/light mode switching. Components include:
 The system uses two specialized prompts for Gemini AI, carefully engineered for accurate flowchart recognition and generation.
 
 \subsection{Image Analysis System Prompt}
+
+\justifying
+The image analysis system prompt is carefully engineered to instruct Gemini AI to act as an Optical Graph Recognition engine. It defines strict rules for identifying node shapes, extracting positional coordinates, determining edge connections, and returning the result as raw structured JSON compatible with React Flow.
 
 \begin{lstlisting}[language=Python,
     caption={Image Analysis System Prompt},
@@ -486,6 +495,9 @@ Follow these strict rules:
 \end{lstlisting}
 
 \subsection{Text-to-Flowchart System Prompt}
+
+\justifying
+The text-to-flowchart system prompt guides Gemini AI in converting natural language process descriptions into structured React Flow JSON. It specifies the allowed node types, layout sizing rules, edge connection conventions, and label formatting requirements to ensure consistent and well-structured flowchart output.
 
 \begin{lstlisting}[language=Python,
     caption={Text-to-Flowchart System Prompt},
@@ -569,7 +581,10 @@ The system implements comprehensive error handling at multiple levels to ensure 
 
 \subsection{AI Response Error Handling}
 
-\begin{itemize}
+\justifying
+The backend implements several strategies to gracefully handle imperfect or malformed responses returned by the Gemini AI model. These mechanisms ensure the system can recover from common AI output issues without crashing or returning errors to the user.
+
+\begin{enumerate}
     \item \textbf{Malformed JSON}: Uses regex extraction to find JSON block within text response: \texttt{re.search(r'(\textbackslash{}\{\textbackslash{}.*\textbackslash{}\}\textbackslash{})', text, re.DOTALL)}.
 
     \item \textbf{Unescaped Characters}: Uses \texttt{json.loads(json\_str, strict=False)} to handle unescaped newlines within strings.
@@ -577,27 +592,33 @@ The system implements comprehensive error handling at multiple levels to ensure 
     \item \textbf{Missing Fields}: Validates required fields (nodes, edges) and provides defaults if missing.
 
     \item \textbf{Missing Edge IDs}: Automatically generates IDs in format \texttt{e\{source\}-\{target\}} if not provided by AI.
-\end{itemize}
+\end{enumerate}
 
 \subsection{API Error Handling}
 
-\begin{itemize}
+\justifying
+The API layer returns standardized HTTP error responses to clearly communicate the nature of any failure to the client. Each error code corresponds to a specific category of problem, making it straightforward for the frontend to respond appropriately.
+
+\begin{enumerate}
     \item \textbf{400 Bad Request}: Returned for missing prompt field, invalid JSON format, or validation failures.
 
     \item \textbf{404 Not Found}: Returned when flowchart ID does not exist in database.
 
     \item \textbf{500 Internal Server Error}: Returned for AI API failures, database errors, or unexpected exceptions with error logging.
-\end{itemize}
+\end{enumerate}
 
 \subsection{Frontend Error Handling}
 
-\begin{itemize}
+\justifying
+The frontend implements client-side validation and error display mechanisms to provide users with immediate and informative feedback when issues occur during file upload, JSON import, or API communication.
+
+\begin{enumerate}
     \item \textbf{File Upload Errors}: Validates file type and size before upload, displays user-friendly error messages.
 
     \item \textbf{JSON Import Errors}: Validates JSON syntax, displays line and column of error with descriptive message.
 
     \item \textbf{API Request Errors}: Catches fetch errors, displays toast notifications, and provides retry options.
-\end{itemize}
+\end{enumerate}
 
 % =============================================================================
 % 4.9 PERFORMANCE OPTIMIZATION
@@ -609,7 +630,7 @@ The system implements comprehensive error handling at multiple levels to ensure 
 The Automated Diagram Digitization platform implements multiple optimization strategies to ensure responsive user experiences.
 
 \textbf{Backend Optimization:}
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Image Resizing}: Thumbnail resizing to 1024x1024 max before sending to Gemini API reduces payload size and processing time.
 
     \item \textbf{Connection Pooling}: SQLAlchemy connection pooling with configurable pool size (5-20 connections) minimizes connection overhead.
@@ -617,10 +638,10 @@ The Automated Diagram Digitization platform implements multiple optimization str
     \item \textbf{Async Operations}: FastAPI async endpoints with await for database and AI operations improve concurrency.
 
     \item \textbf{JSONB Indexing}: GIN indexes on flow\_data for potential future querying requirements.
-\end{itemize}
+\end{enumerate}
 
 \textbf{Frontend Optimization:}
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{React Flow Performance}: Uses virtualization for large diagrams, limits re-renders with memo and useCallback.
 
     \item \textbf{Debounced Operations}: Auto-save and auto-layout debounced to prevent excessive operations during rapid edits.
@@ -628,16 +649,16 @@ The Automated Diagram Digitization platform implements multiple optimization str
     \item \textbf{Lazy Loading}: Code splitting with React.lazy for editor component (loaded only when needed).
 
     \item \textbf{CSS Variables}: Theme switching uses CSS variable updates instead of full re-renders.
-\end{itemize}
+\end{enumerate}
 
 \textbf{AI Optimization:}
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Prompt Engineering}: Temperature=0 for deterministic outputs, response\_mime\_type="application/json" for structured responses.
 
     \item \textbf{Image Optimization}: Thumbnail resizing reduces API latency and costs.
 
     \item \textbf{Caching}: Consider caching frequent prompts or responses for future implementation.
-\end{itemize}
+\end{enumerate}
 
 % =============================================================================
 % 4.10 SUMMARY

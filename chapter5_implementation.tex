@@ -86,14 +86,14 @@ The implementation relies on maintaining a history of diagram states. Whenever a
 
 \subsection{Custom Node Components}
 
+Each flowchart shape is implemented as a custom node component extending a common base node. The base node provides shared functionality such as connection handles on all four sides, double-click text editing, and node resizing capabilities. This modular structure ensures consistent behavior across all node types while allowing shape-specific styling.
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.85\textwidth]{image/custom.jpg}
 \caption{Image showing custom node components used in the flowchart editor.}
 \label{fig:custom-nodes}
 \end{figure}
-
-Each flowchart shape is implemented as a custom node component extending a common base node. The base node provides shared functionality such as connection handles on all four sides, double-click text editing, and node resizing capabilities. This modular structure ensures consistent behavior across all node types while allowing shape-specific styling.
 
 Different visual styles are applied using CSS. Process nodes are rendered as rectangles, decision nodes as diamonds using a \texttt{clip-path} polygon, start/end nodes as rounded shapes, and input/output nodes as parallelograms. This approach enables the editor to represent standard flowchart symbols while keeping the code modular and maintainable.
 

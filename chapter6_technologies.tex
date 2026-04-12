@@ -32,6 +32,8 @@ Automated Diagram Digitization leverages modern web technologies to create an in
 
 \section{Frontend Technologies}
 
+The frontend of the Automated Diagram Digitization system is built using a modern JavaScript technology stack designed for performance, developer productivity, and rich interactivity. The following subsections describe each frontend technology and its role within the application.
+
 \subsection{React 18 with Vite}
 React 18 provides the component-based architecture for building reusable UI elements. Vite serves as the build tool, offering fast development server startup with hot module replacement and optimized production builds.
 
@@ -43,28 +45,35 @@ Tailwind CSS provides utility-first styling for rapid UI development with consis
 
 \section{Backend Technologies}
 
+The backend services of the platform are implemented using a Python-based technology stack optimized for high-performance asynchronous processing, database interaction, and AI integration. The following subsections detail each component.
+
 \subsection{FastAPI Framework}
 FastAPI serves as the backend framework, offering high performance comparable to Node.js with automatic OpenAPI documentation. Key features include:
-\begin{itemize}
+\begin{enumerate}
     \item Asynchronous endpoint handling with async/await
     \item Automatic request validation using Pydantic models
     \item Built-in CORS middleware configuration
     \item JSON response serialization
-\end{itemize}
+\end{enumerate}
 
 \subsection{PostgreSQL with JSONB}
 PostgreSQL 15 provides reliable data persistence with JSONB support for flexible schema storage. The flowcharts table stores complete React Flow state (nodes and edges) in a JSONB column, allowing schema-less storage of varying node structures.
 
 \subsection{SQLAlchemy (Async)}
+
+SQLAlchemy is a powerful and flexible ORM (Object-Relational Mapper) for Python that simplifies database interactions through high-level abstractions. The async version is used here to align with FastAPI's asynchronous processing model, ensuring that database queries do not block the event loop and allowing the backend to handle multiple concurrent requests efficiently.
+
 SQLAlchemy serves as the async ORM for database operations, providing:
-\begin{itemize}
+\begin{enumerate}
     \item Connection pooling for optimal performance
     \item Parameterized queries for SQL injection prevention
     \item UUID primary key generation
     \item Timestamp tracking with timezone support
-\end{itemize}
+\end{enumerate}
 
 \section{AI Integration}
+
+The AI capabilities of the platform are powered by Google's Gemini multimodal model, supported by the Pillow image processing library for preprocessing input images before submission to the API. The subsections below outline how each component contributes to intelligent diagram analysis.
 
 \subsection{Google Gemini API}
 Gemini AI provides the multimodal intelligence for flowchart recognition and generation. The API is accessed via the official Python client library with custom system prompts engineered for accurate shape detection and text extraction.
@@ -73,6 +82,8 @@ Gemini AI provides the multimodal intelligence for flowchart recognition and gen
 Pillow handles image processing tasks including opening uploaded images, resizing to thumbnails (1024x1024 max), and format conversion before sending to Gemini API for analysis.
 
 \section{Development Tools}
+
+The development process was supported by a set of well-established tools for version control, API testing, and environment management. These tools ensured a structured, collaborative, and consistent development workflow throughout the project lifecycle.
 
 \subsection{Version Control}
 Git with GitHub enables systematic code management using feature branches and pull requests. The repository maintains separate directories for backend and frontend code.
@@ -83,16 +94,12 @@ Postman is used extensively for testing and validating RESTful API endpoints dur
 \subsection{Development Environment}
 
 The Automated Diagram Digitization system was developed using a modern web development environment designed to support efficient frontend and backend development. The backend services were implemented using Python with the FastAPI framework, while the frontend interface was developed using React with Vite.
+Development and debugging were performed using Visual Studio Code as the primary integrated development environment (IDE). Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent development setup. Version control was managed using Git, with the project repository hosted on GitHub. This enabled collaborative development, version tracking, and seamless integration with cloud deployment platforms.
 
-Development and debugging were performed using Visual Studio Code as the primary integrated development environment (IDE). Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent development setup.
-
-Version control was managed using Git, with the project repository hosted on GitHub. This enabled collaborative development, version tracking, and seamless integration with cloud deployment platforms.
-
-The development environment also included tools for API testing and debugging, allowing the team to validate backend endpoints and ensure proper communication between the frontend and backend components during development.
-
+The development environment also included tools for API testing and debugging, allowing the team to validate backend endpoints and ensure proper communication between the frontend and backend components during development. To maintain high code quality and consistency, linting and formatting tools including ESLint and Prettier were integrated into the frontend workflow, while Black was employed for standardizing backend Python code. Browser-based developer tools and the React Developer Tools extension were extensively used for real-time debugging and performance profiling of the interactive canvas components. Database schema design and data verification were facilitated using pgAdmin, allowing for direct interaction with the PostgreSQL storage layer during development. Additionally, the built-in Swagger UI provided by FastAPI served as a critical tool for interactive API testing, enabling the validation of data structures and response formats before frontend integration.
+\vspace{1em}
 \begin{table}[H]
 \centering
-\caption{Development Environment Tools}
 \begin{tabular}{ll}
 \toprule
 Tool / Platform & Purpose \\
@@ -104,34 +111,36 @@ Git and GitHub & Version control and collaboration \\
 Postman / Browser Testing & API testing and validation \\
 \bottomrule
 \end{tabular}
+\caption{Development Environment Tools}
+\label{tab:dev-tools}
 \end{table}
 
 \section{Project Structure}
 
-Automated Diagram Digitization follows a clear separation between frontend and backend:
+A well-organized project structure is essential for maintaining code clarity and enabling efficient collaboration among team members. The Automated Diagram Digitization project follows a clean separation between the frontend and backend directories, ensuring that developers can work on individual components independently without introducing conflicts. This structure also simplifies onboarding for new contributors by making the purpose of each directory immediately clear. Automated Diagram Digitization follows a clear separation between frontend and backend:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{backend/} - FastAPI application
-    \begin{itemize}
+    \begin{enumerate}
         \item \texttt{main.py} - Main application entry point
         \item \texttt{database.py} - Database configuration
         \item \texttt{models.py} - SQLAlchemy models
         \item \texttt{schemas.py} - Pydantic validation schemas
         \item \texttt{prompts.py} - Gemini AI system prompts
         \item \texttt{requirements.txt} - Python dependencies
-    \end{itemize}
+    \end{enumerate}
     \item \textbf{frontend/} - React application
-    \begin{itemize}
+    \begin{enumerate}
         \item \texttt{src/pages/} - InputPage and Flowchart components
         \item \texttt{src/components/} - Sidebar and custom nodes
         \item \texttt{src/hooks/} - useFlowchart, useEditableNodes
         \item \texttt{src/services/} - API service layer
         \item \texttt{src/utils/} - Layout algorithms
-    \end{itemize}
+    \end{enumerate}
     \item \texttt{.env} - Environment variables (database URL, Gemini API key)
     \item \texttt{package.json} - Frontend dependencies
     \item \texttt{README.md} - Project documentation
-\end{itemize}
+\end{enumerate}
 
 \section{Deployment Configuration}
 
@@ -172,7 +181,33 @@ The backend API developed using the FastAPI framework is deployed on the Render 
 
 Sensitive configuration values such as database connection strings and API keys are stored as environment variables within the deployment platforms. This ensures that confidential information is not stored directly in the application source code. The backend service retrieves these values at runtime to securely connect with the database and external AI services. Using environment variables also simplifies configuration management across development, testing, and production environments. This approach improves security while allowing the system to be easily deployed on different cloud platforms.
 
+\section{Security Measures}
+
+Security is a critical aspect of any web application that interacts with external services and stores user data. The Automated Diagram Digitization platform implements several layers of security to protect API credentials, prevent malicious inputs, and ensure safe communication between the frontend, backend, and database components.
+
+\subsection{API Key Protection}
+
+The Google Gemini API key and PostgreSQL connection string are stored exclusively as environment variables on the server side and are never exposed in client-side code or version control repositories. The backend retrieves these values at runtime using the \texttt{python-dotenv} library, ensuring that sensitive credentials remain confidential across all environments. A \texttt{.gitignore} rule prevents the \texttt{.env} file from being committed to the repository.
+
+\subsection{CORS Configuration}
+
+Cross-Origin Resource Sharing (CORS) is configured in the FastAPI backend to restrict API access to approved origins only. During development, only \texttt{localhost:5173} and \texttt{localhost:3000} are permitted. In production, only the verified frontend domain is whitelisted. This prevents unauthorized third-party websites from making requests to the backend API.
+
+\subsection{Input Sanitization and Validation}
+
+All user-provided inputs --- including uploaded image files, text prompts, and JSON data --- are validated before processing. Image files are checked for allowed MIME types and size limits before being passed to the Gemini API. Text prompts are length-validated, and JSON imports are parsed with strict error handling to reject malformed or malicious payloads.
+
+\subsection{SQL Injection Prevention}
+
+All database queries are executed through SQLAlchemy's parameterized query interface, which separates SQL commands from user-supplied data. This eliminates the possibility of SQL injection attacks, as user input is never directly interpolated into raw query strings.
+
+\subsection{HTTPS Enforcement}
+
+Both the frontend (deployed on Vercel) and the backend (deployed on Render) are served exclusively over HTTPS. All data transmitted between the client and server is encrypted in transit, preventing interception attacks and ensuring the confidentiality of user inputs and AI-generated flowchart data.
+
 \section{Advantages of Technology Stack}
+
+The technology choices made for this project offer several significant advantages in terms of performance, developer experience, accuracy, cost-effectiveness, and scalability. Each subsection below highlights one dimension of this benefit.
 
 \subsection{Performance}
 

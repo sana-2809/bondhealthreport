@@ -4,7 +4,7 @@
 \section{Summary of Work}
 Automated Diagram Digitization successfully delivers an intelligent web-based system for converting flowchart images into editable digital diagrams. Key accomplishments include:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{AI-Powered Recognition}: Google Gemini API integration with custom prompts for accurate shape identification (rectangle, diamond, oval, parallelogram), text extraction with line break preservation, and connection detection with directional arrows
     \item \textbf{Multiple Input Methods}: Three input modes—image upload with drag-drop, text-to-flowchart from natural language descriptions, and JSON import for existing flow data
     \item \textbf{Interactive Editor}: Drag-drop shape palette, undo/redo with snapshot history, auto-layout with column-based clustering, node resizing with text adaptation, and edge labeling via double-click
@@ -13,9 +13,11 @@ Automated Diagram Digitization successfully delivers an intelligent web-based sy
     \item \textbf{Persistent Storage}: PostgreSQL with JSONB support for storing complete React Flow state, UUID primary keys, and timestamp tracking
     \item \textbf{Responsive UI}: Glassmorphism design with Tailwind CSS for modern, accessible interface across all devices
     \item \textbf{Error Handling}: Regex-based JSON extraction for malformed AI responses, automatic edge ID generation, and graceful failure recovery
-\end{itemize}
+\end{enumerate}
 
 \section{Project Objectives Achievement}
+
+At the outset of the project, eight specific objectives were defined to guide the development of the Automated Diagram Digitization platform. These objectives covered all major aspects of the system, from AI-powered recognition and multiple input methods to persistent storage and theme support. The following assessment confirms that each objective has been successfully met through the implementation described in this report.
 
 The system successfully achieved all eight stated objectives:
 
@@ -32,9 +34,11 @@ The system successfully achieved all eight stated objectives:
 
 \section{Project Limitations}
 
+While the Automated Diagram Digitization system successfully meets its core objectives, certain limitations were identified during development and testing. Acknowledging these limitations is important for setting realistic expectations and for guiding future improvements to the platform. Each limitation listed below represents an area where the current version of the system does not yet fully address the intended requirement.
+
 Identified limitations for future enhancement:
 
-\begin{itemize}
+\begin{enumerate}
     \item Overlapping garments in images reduce recognition accuracy
     \item Dark color text extraction occasionally fails in poor lighting
     \item Real-time collaboration not yet implemented
@@ -42,34 +46,38 @@ Identified limitations for future enhancement:
     \item Template library not available
     \item BPMN and UML diagram types not supported
     \item Automated testing not yet fully implemented
-\end{itemize}
+\end{enumerate}
 
-\section{Team Contributions}
-
-\begin{itemize}
-    \item \textbf{Nema Fathima}: Lead backend developer responsible for FastAPI implementation, Gemini AI integration, custom prompt engineering, image preprocessing pipeline, and regex-based JSON extraction for error handling
-    \item \textbf{Nidha Rahma}: Frontend architect handling React component structure, React Flow configuration, custom node development, sidebar implementation, and drag-drop functionality
-    \item \textbf{Rithuparna J B}: UI/UX designer creating glassmorphism interface, theme system with CSS variables, responsive layouts, Tailwind CSS styling, and accessibility improvements
-    \item \textbf{Rose Maria}: Algorithm specialist developing column-based auto-layout, undo/redo snapshot system, edge labeling logic, and export functionality (PNG, SVG, JSON)
-    \item \textbf{Sana Noushad}: Database designer managing PostgreSQL schema, SQLAlchemy models, API endpoint testing with Postman, documentation coordination, and quality assurance
-\end{itemize}
 
 \section{Learning Outcomes}
 
+The development of the Automated Diagram Digitization system was a rich educational experience that extended well beyond the technical aspects of building a web application. Team members developed skills at the intersection of artificial intelligence, full-stack development, and user experience design. The following subsections outline the key areas of growth and knowledge gained through this project.
+
 \subsection{Technical Skills}
+
+The project provided hands-on experience with a comprehensive modern technology stack spanning both frontend and backend development. Team members gained practical proficiency in building production-quality applications using AI-integrated frameworks.
+
 Full-stack development proficiency: FastAPI async backends with Python, React 18 and React Flow for interactive diagramming, PostgreSQL with JSONB for flexible data storage, Gemini API integration for AI capabilities, modern CSS with glassmorphism effects.
 
 \subsection{Professional Development}
+
+Beyond technical abilities, the project significantly strengthened team members' professional and collaborative skills. Working within a structured development workflow with version control and iterative delivery helped simulate real-world software engineering practices.
+
 Team collaboration using Git and GitHub with feature branches, Agile development practices, technical documentation with LaTeX, API design and testing methodologies, project timeline management and milestone tracking.
 
 \subsection{Domain Knowledge}
+
+The project also deepened the team's understanding of specialized domains relevant to intelligent document processing and web application development. These insights will serve as a foundation for future work in AI-assisted applications.
+
 Computer vision concepts for shape recognition, prompt engineering for large language models, diagramming standards and conventions, web application security practices, responsive design principles, user experience optimization.
 
 \section{Impact and Significance}
 
+The Automated Diagram Digitization platform delivers measurable value to its target users by automating tasks that were previously labor-intensive and error-prone. By combining AI-powered recognition with an interactive editor, the system eliminates the need for manual redrawing and provides a seamless workflow from image input to exportable digital diagram. The impact of the platform can be observed across multiple dimensions of productivity and usability, as outlined below.
+
 Automated Diagram Digitization improves workflow efficiency by:
 
-\begin{itemize}
+\begin{enumerate}
     \item Eliminating manual redrawing, saving 15-30 minutes per moderately complex flowchart
     \item Preserving text formatting with proper line breaks for readability
     \item Automating connection detection to maintain logical flow
@@ -78,7 +86,7 @@ Automated Diagram Digitization improves workflow efficiency by:
     \item Enabling theme switching for comfortable extended use
     \item Offering flexible input methods for different user preferences
     \item Ensuring data persistence for workflow continuity
-\end{itemize}
+\end{enumerate}
 
 \section{Final Remarks}
 
@@ -89,6 +97,8 @@ The project demonstrates that thoughtfully designed AI-powered tools can bridge 
 As artificial intelligence continues to evolve, systems like Automated Diagram Digitization will play an increasingly important role in transforming how we capture, edit, and share visual information. This project provides a springboard for future innovations in intelligent document processing, with the ultimate goal of making diagram creation and modification as simple as taking a photo.
 
 \section{Project Statistics}
+
+The following table presents a quantitative summary of the project's development effort and testing outcomes. These statistics provide an objective measure of the scale and quality of work completed throughout the project lifecycle. The figures reflect the combined contributions of all five team members over the four-month development period.
 
 \begin{table}[H]
     \centering

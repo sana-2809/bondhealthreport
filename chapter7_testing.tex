@@ -3,33 +3,45 @@
 
 \section{Introduction}
 Testing ensures the reliability, functionality, and quality of the Automated Diagram Digitization system across all modules. Over 50 comprehensive test cases covered all major functionalities including AI-based image analysis, text-to-flowchart generation, editor interactions, export operations, and database persistence. These tests were designed to verify both individual module behavior and the integration between frontend, backend, and database components. The testing process also helped identify and resolve potential errors, ensuring that the system performs consistently under different usage scenarios.
+
 \section{Testing Levels}
 
+The testing strategy for the Automated Diagram Digitization platform is structured around three complementary levels of testing. Each level examines the system from a different perspective, ensuring that individual components, module interactions, and the complete system all function correctly and meet the defined requirements.
+
 \subsection{Unit Testing}
+
+Unit testing involves verifying the correctness of individual components in isolation, independent of the rest of the system. By testing each module separately, developers can quickly identify and fix defects at the source before they propagate to other parts of the application. The following components were covered during unit testing.
+
 Tested individual components in isolation:
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Input Module}: File upload validation, drag-drop handling, JSON parsing
     \item \textbf{AI Processing}: Image preprocessing, Gemini API communication, JSON response parsing
     \item \textbf{Editor Functions}: Node addition/deletion, edge creation, undo/redo operations
     \item \textbf{Auto-Layout}: Column clustering algorithm, node repositioning calculations
     \item \textbf{Export Functions}: PNG capture, SVG generation, JSON serialization
     \item \textbf{Database}: CRUD operations, UUID generation, timestamp tracking
-\end{itemize}
+\end{enumerate}
 
 \subsection{Integration Testing}
+
+Integration testing verifies that different modules of the system work together correctly when combined. While unit testing ensures individual components function properly, integration testing focuses on the data flow and communication between modules. The following key workflows were validated during integration testing.
+
 Verified module interactions through key workflows:
-\begin{itemize}
+\begin{enumerate}
     \item Image upload $\rightarrow$ AI analysis $\rightarrow$ Editor rendering $\rightarrow$ User edits
     \item Text prompt $\rightarrow$ Gemini generation $\rightarrow$ JSON parsing $\rightarrow$ Diagram display
     \item JSON import $\rightarrow$ Validation $\rightarrow$ Editor state restoration
     \item Editor edits $\rightarrow$ Undo/Redo $\rightarrow$ History navigation
     \item Auto-layout $\rightarrow$ Node repositioning $\rightarrow$ Edge type adjustment
     \item Save flowchart $\rightarrow$ Database storage $\rightarrow$ Retrieve by ID $\rightarrow$ Re-render
-\end{itemize}
+\end{enumerate}
 
 \subsection{System Testing}
+
+System testing evaluates the complete, integrated application as a whole to verify that it meets all specified functional and non-functional requirements. This level of testing simulates real-world usage scenarios and examines the system under conditions similar to those experienced by end users. The following categories were included in the system-level test plan.
+
 Comprehensive testing across all requirements:
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Functional testing}: All 40+ features across all modules
     \item \textbf{UI/UX testing}: Responsiveness, intuitiveness, theme switching
     \item \textbf{Security testing}: API key protection, input validation, CORS
@@ -37,9 +49,11 @@ Comprehensive testing across all requirements:
     \item \textbf{Cross-browser testing}: Chrome, Firefox, Safari, Edge
     \item \textbf{Responsive design testing}: Desktop, tablet, mobile views
     \item \textbf{Error handling}: Malformed AI responses, invalid inputs, network failures
-\end{itemize}
+\end{enumerate}
 
 \section{Test Results Summary}
+
+The following table presents a consolidated summary of all test cases executed across the various testing categories. Results are organized by module to provide a clear overview of the system's overall quality and readiness for deployment. A total of 69 test cases were executed, covering all major functional, performance, security, and usability aspects of the platform.
 
 \begin{table}[H]
     \centering
@@ -77,22 +91,26 @@ Comprehensive testing across all requirements:
 
 \section{Security Testing}
 
+Security testing was conducted to identify and address potential vulnerabilities in the system before deployment. Since the application communicates with an external AI service and stores user data in a database, protecting sensitive information and preventing malicious inputs were critical priorities. The following measures were evaluated to confirm that the system maintains a robust security posture.
+
 Security testing focused on protecting the Gemini API key and preventing malicious inputs:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{API Key Protection}: Key stored in environment variables, never in client code
     \item \textbf{Input Validation}: File type and size validation before processing
     \item \textbf{SQL Injection}: Parameterized queries with async SQLAlchemy
     \item \textbf{CORS Configuration}: Restricted to allowed origins (localhost:5173, localhost:3000)
     \item \textbf{JSON Parsing}: Safe parsing with error handling for malformed data
     \item \textbf{File Upload Security}: Image validation using Pillow, size limits enforced
-\end{itemize}
+\end{enumerate}
 
 \section{Usability Testing}
 
+Usability testing was carried out to evaluate how intuitive and accessible the platform is for real users. A group of 12 participants representing the target audience — students, educators, and software developers — were asked to complete a series of tasks using the application. Their feedback was systematically collected to identify areas for improvement and validate the overall design of the interface.
+
 User feedback from 12 testers (students, educators, and software developers):
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Navigation}: 11/12 users found interface intuitive
     \item \textbf{Input Methods}: 10/12 easily understood three input tabs
     \item \textbf{Drag-Drop}: 11/12 successfully added nodes from sidebar
@@ -100,19 +118,21 @@ User feedback from 12 testers (students, educators, and software developers):
     \item \textbf{Auto-Layout}: 10/12 appreciated one-click alignment
     \item \textbf{Theme Switching}: 9/12 used dark/light mode toggle
     \item \textbf{Overall Satisfaction}: Average rating 4.3/5
-\end{itemize}
+\end{enumerate}
 
 Improvements made based on feedback:
-\begin{itemize}
+\begin{enumerate}
     \item Added larger text options for readability
     \item Improved contrast for outdoor visibility
     \item Added progress indicators during AI processing
     \item Enhanced error messages with clear action steps
     \item Added tooltips for all toolbar buttons
     \item Implemented loading states for async operations
-\end{itemize}
+\end{enumerate}
 
 \section{Bug Tracking and Resolution}
+
+During the development and testing phases, all identified defects were systematically logged using GitHub Issues, categorized by severity, and tracked to resolution. This structured approach to bug management ensured that critical issues were addressed promptly while lower-priority defects were scheduled for future development sprints. The table below summarizes the total number of bugs found and resolved, organized by severity level.
 
 \begin{table}[H]
     \centering
@@ -137,7 +157,7 @@ Improvements made based on feedback:
 \end{table}
 
 Common bugs resolved:
-\begin{itemize}
+\begin{enumerate}
     \item Edge IDs missing in AI response (added automatic generation)
     \item JSON parsing errors with unescaped newlines (added regex extraction)
     \item Undo/Redo not working for edge edits (added edge state to snapshots)
@@ -147,19 +167,23 @@ Common bugs resolved:
     \item Edge labels not saving (added updateEdgeLabel function)
     \item Image upload timeout for large files (added thumbnail resizing)
     \item CORS errors in production (configured allowed origins properly)
-\end{itemize}
+\end{enumerate}
 
 \section{Test Environment}
 
-\begin{itemize}
+All testing activities were carried out in a controlled environment that closely resembled the conditions under which the system would be used in production. Multiple hardware configurations and operating systems were tested to ensure consistent behavior across different platforms. Browser compatibility was also verified to confirm that the application functions correctly for users with different software environments.
+
+\begin{enumerate}
     \item \textbf{Hardware}: Intel i7, 16GB RAM, 512GB SSD
     \item \textbf{OS}: Windows 11, macOS (Monterey+), Ubuntu 22.04
     \item \textbf{Browsers}: Chrome v120+, Firefox v121+, Safari v17+, Edge v120+
     \item \textbf{Testing Tools}: Chrome DevTools, Postman, React Developer Tools, GitHub Issues
     \item \textbf{Backend Testing}: Python unittest, pytest
-\end{itemize}
+\end{enumerate}
 
 \section{Coverage Summary}
+
+Test coverage analysis was performed to measure the proportion of the application's functionality that was exercised during testing. High coverage ensures that the majority of code paths, features, and user interactions have been validated, reducing the likelihood of undetected defects in production. The following table presents coverage percentages across the key dimensions of the testing effort.
 
 \begin{table}[H]
     \centering
