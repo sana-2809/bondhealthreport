@@ -1,190 +1,442 @@
 \chapter{Testing}
 \label{ch:testing}
 
-The validation of system performance and functional accuracy is a critical phase in the development of the Automated Diagram Digitization platform. This chapter details the comprehensive testing methodology employed to ensure that the platform meets the high standards of reliability and usability required by students and professionals. By systematically executing unit, integration, and user acceptance tests, our team has identified and resolved technical defects, optimized processing speeds, and refined the interactive experience of the flowchart editor.
+The validation of system performance and functional accuracy is 
+a critical phase in the development of the Automated Diagram 
+Digitization platform. This chapter details the comprehensive 
+testing methodology employed to ensure that the platform meets 
+the standards of reliability and usability required by students 
+and professionals. By systematically executing unit, 
+integration, and system-level tests, the team identified and 
+resolved technical defects, optimized processing speeds, and 
+refined the interactive experience of the flowchart 
+editor.
+A total of 69 comprehensive test cases were executed, covering 
+all major functionalities including AI-based image analysis, 
+text-to-flowchart generation, editor interactions, export 
+operations, and database persistence. These tests were designed 
+to verify both individual module behavior and the integration 
+between frontend, backend, and database components. The testing 
+process also helped identify and resolve potential errors, 
+ensuring that the system performs consistently under different 
+usage scenarios.
 
-Testing ensures the reliability, functionality, and quality of the Automated Diagram Digitization system across all modules. Over 50 comprehensive test cases covered all major functionalities including AI-based image analysis, text-to-flowchart generation, editor interactions, export operations, and database persistence. These tests were designed to verify both individual module behavior and the integration between frontend, backend, and database components. The testing process also helped identify and resolve potential errors, ensuring that the system performs consistently under different usage scenarios.~\cite{softwaretesting}
-
+%---------------------------------------------------------------
 \section{Testing Levels}
+\label{sec:testing-levels}
+%---------------------------------------------------------------
 
-The testing strategy for the Automated Diagram Digitization platform is structured around three complementary levels of testing. Each level examines the system from a different perspective, ensuring that individual components, module interactions, and the complete system all function correctly and meet the defined requirements.~\cite{sommerville, pressman}
+The testing strategy for the Automated Diagram Digitization 
+platform is structured around three complementary levels of 
+testing. Each level examines the system from a different 
+perspective, ensuring that individual components, module 
+interactions, and the complete system all function correctly 
+and meet the defined requirements.
 
 \subsection{Unit Testing}
+\label{subsec:unit-testing}
 
-Unit testing involves verifying the correctness of individual components in isolation, independent of the rest of the system. By testing each module separately, developers can quickly identify and fix defects at the source before they propagate to other parts of the application. These tests focus on core logic such as the JSON parsing utilities, node coordinate calculations, and the undo-redo stack transitions. Using mocked dependencies ensures that the tests remain deterministic and execute rapidly, providing a tight feedback loop during development. Furthermore, edge cases such as empty input strings and malformed coordinate pairs are systematically validated to prevent runtime exceptions in the production environment. The following components were covered during unit testing.
+Unit testing involves verifying the correctness of individual 
+components in isolation, independent of the rest of the system. 
+By testing each module separately, developers can quickly 
+identify and fix defects at the source before they propagate 
+to other parts of the application. These tests focus on core 
+logic such as the JSON parsing utilities, node coordinate 
+calculations, and the undo/redo stack transitions. Using mocked 
+dependencies ensures that the tests remain deterministic and 
+execute rapidly, providing a tight feedback loop during 
+development. Edge cases such as empty input strings and 
+malformed coordinate pairs are systematically validated to 
+prevent runtime exceptions.~\cite{softwaretesting}
+
+The following components were covered during unit testing:
+
 \begin{enumerate}
-    \item \textbf{Input Module}: File upload validation, drag-drop handling, JSON parsing
-    \item \textbf{AI Processing}: Image preprocessing, Gemini API communication, JSON response parsing
-    \item \textbf{Editor Functions}: Node addition/deletion, edge creation, undo/redo operations
-    \item \textbf{Auto-Layout}: Column clustering algorithm, node repositioning calculations
-    \item \textbf{Export Functions}: PNG capture, SVG generation, JSON serialization
-    \item \textbf{Database}: CRUD operations, UUID generation, timestamp tracking
+
+    \item \textbf{Input Module:} File upload validation, 
+    drag-and-drop handling, JSON parsing
+
+    \item \textbf{AI Processing:} Image preprocessing, Gemini 
+    API communication, JSON response parsing
+
+    \item \textbf{Editor Functions:} Node addition and deletion, 
+    edge creation, undo/redo operations
+
+    \item \textbf{Auto-Layout:} Column clustering algorithm, 
+    node repositioning calculations
+
+    \item \textbf{Export Functions:} PNG capture, SVG 
+    generation, JSON serialization
+
+    \item \textbf{Database:} CRUD operations, UUID generation, 
+    timestamp tracking
+
 \end{enumerate}
 
 \subsection{Integration Testing}
+\label{subsec:integration-testing}
 
-Integration testing verifies that different modules of the system work together correctly when combined. While unit testing ensures individual components function properly, integration testing focuses on the data flow and communication between modules. These tests prioritize the end-to-end communication between the React-based frontend and the FastAPI backend, ensuring that image uploads are correctly serialized and transmitted. Special attention is given to the synchronization of state between the React Flow canvas and the database persistence layer during batch update operations. By validating the integrity of cross-module data structures, the system maintains consistent behavior even as individual components evolve. The following key workflows were validated during integration testing.
+Integration testing verifies that different modules of the 
+system work together correctly when combined. While unit 
+testing ensures individual components function properly, 
+integration testing focuses on the data flow and communication 
+between modules. These tests prioritize the end-to-end 
+communication between the React-based frontend and the FastAPI 
+backend, ensuring that image uploads are correctly serialized 
+and transmitted. Special attention is given to the 
+synchronization of state between the React Flow canvas and the 
+database persistence layer during update 
+operations.~\cite{pressman}
+
+The following key workflows were validated during integration 
+testing:
+
 \begin{enumerate}
-    \item Image upload $\rightarrow$ AI analysis $\rightarrow$ Editor rendering $\rightarrow$ User edits
-    \item Text prompt $\rightarrow$ Gemini generation $\rightarrow$ JSON parsing $\rightarrow$ Diagram display
-    \item JSON import $\rightarrow$ Validation $\rightarrow$ Editor state restoration
-    \item Editor edits $\rightarrow$ Undo/Redo $\rightarrow$ History navigation
-    \item Auto-layout $\rightarrow$ Node repositioning $\rightarrow$ Edge type adjustment
-    \item Save flowchart $\rightarrow$ Database storage $\rightarrow$ Retrieve by ID $\rightarrow$ Re-render
+
+    \item Image upload $\rightarrow$ AI analysis $\rightarrow$ 
+    Editor rendering $\rightarrow$ User edits
+
+    \item Text prompt $\rightarrow$ Gemini generation 
+    $\rightarrow$ JSON parsing $\rightarrow$ Diagram display
+
+    \item JSON import $\rightarrow$ Validation $\rightarrow$ 
+    Editor state restoration
+
+    \item Editor edits $\rightarrow$ Undo/Redo $\rightarrow$ 
+    History navigation
+
+    \item Auto-layout $\rightarrow$ Node repositioning 
+    $\rightarrow$ Edge type adjustment
+
+    \item Save flowchart $\rightarrow$ Database storage 
+    $\rightarrow$ Retrieve by ID $\rightarrow$ Re-render
+
 \end{enumerate}
 
 \subsection{System Testing}
+\label{subsec:system-testing}
 
-System testing evaluates the complete, integrated application as a whole to verify that it meets all specified functional and non-functional requirements. This level of testing simulates real-world usage scenarios and examines the system under conditions similar to those experienced by end users. It also addresses cross-cutting concerns such as responsiveness across different display resolutions and the system's ability to maintain high performance during complex diagram generation tasks. Load testing is conducted to determine the platform's stability under multiple concurrent user requests. Finally, usability assessments are performed to verify that the integrated workflow from initial upload to final export provides a seamless and intuitive experience. The following categories were included in the system-level test plan.
+System testing evaluates the complete, integrated application 
+as a whole to verify that it meets all specified functional 
+and non-functional requirements. This level of testing 
+simulates real-world usage scenarios and examines the system 
+under conditions similar to those experienced by end users. 
+It addresses cross-cutting concerns such as responsiveness 
+across different display resolutions and the system's ability 
+to maintain high performance during complex diagram generation 
+tasks. Load testing was conducted to determine the platform's 
+stability under multiple concurrent user 
+requests.~\cite{sommerville}
+
+The following categories were included in the system-level 
+test plan:
+
 \begin{enumerate}
-    \item \textbf{Functional testing}: All features across all modules
-    \item \textbf{UI/UX testing}: Responsiveness, intuitiveness, theme switching
-    \item \textbf{Security testing}: API key protection, input validation, CORS
-    \item \textbf{Performance testing}: Response times and resource usage
-    \item \textbf{Cross-browser testing}: Chrome, Firefox, Safari, Edge
-    \item \textbf{Responsive design testing}: Desktop, tablet, mobile views
-    \item \textbf{Error handling}: Malformed AI responses, invalid inputs, network failures
+
+    \item \textbf{Functional testing:} All features across 
+    all modules
+
+    \item \textbf{UI/UX testing:} Responsiveness, 
+    intuitiveness, theme switching
+
+    \item \textbf{Security testing:} API key protection, 
+    input validation, CORS
+
+    \item \textbf{Performance testing:} Response times and 
+    resource usage
+
+    \item \textbf{Cross-browser testing:} Chrome, Firefox, 
+    Safari, Edge
+
+    \item \textbf{Responsive design testing:} Desktop, 
+    tablet, mobile views
+
+    \item \textbf{Error handling:} Malformed AI responses, 
+    invalid inputs, network failures
+
 \end{enumerate}
 
+%---------------------------------------------------------------
 \section{Test Results Summary}
+\label{sec:test-results}
+%---------------------------------------------------------------
 
-The following table presents a consolidated summary of all test cases executed across the various testing categories. Results are organized by module to provide a clear overview of the system's overall quality and readiness for deployment. A total of 69 test cases were executed, covering all major functional, performance, security, and usability aspects of the platform. \textit{Refer Table~\ref{tab:test-summary}: Overall Test Results.}
+The following table presents a consolidated summary of all 
+test cases executed across the various testing categories. 
+Results are organized by module to provide a clear overview 
+of the system's overall quality and readiness for deployment. 
+A total of 69 test cases were executed, covering all major 
+functional, performance, security, and usability aspects of 
+the platform. \textit{Refer Table~\ref{tab:test-summary}: Overall Test Results.}
 
 \begin{table}[!htbp]
-    \centering
-    \small
-    \renewcommand{\arraystretch}{1.3}
-    \begin{tabular}{|p{4cm}|c|c|c|}
-        \hline
-        \textbf{Test Category} & \textbf{Total Cases} & \textbf{Passed} & \textbf{Success Rate} \\
-        \hline
-        Input Module & 8 & 8 & 100\% \\
-        \hline
-        AI Processing & 10 & 9 & 90\% \\
-        \hline
-        Editor Module & 15 & 15 & 100\% \\
-        \hline
-        Auto-Layout & 5 & 5 & 100\% \\
-        \hline
-        Export Module & 6 & 6 & 100\% \\
-        \hline
-        Database & 8 & 8 & 100\% \\
-        \hline
-        Performance & 4 & 4 & 100\% \\
-        \hline
-        Cross-Browser & 5 & 5 & 100\% \\
-        \hline
-        Responsive Design & 4 & 4 & 100\% \\
-        \hline
-        Security & 4 & 4 & 100\% \\
-        \hline
-        \textbf{Total} & \textbf{69} & \textbf{68} & \textbf{98.6\%} \\
-        \hline
-    \end{tabular}
-    \caption{Overall Test Results}
-    \label{tab:test-summary}
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4cm}|c|c|c|}
+    \hline
+    \textbf{Test Category} & \textbf{Total Cases} & 
+    \textbf{Passed} & \textbf{Success Rate} \\
+    \hline
+    Input Module & 8 & 8 & 100\% \\
+    \hline
+    AI Processing & 10 & 9 & 90\% \\
+    \hline
+    Editor Module & 15 & 15 & 100\% \\
+    \hline
+    Auto-Layout & 5 & 5 & 100\% \\
+    \hline
+    Export Module & 6 & 6 & 100\% \\
+    \hline
+    Database & 8 & 8 & 100\% \\
+    \hline
+    Performance & 4 & 4 & 100\% \\
+    \hline
+    Cross-Browser & 5 & 5 & 100\% \\
+    \hline
+    Responsive Design & 4 & 4 & 100\% \\
+    \hline
+    Security & 4 & 4 & 100\% \\
+    \hline
+    \textbf{Total} & \textbf{69} & \textbf{68} & 
+    \textbf{98.6\%} \\
+    \hline
+\end{tabular}
+\caption{Overall Test Results}
+\label{tab:test-summary}
 \end{table}
 
+%---------------------------------------------------------------
 \section{Security Testing}
+\label{sec:security-testing}
+%---------------------------------------------------------------
 
-Security testing was conducted to identify and address potential vulnerabilities in the system before deployment. Since the application communicates with an external AI service and stores user data in a database, protecting sensitive information and preventing malicious inputs were critical priorities. The following measures were evaluated to confirm that the system maintains a robust security posture. We also simulated various edge cases, such as the injection of malformed JSON payloads and oversized image binaries, to ensure that the backend's error-handling mechanisms respond gracefully without exposing internal system metadata. These rigorous assessments validate that the platform is fortified against common web security threats, providing a safe environment for both personal and collaborative diagramming.
-Security testing focused on protecting the Gemini API key and preventing malicious inputs:
+Security testing was conducted to identify and address 
+potential vulnerabilities in the system before deployment. 
+Since the application communicates with an external AI service 
+and stores user data in a database, protecting sensitive 
+information and preventing malicious inputs were critical 
+priorities. Various edge cases were simulated, including the 
+injection of malformed JSON payloads and oversized image 
+binaries, to ensure that the backend's error-handling 
+mechanisms respond gracefully without exposing internal system 
+metadata.~\cite{softwaretesting}
+
+Security testing focused on the following measures:
 
 \begin{enumerate}
-    \item \textbf{API Key Protection}: Key stored in environment variables, never in client code
-    \item \textbf{Input Validation}: File type and size validation before processing
-    \item \textbf{SQL Injection}: Parameterized queries with async SQLAlchemy
-    \item \textbf{CORS Configuration}: Restricted to allowed origins (localhost:5173, localhost:3000)
-    \item \textbf{JSON Parsing}: Safe parsing with error handling for malformed data
-    \item \textbf{File Upload Security}: Image validation using Pillow, size limits enforced
+
+    \item \textbf{API Key Protection:} Key stored in 
+    environment variables, never in client-side code
+
+    \item \textbf{Input Validation:} File type and size 
+    validation before processing
+
+    \item \textbf{SQL Injection:} Parameterized queries 
+    with async SQLAlchemy~\cite{sqlalchemy}
+
+    \item \textbf{CORS Configuration:} Restricted to 
+    allowed origins (\texttt{localhost:5173}, 
+    \texttt{localhost:3000})~\cite{cors}
+
+    \item \textbf{JSON Parsing:} Safe parsing with error 
+    handling for malformed data
+
+    \item \textbf{File Upload Security:} Image validation 
+    using Pillow, size limits enforced~\cite{pillow}
+
 \end{enumerate}
 
+%---------------------------------------------------------------
 \section{Usability Testing}
+\label{sec:usability-testing}
+%---------------------------------------------------------------
 
-Usability testing was conducted internally by the project team members to evaluate how intuitive and accessible the platform is. By performing a series of structured tasks using the application, the team members systematically identified areas for improvement and validated the overall design of the user interface. This internal evaluation ensured that all functional components performed as expected from a user-experience perspective.
-Based on this internal feedback, several UI/UX refinements were implemented, including the addition of tooltips for all toolbar buttons, larger text options for improved readability, and progress indicators for asynchronous AI operations. Furthermore, error messages were enhanced with clearer action steps, and loading states were introduced to provide better visual feedback during data processing tasks.
+Usability testing was conducted internally by the project team 
+members to evaluate how intuitive and accessible the platform 
+is. By performing a series of structured tasks using the 
+application, the team members systematically identified areas 
+for improvement and validated the overall design of the user 
+interface. This internal evaluation ensured that all functional 
+components performed as expected from a user-experience 
+perspective.~\cite{sommerville}
 
+Based on this internal feedback, several UI/UX refinements 
+were implemented, including the addition of tooltips for all 
+toolbar buttons, larger text options for improved readability, 
+and progress indicators for asynchronous AI operations. Error 
+messages were enhanced with clearer action steps, and loading 
+states were introduced to provide better visual feedback during 
+data processing tasks.~\cite{softwaretesting}
+
+It is acknowledged that internal team-based usability testing 
+introduces evaluator bias, as team members are familiar with 
+the system's design and intended behaviour. The satisfaction 
+score of 4.3 out of 5 was obtained by having all five team 
+members independently rate the system across five criteria: 
+ease of use, responsiveness, visual clarity, feature 
+completeness, and error feedback quality. Scores were averaged 
+across all team members and criteria. While this provides a 
+preliminary indication of usability, an external evaluation 
+involving at least ten independent users from the target 
+audience -- students, educators, and software developers -- 
+is strongly recommended in future work to produce 
+statistically valid and unbiased usability 
+metrics.
+
+%---------------------------------------------------------------
 \section{Bug Tracking and Resolution}
+\label{sec:bug-tracking}
+%---------------------------------------------------------------
 
-During the development and testing phases, all identified defects were systematically logged using GitHub Issues, categorized by severity, and tracked to resolution. This structured approach to bug management ensured that critical issues were addressed promptly while lower-priority defects were scheduled for future development sprints. The table below summarizes the total number of bugs found and resolved, organized by severity level. \textit{Refer Table~\ref{tab:bugs}: Bug Tracking Summary.}
+During the development and testing phases, all identified 
+defects were systematically logged using GitHub Issues, 
+categorized by severity, and tracked to resolution. This 
+structured approach to bug management ensured that critical 
+issues were addressed promptly while lower-priority defects 
+were scheduled for future development sprints. \textit{Refer Table~\ref{tab:bugs}: Bug Tracking Summary.}
 
 \begin{table}[!htbp]
-    \centering
-    \small
-    \renewcommand{\arraystretch}{1.3}
-    \begin{tabular}{|p{4cm}|c|c|c|}
-        \hline
-        \textbf{Severity} & \textbf{Found} & \textbf{Fixed} & \textbf{Status} \\
-        \hline
-        Critical & 3 & 3 & Resolved \\
-        \hline
-        High & 12 & 12 & Resolved \\
-        \hline
-        Medium & 18 & 18 & Resolved \\
-        \hline
-        Low & 10 & 8 & 80\% Fixed \\
-        \hline
-        \textbf{Total} & \textbf{43} & \textbf{41} & \textbf{95.3\%} \\
-        \hline
-    \end{tabular}
-    \caption{Bug Tracking Summary}
-    \label{tab:bugs}
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4cm}|c|c|c|}
+    \hline
+    \textbf{Severity} & \textbf{Found} & \textbf{Fixed} & 
+    \textbf{Status} \\
+    \hline
+    Critical & 3 & 3 & Resolved \\
+    \hline
+    High & 12 & 12 & Resolved \\
+    \hline
+    Medium & 18 & 18 & Resolved \\
+    \hline
+    Low & 10 & 8 & 80\% Fixed \\
+    \hline
+    \textbf{Total} & \textbf{43} & \textbf{41} & 
+    \textbf{95.3\%} \\
+    \hline
+\end{tabular}
+\caption{Bug Tracking Summary}
+\label{tab:bugs}
 \end{table}
 
-Common bugs resolved:
+Common bugs identified and resolved during testing include:
+
 \begin{enumerate}
-    \item Edge IDs missing in AI response (added automatic generation)
-    \item JSON parsing errors with unescaped newlines (added regex extraction)
-    \item Undo/Redo not working for edge edits (added edge state to snapshots)
-    \item Auto-layout misaligning decision nodes (adjusted width calculation)
-    \item Theme preference not persisting (added localStorage persistence)
-    \item Node resize handles invisible (added CSS styling)
-    \item Edge labels not saving (added updateEdgeLabel function)
-    \item Image upload timeout for large files (added thumbnail resizing)
-    \item CORS errors in production (configured allowed origins properly)
+
+    \item Edge IDs missing in AI response (added automatic 
+    generation)
+
+    \item JSON parsing errors with unescaped newlines (added 
+    regex extraction fallback)
+
+    \item Undo/redo not working for edge edits (added edge 
+    state to snapshots)
+
+    \item Auto-layout misaligning decision nodes (adjusted 
+    width calculation for diamond shapes)
+
+    \item Theme preference not persisting across sessions 
+    (added \texttt{localStorage} persistence)
+
+    \item Node resize handles not visible (added explicit CSS 
+    styling)
+
+    \item Edge labels not saving after double-click edit 
+    (added \texttt{updateEdgeLabel} function)
+
+    \item Image upload timeout for large files (added 
+    thumbnail resizing via Pillow)
+
+    \item CORS errors in production (configured allowed 
+    origins properly in FastAPI)
+
 \end{enumerate}
 
+%---------------------------------------------------------------
 \section{Test Environment}
+\label{sec:test-environment}
+%---------------------------------------------------------------
 
-All testing activities were carried out in a controlled environment that closely resembled the conditions under which the system would be used in production. Multiple hardware configurations and operating systems were tested to ensure consistent behavior across different platforms. Browser compatibility was also verified to confirm that the application functions correctly for users with different software environments.
+All testing activities were carried out in a controlled 
+environment that closely resembled the conditions under which 
+the system would be used after deployment. Multiple hardware 
+configurations and operating systems were tested to ensure 
+consistent behavior across different platforms. Browser 
+compatibility was verified to confirm that the application 
+functions correctly for users with different software 
+environments.~\cite{softwaretesting}
 
 \begin{enumerate}
-    \item \textbf{Hardware}: Intel i7, 16GB RAM, 512GB SSD
-    \item \textbf{OS}: Windows 11, macOS (Monterey+), Ubuntu 22.04
-    \item \textbf{Browsers}: Chrome v120+, Firefox v121+, Safari v17+, Edge v120+
-    \item \textbf{Testing Tools}: Chrome DevTools, Postman, React Developer Tools, GitHub Issues
-    \item \textbf{Backend Testing}: Python unittest, pytest
+
+    \item \textbf{Hardware:} Intel i7, 16\,GB RAM, 512\,GB SSD
+
+    \item \textbf{OS:} Windows 11, macOS (Monterey and later), 
+    Ubuntu 22.04
+
+    \item \textbf{Browsers:} Chrome v120+, Firefox v121+, 
+    Safari v17+, Edge v120+
+
+    \item \textbf{Testing Tools:} Chrome DevTools, Postman, 
+    React Developer Tools, GitHub Issues
+
+    \item \textbf{Backend Testing:} Python \texttt{unittest}, 
+    \texttt{pytest}
+
 \end{enumerate}
 
+%---------------------------------------------------------------
 \section{Coverage Summary}
+\label{sec:coverage-summary}
+%---------------------------------------------------------------
 
-Test coverage analysis was performed to measure the proportion of the application's functionality that was exercised during testing. High coverage ensures that the majority of code paths, features, and user interactions have been validated, reducing the likelihood of undetected defects in production. The following table presents coverage percentages across the key dimensions of the testing effort. \textit{Refer Table~\ref{tab:coverage}: Test Coverage Summary.}
+Test coverage analysis was performed to measure the proportion 
+of the application's functionality that was exercised during 
+testing. High coverage ensures that the majority of code paths, 
+features, and user interactions have been validated, reducing 
+the likelihood of undetected defects. \textit{Refer Table~\ref{tab:coverage}: Test Coverage Summary.}
 
 \begin{table}[!htbp]
-    \centering
-    \small
-    \renewcommand{\arraystretch}{1.3}
-    \begin{tabular}{|p{6cm}|c|}
-        \hline
-        \textbf{Coverage Type} & \textbf{Percentage} \\
-        \hline
-        Functional Coverage & 97\% \\
-        \hline
-        Code Coverage (Python) & 86\% \\
-        \hline
-        Code Coverage (React) & 82\% \\
-        \hline
-        Security Coverage & 100\% \\
-        \hline
-        Performance Coverage & 95\% \\
-        \hline
-        User Experience Coverage & 94\% \\
-        \hline
-    \end{tabular}
-    \caption{Test Coverage Summary}
-    \label{tab:coverage}
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{6cm}|c|}
+    \hline
+    \textbf{Coverage Type} & \textbf{Percentage} \\
+    \hline
+    Functional Coverage & 97\% \\
+    \hline
+    Code Coverage (Python) & 86\% \\
+    \hline
+    Code Coverage (React) & 82\% \\
+    \hline
+    Security Coverage & 100\% \\
+    \hline
+    Performance Coverage & 95\% \\
+    \hline
+    User Experience Coverage & 94\% \\
+    \hline
+\end{tabular}
+\caption{Test Coverage Summary}
+\label{tab:coverage}
 \end{table}
 
+%---------------------------------------------------------------
 \section{Conclusion}
+\label{sec:testing-conclusion}
+%---------------------------------------------------------------
 
-Automated Diagram Digitization has been thoroughly tested and meets all functional requirements. With a 98.6\% test pass rate, 95.3\% bug resolution, and positive user feedback (4.3/5 satisfaction), the system is ready for deployment. The remaining two low-priority bugs are documented for future development sprints. Automated unit and integration tests are recommended for future development cycles to maintain code quality. Continuous testing and monitoring will help ensure long-term stability and reliability as new features are introduced. These practices will also support efficient maintenance and scalable development of the platform in subsequent versions.
+The Automated Diagram Digitization system has been thoroughly 
+tested and meets all functional requirements identified in 
+Chapter~\ref{ch:systemstudy}. With a 98.6\% test pass rate, 
+95.3\% bug resolution, and a preliminary internal satisfaction 
+score of 4.3 out of 5, the system demonstrates readiness for 
+deployment as a functional prototype. The remaining two 
+low-priority bugs are documented in the GitHub Issues tracker 
+for resolution in future development sprints. Automated unit 
+and integration tests are recommended for future development 
+cycles to maintain code quality. Continuous testing and 
+monitoring will help ensure long-term stability and reliability 
+as new features are introduced, as outlined in 
+Chapter~\ref{ch:future}.

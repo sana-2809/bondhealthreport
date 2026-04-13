@@ -1,164 +1,354 @@
 \chapter{Technologies Used}
 \label{ch:technologies}
 
-The selection of a modern and robust technology stack is a fundamental prerequisite for building a high-performance system like Automated Diagram Digitization. This chapter provides a detailed examination of the frameworks, libraries, and tools utilized in the development of the platform, outlining the technical rationale behind each choice. The architecture is designed to be modular, ensuring that the frontend interface, backend logic, and AI processing services remain loosely coupled for maximum scalability and maintainability.
+The selection of a modern and robust technology stack is a 
+fundamental prerequisite for building a high-performance system 
+like Automated Diagram Digitization. This chapter provides a 
+detailed examination of the frameworks, libraries, and tools 
+utilized in the development of the platform, outlining the 
+technical rationale behind each choice. The architecture is 
+designed to be modular, ensuring that the frontend interface, 
+backend logic, and AI processing services remain loosely coupled 
+for maximum scalability and maintainability.
 
-The development of this platform leverages a full--stack JavaScript and Python ecosystem, combining the agility of React for the user interface with the high performance of FastAPI for backend services. By integrating Google’s state--of--the--art Gemini AI models for multimodal analysis and PostgreSQL for reliable data persistence, the system achieves a balance between advanced intelligent capabilities and enterprise--grade stability. These technologies collectively enable the platform to handle complex diagram recognition tasks while providing a smooth, responsive experience for the end user.
+The development of this platform leverages a full-stack JavaScript 
+and Python ecosystem, combining the agility of React for the user 
+interface with the high performance of FastAPI for backend 
+services. By integrating Google's state-of-the-art Gemini AI 
+models for multimodal analysis and PostgreSQL for reliable data 
+persistence, the system achieves a balance between advanced 
+intelligent capabilities and enterprise-grade stability. These 
+technologies collectively enable the platform to handle complex 
+diagram recognition tasks while providing a smooth, responsive 
+experience for the end user.~\cite{gemini, fastapi, postgresql}
 
+%---------------------------------------------------------------
 \section{Introduction}
-Automated Diagram Digitization leverages modern web technologies to create an intelligent flowchart recognition and editing platform. This chapter summarizes the key technologies, frameworks, and tools employed in the project. \textit{Refer Table~\ref{tab:tech-stack}: Technology Stack Overview.}
+\label{sec:tech-intro}
+%---------------------------------------------------------------
+
+Automated Diagram Digitization leverages modern web technologies 
+to create an intelligent flowchart recognition and editing 
+platform. This chapter summarizes the key technologies, 
+frameworks, and tools employed in the project. \textit{Refer Table~\ref{tab:tech-stack}: Technology Stack Overview.}
 
 \begin{table}[H]
-    \centering
-    \small
-    \begin{tabular}{|l|p{9cm}|}
-        \hline
-        \textbf{Component} & \textbf{Technologies} \\
-        \hline
-        Frontend & React 19, Vite, React Flow, Vanilla CSS, Lucide React \\
-        \hline
-        Backend & Python 3.9+, FastAPI, Uvicorn \\
-        \hline
-        Database & PostgreSQL 15, SQLAlchemy (async), JSONB \\
-        \hline
-        AI Integration & Google Gemini API, Pillow \\
-        \hline
-        Authentication & Environment-based API key management \\
-        \hline
-        Tools & VS Code, Git, GitHub, Postman, npm \\
-        \hline
-        Dependencies & python-dotenv, pydantic, python-multipart \\
-        \hline
-    \end{tabular}
-    \caption{Technology Stack Overview}
-    \label{tab:tech-stack}
+\centering
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{|l|p{9cm}|}
+    \hline
+    \textbf{Component} & \textbf{Technologies} \\
+    \hline
+    Frontend & React 19, Vite, React Flow, Vanilla CSS, 
+               Lucide React \\
+    \hline
+    Backend & Python 3.9+, FastAPI, Uvicorn \\
+    \hline
+    Database & PostgreSQL 15, SQLAlchemy (async), JSONB \\
+    \hline
+    AI Integration & Google Gemini API, Pillow \\
+    \hline
+    Authentication & Environment-based API key management \\
+    \hline
+    Tools & VS Code, Git, GitHub, Postman, npm \\
+    \hline
+    Dependencies & python-dotenv, pydantic, python-multipart \\
+    \hline
+\end{tabular}
+\caption{Technology Stack Overview}
+\label{tab:tech-stack}
 \end{table}
 
+%---------------------------------------------------------------
 \section{Frontend Technologies}
+\label{sec:frontend-tech}
+%---------------------------------------------------------------
 
-The frontend of the Automated Diagram Digitization system is built using a modern JavaScript technology stack designed for performance, developer productivity, and rich interactivity. The following subsections describe each frontend technology and its role within the application.
+The frontend of the Automated Diagram Digitization system is 
+built using a modern JavaScript technology stack designed for 
+performance, developer productivity, and rich interactivity. 
+The following subsections describe each frontend technology 
+and its role within the application.~\cite{react, vite, 
+reactflow}
 
 \subsection{React 19 with Vite}
-React 19 provides the component-based architecture for building reusable UI elements. Vite serves as the build tool, offering fast development server startup with hot module replacement and optimized production builds.~\cite{react,vite}
+\label{subsec:react-vite}
+
+React 19 provides the component-based architecture for building 
+reusable UI elements. Vite serves as the build tool, offering 
+fast development server startup with hot module replacement and 
+optimized production builds.~\cite{react, vite}
 
 \subsection{React Flow}
-React Flow is the core diagramming library used for rendering interactive flowcharts. Key features utilized include custom node rendering, connection handles, node resizing, edge styling, and background grid with zoom/pan controls.~\cite{reactflow}
+\label{subsec:reactflow}
+
+React Flow is the core diagramming library used for rendering 
+interactive flowcharts. Key features utilized include custom 
+node rendering, connection handles, node resizing, edge styling, 
+and background grid with zoom and pan controls.~\cite{reactflow}
 
 \subsection{Vanilla CSS and Lucide React}
-Vanilla CSS provides a flexible and standard way to style the user interface with modern design patterns. Lucide React supplies modern SVG icons for the shape palette, toolbar buttons, and UI controls.~\cite{lucide}
+\label{subsec:css-lucide}
 
+Vanilla CSS provides a flexible and standards-based approach to 
+styling the user interface with modern design patterns. Lucide 
+React supplies modern SVG icons for the shape palette, toolbar 
+buttons, and UI controls throughout the 
+application.~\cite{lucide}
+
+%---------------------------------------------------------------
 \section{Backend Technologies}
+\label{sec:backend-tech}
+%---------------------------------------------------------------
 
-The backend services of the platform are implemented using a Python--based technology stack optimized for high-performance asynchronous processing, database interaction, and AI integration. The following subsections detail each component.
+The backend services of the platform are implemented using a 
+Python-based technology stack optimized for high-performance 
+asynchronous processing, database interaction, and AI 
+integration. The following subsections detail each 
+component.~\cite{fastapi, postgresql, sqlalchemy}
 
 \subsection{FastAPI Framework}
-FastAPI serves as the backend framework, offering high performance comparable to Node.js with automatic OpenAPI documentation.~\cite{fastapi} 
+\label{subsec:fastapi}
 
-Key features include:
+FastAPI serves as the backend framework, offering high 
+performance comparable to Node.js with automatic OpenAPI 
+documentation.~\cite{fastapi} Key features include:
+
 \begin{enumerate}
-    \item Asynchronous endpoint handling with async/await
+
+    \item Asynchronous endpoint handling with 
+    \texttt{async}/\texttt{await}
+
     \item Automatic request validation using Pydantic models
-    \item Built-in CORS middleware configuration~\cite{cors}
-    \item JSON response serialization
+
+    \item Built-in CORS middleware 
+    configuration~\cite{cors}
+
+    \item JSON response serialization with consistent 
+    error formatting
+
 \end{enumerate}
 
 \subsection{PostgreSQL with JSONB}
-PostgreSQL 15 provides reliable data persistence with JSONB support for flexible schema storage. The flowcharts table stores complete React Flow state (nodes and edges) in a JSONB column, allowing schema-less storage of varying node structures.~\cite{postgresql,jsonb}
+\label{subsec:postgresql}
+
+PostgreSQL 15 provides reliable data persistence with JSONB 
+support for flexible schema storage. The flowcharts table stores 
+the complete React Flow state (nodes and edges) in a JSONB 
+column, allowing schema-less storage of varying node 
+structures.~\cite{postgresql, jsonb}
 
 \subsection{SQLAlchemy (Async)}
+\label{subsec:sqlalchemy}
 
-SQLAlchemy is a powerful and flexible ORM (Object-Relational Mapper) for Python that simplifies database interactions through high-level abstractions. The async version is used here to align with FastAPI's asynchronous processing model, ensuring that database queries do not block the event loop and allowing the backend to handle multiple concurrent requests efficiently.~\cite{sqlalchemy}
+SQLAlchemy is a powerful and flexible ORM (Object-Relational 
+Mapper) for Python that simplifies database interactions through 
+high-level abstractions. The async version is used here to align 
+with FastAPI's asynchronous processing model, ensuring that 
+database queries do not block the event loop and allowing the 
+backend to handle multiple concurrent requests 
+efficiently.~\cite{sqlalchemy}
 
-SQLAlchemy serves as the async ORM for database operations, providing:
+SQLAlchemy serves as the async ORM for database operations, 
+providing the following capabilities:
+
 \begin{enumerate}
+
     \item Connection pooling for optimal performance
+
     \item Parameterized queries for SQL injection prevention
+
     \item UUID primary key generation
+
     \item Timestamp tracking with timezone support
+
 \end{enumerate}
 
+%---------------------------------------------------------------
 \section{AI Integration}
+\label{sec:ai-integration}
+%---------------------------------------------------------------
 
-The AI capabilities of the platform are powered by Google's Gemini multimodal model, supported by the Pillow image processing library for preprocessing input images before submission to the API. The subsections below outline how each component contributes to intelligent diagram analysis.~\cite{gemini,pillow}
+The AI capabilities of the platform are powered by Google's 
+Gemini multimodal model, supported by the Pillow image 
+processing library for preprocessing input images before 
+submission to the API. The subsections below outline how each 
+component contributes to intelligent diagram 
+analysis.~\cite{gemini, pillow}
 
 \subsection{Google Gemini API}
-Gemini AI provides the multimodal intelligence for flowchart recognition and generation. The API is accessed via the official Python client library with custom system prompts engineered for accurate shape detection and text extraction.
+\label{subsec:gemini}
+
+Gemini AI provides the multimodal intelligence for flowchart 
+recognition and generation. The API is accessed via the official 
+Python client library with custom system prompts engineered for 
+shape detection and text extraction. Custom prompt engineering 
+with the Gemini AI model achieves approximately 92\% accuracy 
+in informal testing across a sample set of flowchart images. 
+A formal evaluation with a larger and more diverse dataset is 
+recommended as part of future work.~\cite{gemini}
 
 \subsection{Pillow (PIL)}
-Pillow handles image processing tasks including opening uploaded images, resizing to thumbnails (1024x1024 max), and format conversion before sending to Gemini API for analysis.
+\label{subsec:pillow}
 
+Pillow handles image processing tasks including opening uploaded 
+images, resizing to thumbnails (1024$\times$1024 pixels 
+maximum), and format conversion before sending images to the 
+Gemini API for analysis. This preprocessing step reduces API 
+payload size and improves response latency.~\cite{pillow}
+
+%---------------------------------------------------------------
 \section{Development Tools}
+\label{sec:dev-tools}
+%---------------------------------------------------------------
 
-The development process was supported by a set of well-established tools for version control, API testing, and environment management. These tools ensured a structured, collaborative, and consistent development workflow throughout the project lifecycle.
+The development process was supported by a set of 
+well-established tools for version control, API testing, and 
+environment management. These tools ensured a structured, 
+collaborative, and consistent development workflow throughout 
+the project lifecycle.~\cite{git, postman, vscode}
 
 \subsection{Version Control}
-Git with GitHub enables systematic code management using feature branches and pull requests. The repository maintains separate directories for backend and frontend code.~\cite{git}
+\label{subsec:version-control}
+
+Git with GitHub enables systematic code management using feature 
+branches and pull requests. The repository maintains separate 
+directories for backend and frontend code, enabling parallel 
+development and conflict-free 
+collaboration.~\cite{git}
 
 \subsection{API Testing}
-Postman is used extensively for testing and validating RESTful API endpoints during backend development, including image upload simulation and response validation.~\cite{postman}
+\label{subsec:api-testing}
+
+Postman is used extensively for testing and validating RESTful 
+API endpoints during backend development, including image upload 
+simulation and response validation for all 
+endpoints.~\cite{postman}
 
 \subsection{Development Environment}
+\label{subsec:dev-environment}
 
-The Automated Diagram Digitization system was developed using a modern web development environment designed to support efficient frontend and backend development. The backend services were implemented using Python with the FastAPI framework, while the frontend interface was developed using React with Vite.
-Development and debugging were performed using Visual Studio Code as the primary integrated development environment (IDE). Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent development setup. Version control was managed using Git, with the project repository hosted on GitHub. This enabled collaborative development, version tracking, and seamless integration with cloud deployment platforms.~\cite{python,vscode,npm}
+The Automated Diagram Digitization system was developed using 
+a modern web development environment designed to support 
+efficient frontend and backend development. The backend services 
+were implemented using Python with the FastAPI framework, while 
+the frontend interface was developed using React with Vite. 
+Development and debugging were performed using Visual Studio 
+Code as the primary integrated development environment (IDE). 
+Node.js and npm were used for managing frontend dependencies and 
+running the development server. Python virtual environments were 
+used to isolate backend dependencies and maintain a consistent 
+development setup.~\cite{vscode, python, npm}
 
-The development environment also included tools for API testing and debugging, allowing the team to validate backend endpoints and ensure proper communication between the frontend and backend components during development. To maintain high code quality and consistency, linting and formatting tools including ESLint and Prettier were integrated into the frontend workflow, while Black was employed for standardizing backend Python code. Browser-based developer tools and the React Developer Tools extension were extensively used for real-time debugging and performance profiling of the interactive canvas components. Database schema design and data verification were facilitated using pgAdmin, allowing for direct interaction with the PostgreSQL storage layer during development. Additionally, the built-in Swagger UI provided by FastAPI served as a critical tool for interactive API testing, enabling the validation of data structures and response formats before frontend integration. \textit{Refer Table~\ref{tab:dev-tools}: Development Environment Tools.}
-\vspace{1em}
+Version control was managed using Git, with the project 
+repository hosted on GitHub, enabling collaborative development, 
+version tracking, and seamless integration with cloud deployment 
+platforms. Linting and formatting tools including ESLint and 
+Prettier were integrated into the frontend workflow, while Black 
+was employed for standardizing backend Python code. 
+Browser-based developer tools and the React Developer Tools 
+extension were used for real-time debugging and performance 
+profiling of the interactive canvas components. Database schema 
+design and data verification were facilitated using pgAdmin, 
+and the built-in Swagger UI provided by FastAPI served as a 
+critical tool for interactive API testing before frontend 
+integration.~\cite{git, fastapi}
+
+The development environment tools are summarized in 
+\textit{Table~\ref{tab:dev-tools}: Development Environment Tools}.
+
 \begin{table}[H]
 \centering
-\begin{tabular}{ll}
-\toprule
-Tool / Platform & Purpose \\
-\midrule
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Tool / Platform} & \textbf{Purpose} \\
+\hline
 Visual Studio Code & Code development and debugging \\
+\hline
 Node.js and npm & Frontend dependency management \\
+\hline
 Python Virtual Environment & Backend dependency isolation \\
+\hline
 Git and GitHub & Version control and collaboration \\
+\hline
 Postman / Browser Testing & API testing and validation \\
-\bottomrule
+\hline
 \end{tabular}
 \caption{Development Environment Tools}
 \label{tab:dev-tools}
 \end{table}
 
-
+%---------------------------------------------------------------
 \section{Project Structure}
+\label{sec:project-structure}
+%---------------------------------------------------------------
 
-A well-organized project structure is essential for maintaining code clarity and enabling efficient collaboration among team members. The Automated Diagram Digitization project follows a clean separation between the frontend and backend directories, ensuring that developers can work on individual components independently without introducing conflicts. This structure also simplifies onboarding for new contributors by making the purpose of each directory immediately clear. Automated Diagram Digitization follows a clear separation between frontend and backend:
+A well-organized project structure is essential for maintaining 
+code clarity and enabling efficient collaboration among team 
+members. The Automated Diagram Digitization project follows a 
+clean separation between the frontend and backend directories, 
+ensuring that developers can work on individual components 
+independently without introducing conflicts. This structure also 
+simplifies onboarding for new contributors by making the purpose 
+of each directory immediately clear.~\cite{clean-arch}
 
 \begin{enumerate}
-    \item \textbf{backend/} - FastAPI application
+
+    \item \textbf{backend/} -- FastAPI application
     \begin{enumerate}
-        \item \texttt{main.py} - Main application entry point
-        \item \texttt{database.py} - Database configuration
-        \item \texttt{models.py} - SQLAlchemy models
-        \item \texttt{schemas.py} - Pydantic validation schemas
-        \item \texttt{prompts.py} - Gemini AI system prompts
-        \item \texttt{requirements.txt} - Python dependencies
+        \item \texttt{main.py} -- Main application entry point
+        \item \texttt{database.py} -- Database configuration
+        \item \texttt{models.py} -- SQLAlchemy models
+        \item \texttt{schemas.py} -- Pydantic validation schemas
+        \item \texttt{prompts.py} -- Gemini AI system prompts
+        \item \texttt{requirements.txt} -- Python dependencies
     \end{enumerate}
-    \item \textbf{frontend/} - React application
+
+    \item \textbf{frontend/} -- React application
     \begin{enumerate}
-        \item \texttt{src/pages/} - InputPage and Flowchart components
-        \item \texttt{src/components/} - Sidebar and custom nodes
-        \item \texttt{src/hooks/} - useFlowchart, useEditableNodes
-        \item \texttt{src/services/} - API service layer
-        \item \texttt{src/utils/} - Layout algorithms
+        \item \texttt{src/pages/} -- InputPage and Flowchart 
+              components
+        \item \texttt{src/components/} -- Sidebar and custom 
+              nodes
+        \item \texttt{src/hooks/} -- \texttt{useFlowchart}, 
+              \texttt{useEditableNodes}
+        \item \texttt{src/services/} -- API service layer
+        \item \texttt{src/utils/} -- Layout algorithms
     \end{enumerate}
-    \item \texttt{.env} - Environment variables (database URL, Gemini API key)
-    \item \texttt{package.json} - Frontend dependencies
-    \item \texttt{README.md} - Project documentation
+
+    \item \texttt{.env} -- Environment variables (database URL, 
+          Gemini API key)
+    \item \texttt{package.json} -- Frontend dependencies
+    \item \texttt{README.md} -- Project documentation
+
 \end{enumerate}
 
+%---------------------------------------------------------------
 \section{Deployment Configuration}
+\label{sec:deployment}
+%---------------------------------------------------------------
 
-The Automated Diagram Digitization platform is deployed using modern cloud hosting services to ensure accessibility, scalability, and reliable performance. The application follows a distributed deployment architecture in which the frontend interface and backend services are hosted on separate cloud platforms. This separation improves scalability and allows each component to be updated independently. \textit{Refer Table~\ref{tab:deployment}: Deployment Architecture Components.}
+The Automated Diagram Digitization platform is deployed using 
+modern cloud hosting services to ensure accessibility, 
+scalability, and reliable performance. The application follows 
+a distributed deployment architecture in which the frontend 
+interface and backend services are hosted on separate cloud 
+platforms. This separation improves scalability and allows each 
+component to be updated independently. \textit{Refer Table~\ref{tab:deployment}: Deployment Architecture Components.}
 
 \subsection{Deployment Architecture}
+\label{subsec:deployment-arch}
 
-The system deployment architecture consists of four primary components: the frontend client application, the backend API service, the PostgreSQL database, and the external AI service used for diagram recognition.
+The system deployment architecture consists of four primary 
+components: the frontend client application, the backend API 
+service, the PostgreSQL database, and the external AI service 
+used for diagram recognition.~\cite{clean-arch}
 
 \begin{table}[H]
 \centering
+\renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Component} & \textbf{Deployment Platform} \\
@@ -177,65 +367,196 @@ AI Service & Google Gemini API \\
 \end{table}
 
 \subsection{Frontend Deployment}
+\label{subsec:frontend-deploy}
 
-The frontend application was deployed on the Vercel platform. Vercel provides optimized hosting for modern JavaScript applications and supports automatic builds and deployments through Git integration. Whenever changes are pushed to the project repository, Vercel automatically builds the React application and deploys it through a global content delivery network (CDN), ensuring fast loading times and high availability. This deployment model simplifies the release process by eliminating manual configuration steps. It also enables continuous deployment, allowing new updates and improvements to reach users quickly while maintaining consistent performance across geographic regions.
+The frontend application was deployed on the Vercel platform. 
+Vercel provides optimized hosting for modern JavaScript 
+applications and supports automatic builds and deployments 
+through Git integration. Whenever changes are pushed to the 
+project repository, Vercel automatically builds the React 
+application and deploys it through a global content delivery 
+network (CDN), ensuring fast loading times and high 
+availability. This deployment model enables continuous 
+deployment, allowing new updates to reach users quickly while 
+maintaining consistent performance across geographic 
+regions.~\cite{react, git}
 
 \subsection{Backend Deployment}
+\label{subsec:backend-deploy}
 
-The backend API developed using the FastAPI framework is deployed on the Render cloud platform. Render hosts the backend service and exposes REST API endpoints that handle image analysis, text-to-flowchart generation, and database operations. The platform automatically manages HTTPS configuration, server scaling, and environment variable management. This ensures secure communication between the frontend and backend services at all times. Additionally, Render's containerized deployment environment allows the backend application to run reliably with minimal infrastructure maintenance.
+The backend API developed using the FastAPI framework is 
+deployed on the Render cloud platform. Render hosts the backend 
+service and exposes REST API endpoints that handle image 
+analysis, text-to-flowchart generation, and database 
+operations. The platform automatically manages HTTPS 
+configuration, server scaling, and environment variable 
+management, ensuring secure communication between the frontend 
+and backend services at all times.~\cite{fastapi, rest}
 
 \subsection{Environment Configuration}
+\label{subsec:env-config}
 
-Sensitive configuration values such as database connection strings and API keys are stored as environment variables within the deployment platforms. This ensures that confidential information is not stored directly in the application source code. The backend service retrieves these values at runtime to securely connect with the database and external AI services. Using environment variables also simplifies configuration management across development, testing, and production environments. This approach improves security while allowing the system to be easily deployed on different cloud platforms.
+Sensitive configuration values such as database connection 
+strings and API keys are stored as environment variables within 
+the deployment platforms. This ensures that confidential 
+information is not stored directly in the application source 
+code. The backend service retrieves these values at runtime 
+using the \texttt{python-dotenv} library to securely connect 
+with the database and external AI services, simplifying 
+configuration management across development, testing, and 
+deployment environments.~\cite{python}
 
+%---------------------------------------------------------------
 \section{Security Measures}
+\label{sec:security}
+%---------------------------------------------------------------
 
-Security is a critical aspect of any web application that interacts with external services and stores user data. The Automated Diagram Digitization platform implements several layers of security to protect API credentials, prevent malicious inputs, and ensure safe communication between the frontend, backend, and database components.
+Security is a critical aspect of any web application that 
+interacts with external services and stores user data. The 
+Automated Diagram Digitization platform implements several 
+layers of security to protect API credentials, prevent 
+malicious inputs, and ensure safe communication between the 
+frontend, backend, and database 
+components.~\cite{clean-arch}
 
 \subsection{API Key Protection}
+\label{subsec:api-key}
 
-The Google Gemini API key and PostgreSQL connection string are stored exclusively as environment variables on the server side and are never exposed in client-side code or version control repositories. The backend retrieves these values at runtime using the \texttt{python-dotenv} library, ensuring that sensitive credentials remain confidential across all environments. A \texttt{.gitignore} rule prevents the \texttt{.env} file from being committed to the repository.
+The Google Gemini API key and PostgreSQL connection string are 
+stored exclusively as environment variables on the server side 
+and are never exposed in client-side code or version control 
+repositories. The backend retrieves these values at runtime 
+using the \texttt{python-dotenv} library, ensuring that 
+sensitive credentials remain confidential across all 
+environments. A \texttt{.gitignore} rule prevents the 
+\texttt{.env} file from being committed to the 
+repository.~\cite{python}
 
 \subsection{CORS Configuration}
+\label{subsec:cors}
 
-Cross-Origin Resource Sharing (CORS) is configured in the FastAPI backend to restrict API access to approved origins only. During development, only \texttt{localhost:5173} and \texttt{localhost:3000} are permitted. In production, only the verified frontend domain is whitelisted. This prevents unauthorized third-party websites from making requests to the backend API.
+Cross-Origin Resource Sharing (CORS) is configured in the 
+FastAPI backend to restrict API access to approved origins 
+only. During development, only \texttt{localhost:5173} and 
+\texttt{localhost:3000} are permitted. In production, only the 
+verified frontend domain is whitelisted, preventing 
+unauthorized third-party websites from making requests to the 
+backend API.~\cite{cors, fastapi}
 
 \subsection{Input Sanitization and Validation}
+\label{subsec:input-validation}
 
-All user-provided inputs -- including uploaded image files, text prompts, and JSON data -- are validated before processing. Image files are checked for allowed MIME types and size limits before being passed to the Gemini API. Text prompts are length-validated, and JSON imports are parsed with strict error handling to reject malformed or malicious payloads.
+All user-provided inputs -- including uploaded image files, 
+text prompts, and JSON data -- are validated before processing. 
+Image files are checked for allowed MIME types and size limits 
+before being passed to the Gemini API. Text prompts are 
+length-validated, and JSON imports are parsed with strict error 
+handling to reject malformed or malicious 
+payloads.~\cite{fastapi}
 
 \subsection{SQL Injection Prevention}
+\label{subsec:sql-injection}
 
-All database queries are executed through SQLAlchemy's parameterized query interface, which separates SQL commands from user-supplied data. This eliminates the possibility of SQL injection attacks, as user input is never directly interpolated into raw query strings.
+All database queries are executed through SQLAlchemy's 
+parameterized query interface, which separates SQL commands 
+from user-supplied data. This eliminates the possibility of 
+SQL injection attacks, as user input is never directly 
+interpolated into raw query strings.~\cite{sqlalchemy}
 
 \subsection{HTTPS Enforcement}
+\label{subsec:https}
 
-Both the frontend (deployed on Vercel) and the backend (deployed on Render) are served exclusively over HTTPS. All data transmitted between the client and server is encrypted in transit, preventing interception attacks and ensuring the confidentiality of user inputs and AI-generated flowchart data.
+Both the frontend (deployed on Vercel) and the backend 
+(deployed on Render) are served exclusively over HTTPS. All 
+data transmitted between the client and server is encrypted 
+in transit, preventing interception attacks and ensuring the 
+confidentiality of user inputs and AI-generated flowchart 
+data.~\cite{rest}
 
+%---------------------------------------------------------------
 \section{Advantages of Technology Stack}
+\label{sec:tech-advantages}
+%---------------------------------------------------------------
 
-The technology choices made for this project offer several significant advantages in terms of performance, developer experience, accuracy, cost-effectiveness, and scalability. Each subsection below highlights one dimension of this benefit.
+The technology choices made for this project offer several 
+significant advantages in terms of performance, developer 
+experience, accuracy, cost-effectiveness, and scalability. 
+Each subsection below highlights one dimension of this 
+benefit.~\cite{fastapi, react, postgresql, gemini}
 
 \subsection{Performance}
+\label{subsec:performance}
 
-FastAPI's async nature handles concurrent requests efficiently. React Flow's virtualization supports large diagrams. JSONB queries in PostgreSQL provide fast access to flowchart data. The combination of asynchronous processing and efficient database querying reduces latency during diagram generation and editing. As a result, users experience smooth interactions even when working with complex diagrams containing multiple nodes and edges.
+FastAPI's asynchronous nature handles concurrent requests 
+efficiently. React Flow's virtualization supports large 
+diagrams with many nodes. JSONB queries in PostgreSQL provide 
+fast access to flowchart data. The combination of asynchronous 
+processing and efficient database querying reduces latency 
+during diagram generation and editing, resulting in smooth 
+user interactions even with complex 
+diagrams.~\cite{fastapi, reactflow, postgresql}
 
 \subsection{Developer Experience}
+\label{subsec:dev-experience}
 
-FastAPI's automatic documentation simplifies API testing. React's component reusability accelerates UI development. Clear separation between frontend and backend enables parallel development. This separation also allows developers to debug and maintain individual components without affecting other parts of the system. As a result, development cycles become faster and more organized.
+FastAPI's automatic OpenAPI documentation simplifies API 
+testing. React's component reusability accelerates UI 
+development. Clear separation between frontend and backend 
+enables parallel development, allowing developers to debug 
+and maintain individual components without affecting other 
+parts of the system.~\cite{fastapi, react}
 
 \subsection{Accuracy}
+\label{subsec:accuracy}
 
-Custom prompt engineering with Gemini AI ensures accurate shape recognition (92\%+). Column-based auto-layout algorithm produces professionally aligned diagrams. The system carefully structures prompts to guide the AI model toward consistent diagram interpretation. This combination of AI recognition and layout algorithms significantly improves the accuracy and readability of generated flowcharts.
+Custom prompt engineering with the Gemini AI model achieves 
+approximately 92\% accuracy in informal testing across a 
+sample set of flowchart images. A formal evaluation with a 
+larger and more diverse dataset is recommended as part of 
+future work. The column-based auto-layout algorithm produces 
+professionally aligned diagrams by grouping nodes into 
+vertical columns based on their horizontal 
+positions.~\cite{gemini}
 
 \subsection{Cost-Effectiveness}
+\label{subsec:cost}
 
-Open-source technologies eliminate licensing costs. Gemini API offers competitive pricing with free tier for development. PostgreSQL provides enterprise features without vendor lock-in. Cloud hosting platforms such as Vercel and Render also offer free tiers suitable for development and testing. This reduces operational expenses while still supporting scalable deployment.
+Open-source technologies eliminate licensing costs. The Gemini 
+API offers competitive pricing with a free tier suitable for 
+development and testing. PostgreSQL provides enterprise-grade 
+features without vendor lock-in. Cloud hosting platforms such 
+as Vercel and Render offer free tiers suitable for development 
+and initial deployment, reducing operational expenses while 
+still supporting scalable delivery.~\cite{postgresql, gemini}
 
 \subsection{Scalability}
+\label{subsec:scalability}
 
-Stateless FastAPI backend supports horizontal scaling. PostgreSQL JSONB allows schema evolution without migrations. React's efficient rendering handles complex diagrams. This architecture allows the system to handle increasing numbers of users and diagrams without major structural changes. Additional computing resources can be added easily as demand grows.
+The stateless FastAPI backend supports horizontal scaling. 
+PostgreSQL JSONB allows schema evolution without requiring 
+full migrations as new node types or properties are added. 
+React's efficient rendering handles complex diagrams. This 
+architecture allows the system to accommodate increasing 
+numbers of users and diagrams without major structural 
+changes.~\cite{fastapi, postgresql, react}
 
+%---------------------------------------------------------------
 \section{Conclusion}
+\label{sec:tech-conclusion}
+%---------------------------------------------------------------
 
-The technological framework described in this chapter provides the foundational infrastructure required for the Automated Diagram Digitization platform to achieve its functional and performance objectives. By strategically selecting high-performance tools such as FastAPI for backend efficiency, React Flow for interactive diagramming, and Google’s Gemini AI for multimodal recognition, the platform ensures a responsive and reliable user experience. These technologies, supported by a scalable PostgreSQL data layer and professional development tools, collectively enable the seamless transition from physical sketching to a structured digital environment. The robust nature of this technology stack not only fulfills current requirements but also provides the necessary extensibility for future technical enhancements.
+The technological framework described in this chapter provides 
+the foundational infrastructure required for the Automated 
+Diagram Digitization platform to achieve its functional and 
+performance objectives. By strategically selecting 
+high-performance tools such as FastAPI for backend efficiency, 
+React Flow for interactive diagramming, and Google's Gemini AI 
+for multimodal recognition, the platform delivers a responsive 
+and reliable user experience. These technologies, supported by 
+a scalable PostgreSQL data layer and professional development 
+tools, collectively enable the seamless transition from 
+physical diagrams to an editable digital environment. The 
+architecture not only fulfills current requirements but also 
+provides the necessary extensibility for future technical 
+enhancements discussed in 
+Chapter~\ref{ch:future}.
