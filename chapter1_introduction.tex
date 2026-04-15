@@ -1,10 +1,25 @@
+
 % ============================================================
 \chapter{Introduction}
 \label{ch:introduction}
  
-This chapter introduces the Automated Diagram Digitization project, presenting its motivation, problem context, objectives, and scope.
- 
-In today's digital era, the need to convert hand-drawn or printed diagrams into editable digital formats has grown across education, software development, and business process modelling. Flowcharts are frequently created on paper or whiteboards during brainstorming and design phases, yet they often remain in physical form, limiting shareability and editability. Traditional digitization involves manual redrawing in tools such as Microsoft Visio, Lucidchart, or draw.io—a time-consuming and error-prone process. Advances in computer vision and large language models have opened new possibilities for automated diagram recognition, enabling intelligent systems to understand and reconstruct diagrammatic information automatically.
+This chapter introduces the Automated Diagram Digitization project, 
+presenting the motivation behind the work, the key problems it 
+addresses, its primary objectives, and the scope of the system 
+developed.
+
+In today's digital era, the need to convert hand-drawn or printed diagrams into editable digital formats has grown across education, software development, and business process modelling. Flowcharts are frequently created on paper or whiteboards during brainstorming and design phases, yet they often remain in physical form, limiting shareability and editability
+
+Traditional methods of digitizing flowcharts involve manual redrawing 
+using diagramming tools like Microsoft Visio, Lucidchart, or draw.io 
+-- a time-consuming and error-prone process. This creates a 
+significant gap between the creative, free-form sketching process and 
+the structured, digital representation required for documentation and 
+further processing. Recent advances in artificial intelligence, 
+particularly in computer vision and large language models, have opened 
+new possibilities for automated diagram recognition, enabling the 
+development of intelligent systems that can understand and reconstruct 
+diagrammatic information automatically.
  
 %---------------------------------------------------------------
 \section{Problem Statement}
@@ -21,7 +36,8 @@ The project aims to overcome traditional digitization limitations by delivering 
 %---------------------------------------------------------------
 \section{Scope of the Project}
 %---------------------------------------------------------------
- 
+The Automated Diagram Digitization project is designed with a well-defined scope that guides development priorities and sets clear expectations for its capabilities. The scope is categorized into functional and technical aspects, each addressing different dimensions of the system.
+
 \subsection{Functional Scope}
  
 The system transforms raw visual inputs into interactive digital representations while preserving the original logical structure of diagrams. It identifies the four fundamental flowchart shapes from uploaded images, extracts text with multi-line line-break preservation using \texttt{\textbackslash n} characters, detects directional edges with appropriate handle assignments (top, bottom, left, right), and accepts images in PNG and JPG formats. Text-to-flowchart conversion transforms natural language algorithm descriptions into structured diagrams. JSON import and export enable portability. The interactive editor supports drag-and-drop from a shape palette, node resizing with adaptive text, undo/redo with keyboard shortcuts, auto-layout, edge labelling, and colour and text styling.
