@@ -342,7 +342,7 @@ The export module facilitates the final stage of the diagram workflow by convert
 \subsection{Storage Module}
 
 \justifying
-The storage module is responsible for the persistent management of flowchart data, ensuring that user work is saved reliably and can be retrieved across sessions. It leverages SQLAlchemy to provide an asynchronous abstraction over the PostgreSQL databas, utilizing the JSONB data type to store complex diagram states with high performance and flexibility. The module’s core components include an asynchronous database client that utilizes SQLAlchemy’s engine with connection pooling for optimized performance. It supports a full suite of create, read, and update operations, enabling the system to save new diagrams with UUID identifiers, retrieve existing flowcharts with their full JSONB state, and apply partial updates to titles or flow data while automatically maintaining audit timestamps.
+The storage module is responsible for the persistent management of flowchart data, ensuring that user work is saved reliably and can be retrieved across sessions. It leverages SQLAlchemy to provide an asynchronous abstraction over the PostgreSQL database, utilizing the JSONB data type to store complex diagram states with high performance and flexibility. The module’s core components include an asynchronous database client that utilizes SQLAlchemy’s engine with connection pooling for optimized performance. It supports a full suite of create, read, and update operations, enabling the system to save new diagrams with UUID identifiers, retrieve existing flowcharts with their full JSONB state, and apply partial updates to titles or flow data while automatically maintaining audit timestamps.
 
 \subsection{Theme Module}
 
