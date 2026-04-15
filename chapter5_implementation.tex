@@ -10,33 +10,34 @@ This chapter details the implementation of the Automated Diagram Digitization sy
 \section{Development Environment Setup}
 \label{sec:dev-env}
 
-The backend runs on Python 3.9+ with the FastAPI framework~\cite{fastapi}. The database is a PostgreSQL instance with JSONB support for flexible schema storage~\cite{postgresql}. The frontend runs on Node.js v18+ with React~18 and Vite for fast development~\cite{react,vite}. Sensitive configuration values -- database connection strings and Gemini API keys -- are stored in a \texttt{.env} file at the project root and loaded via the \texttt{python-dotenv} package.
+The backend runs on Python 3.9+ with the FastAPI framework. The database is a PostgreSQL 16 instance with JSONB support for flexible schema storage. The frontend runs on Node.js v13+ with React 19 and Vite for fast development. For simplified orchestration, the system is containerized using Docker, allowing all three services (database, backend, frontend) to be provisioned through a single command. Sensitive configuration values -- database connection strings and Gemini API keys -- are stored in a \texttt{.env} file at the project root and loaded via the \texttt{python-dotenv} package.
 
-The development workflow was organized using separate frontend and backend directories to maintain modularity. The frontend was developed using Node.js and npm for dependency management~\cite{npm}, while the backend used a Python virtual environment to isolate project libraries. This separation ensures that dependencies remain controlled and reproducible across different development machines.
+The development workflow was organized using separate frontend and backend directories to maintain modularity. To ensure environment parity, the entire stack can be orchestrated using \textbf{Docker} and \textbf{Docker Compose}, providing isolated containers for the frontend, backend, and PostgreSQL database. Alternatively, the frontend can be managed via Node.js and npm, while the backend uses a Python virtual environment to isolate project libraries. This flexible setup ensures that dependencies remain controlled and reproducible across different development machines.
 
-Version control was maintained using Git, with the project repository hosted on GitHub~\cite{git}. This enabled structured version tracking, collaborative development, and integration with deployment platforms. Source code changes were tested locally before being committed to the repository, ensuring stability of the application during development.
+Version control was maintained using Git, with the project repository hosted on GitHub. This enabled structured version tracking, collaborative development, and integration with deployment platforms. Source code changes were tested locally before being committed to the repository, ensuring stability of the application during development.
 
 % -----------------------------------------------------------------------------
 \section{Backend Implementation}
 \label{sec:backend}
 
-The backend of the Automated Diagram Digitization platform is responsible for handling all core processing tasks, including AI-based diagram recognition, data validation, database interaction, and communication with the frontend interface. Implemented using the FastAPI framework~\cite{fastapi}, the backend exposes a set of RESTful endpoints~\cite{rest} that allow the frontend application to submit images or text prompts and receive structured flowchart data in JSON format.
+The backend of the Automated Diagram Digitization platform is responsible for handling all core processing tasks, including AI-based diagram recognition, data validation, database interaction, and communication with the frontend interface. Implemented using the FastAPI framework, the backend exposes a set of RESTful endpoints that allow the frontend application to submit images or text prompts and receive structured flowchart data in JSON format.
 
 The backend architecture emphasizes modularity and reliability. Each endpoint performs a clearly defined task, while shared utilities handle operations such as image preprocessing, prompt management, and response validation. This design simplifies maintenance and allows the backend to scale efficiently as additional features are introduced.
 
 \subsection{Image Analysis Endpoint}
 
-The image analysis endpoint accepts an uploaded flowchart image, processes it, sends it to Gemini AI~\cite{gemini} with a custom system prompt, and returns structured JSON containing nodes and edges. The image is resized to a thumbnail of 1024x1024 pixels for optimal API performance while maintaining aspect ratio. The core logic of the image analysis endpoint is shown in \textit{Listing~\ref{lst:analyze_endpoint}: Image Analysis Endpoint -- Core Logic}.
+The image analysis endpoint accepts an uploaded flowchart image, processes it, sends it to Gemini AI with a custom system prompt, and returns structured JSON containing nodes and edges. The image is resized to a thumbnail of 1024x1024 pixels for optimal API performance while maintaining aspect ratio. By leveraging Gemini's multimodal capabilities, the system accurately extracts both textual labels and geometric structures in a single pass, ensuring that spatial relationships are preserved during reconstruction. To prevent malformed data from affecting the editor, the endpoint validates the AI's response against a predefined schema and utilizes a heuristic parsing layer for error recovery when necessary. The core logic of the image analysis endpoint is shown in \textit{Listing~\ref{lst:analyze_endpoint}: Image Analysis Endpoint -- Core Logic}.
 
 \begin{lstlisting}[language=Python,
     label={lst:analyze_endpoint},
     caption={Image Analysis Endpoint -- Core Logic},
     breaklines=true,
     columns=flexible,
-    basicstyle=\small\ttfamily,
+    basicstyle=\scriptsize\ttfamily,
     float=!htbp]
-@app.post("/analyze")
+@app.post("/analyze/image")
 async def analyze_flowchart(file: UploadFile = File(...)):
+
     # Step 1: Read and open image
     contents = await file.read()
     image = Image.open(io.BytesIO(contents))
@@ -57,34 +58,34 @@ async def analyze_flowchart(file: UploadFile = File(...)):
 
 \subsection{Text-to-Flowchart Endpoint}
 
-The text-to-flowchart endpoint accepts a natural language description of an algorithm and returns a generated flowchart. The user prompt is combined with a specialized system prompt designed for flowchart generation. The response is cleaned using regex extraction to handle any explanatory text the AI might add, ensuring only valid JSON is returned.
+The text-to-flowchart endpoint accepts a natural language description of an algorithm and returns a generated flowchart. The user prompt is combined with a specialized system prompt designed for flowchart generation. The response is cleaned using regex extraction to handle any explanatory text the AI might add, ensuring only valid JSON is returned. By mapping semantic logic directly to node and edge attributes, the system ensures that the generated flowchart accurately represents the described algorithm's control flow.
 
 \subsection{Database Operations}
 
-The database layer uses SQLAlchemy~\cite{sqlalchemy} with async support for PostgreSQL operations~\cite{postgresql}. The flowcharts table stores each diagram with a UUID primary key, title, JSONB column for the complete React Flow state, and timestamps for creation and updates. The JSONB column provides flexibility to store varying node and edge structures without requiring schema changes.
+The database layer uses SQLAlchemy with async support for PostgreSQL operations. The flowcharts table stores each diagram with a UUID primary key, title, JSONB column for the complete React Flow state, and timestamps for creation and updates. The JSONB column provides flexibility to store varying node and edge structures without requiring schema changes. The use of asynchronous database drivers minimizes latency during high-traffic sessions, ensuring that diagram saving and retrieval operations remain nearly instantaneous for the end-user.
 
 % -----------------------------------------------------------------------------
 \section{Frontend Implementation}
 \label{sec:frontend}
 
-The frontend of the Automated Diagram Digitization system provides the interactive environment through which users create, edit, and export diagrams. Built using React~18 with Vite, the frontend focuses on delivering a responsive and intuitive user experience while maintaining high performance for interactive diagram editing.~\cite{react,vite}
+The frontend of the Automated Diagram Digitization system provides the interactive environment through which users create, edit, and export diagrams. Built using React~18 with Vite, the frontend focuses on delivering a responsive and intuitive user experience while maintaining high performance for interactive diagram editing. The use of Vite ensures near-instantaneous build times and optimized asset loading, contributing to the overall fluidity of the application's interface.
 
-React Flow is used as the primary diagram rendering library, enabling dynamic visualization of nodes and edges within the flowchart editor. Additional interface components such as sidebars, toolbars, and input forms are implemented using reusable React components styled with Vanilla CSS. This component-based structure simplifies interface maintenance and allows the system to be extended with additional features in the future.~\cite{reactflow,lucide}
+React Flow is used as the primary diagram rendering library, enabling dynamic visualization of nodes and edges within the flowchart editor. Additional interface components such as sidebars, toolbars, and input forms are implemented using reusable React components styled with Vanilla CSS. This component-based structure simplifies interface maintenance and allows the system to be extended with additional features in the future.
 
 \subsection{Input Page}
 
-The input page provides three methods for creating flowcharts: image upload with drag-drop support, text prompt for algorithm description, and JSON import for existing flow data. A tabbed interface allows users to switch between input methods, with each tab showing the appropriate form controls. \textit{Refer Figure~\ref{fig:input-page}: Input page showing three tabs for image upload, text prompt, and JSON import.}
+The input page provides three methods for creating flowcharts: image upload with drag-drop support, text prompt for algorithm description, and JSON import for existing flow data. A tabbed interface allows users to switch between input methods, with each tab showing the appropriate form controls. Each input method is backed by a validation layer that checks for data integrity and format compatibility before initiating the recognition or import process. \textit{Refer Figure~\ref{fig:input-page}: Input page for image upload, text prompt, and JSON import.}
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{image/image_upload.jpeg}
-\caption{Input page showing three tabs for image upload, text prompt, and JSON import.}
+\caption{Input page for image upload, text prompt, and JSON import.}
 \label{fig:input-page}
 \end{figure}
 
 \subsection{Sidebar with Draggable Shapes}
 
-The sidebar displays four shape types: start node (oval shape), process (rectangle), decision (diamond), and input/output (parallelogram). Each shape is represented by an SVG icon and a label. HTML5 drag-drop is implemented, with the shape type stored in the dataTransfer object for retrieval when dropped on the canvas. \textit{Refer Figure~\ref{fig:sidebar}: Sidebar with draggable shape icons.}
+The sidebar displays four shape types: start node (oval shape), process (rectangle), decision (diamond), and input/output (parallelogram). Each shape is represented by an SVG icon and a label. HTML5 drag-drop is implemented, with the shape type stored in the dataTransfer object for retrieval when dropped on the canvas. This design pattern allows for a decoupled interaction between the sidebar and the canvas, facilitating the easy addition of new shape types in future iterations. \textit{Refer Figure~\ref{fig:sidebar}: Sidebar with draggable shape icons.}
 \vspace{0.5cm}
 \begin{figure}[htbp]
 \centering
@@ -95,9 +96,9 @@ The sidebar displays four shape types: start node (oval shape), process (rectang
 
 \subsection{Flowchart Editor}
 
-The flowchart editor is the core component for diagram creation and editing. It uses React Flow to render nodes and edges, with custom node components for each shape type. The canvas features a dot grid background, zoom and pan controls, and selection handling. Nodes can be resized using resize handles, with minimum dimensions enforced to maintain text readability. \textit{Refer Figure~\ref{fig:editor}: Flowchart editor canvas with nodes, edges, and toolbar.}
+The flowchart editor is the core component for diagram creation and editing. It uses React Flow to render nodes and edges, with custom node components for each shape type. The canvas features a dot grid background, zoom and pan controls, and selection handling. Nodes can be resized using resize handles, with minimum dimensions enforced to maintain text readability. The integration of a persistent state hook allows the editor to track changes in real-time, enabling seamless synchronization between the visual layout and the underlying JSON data model. \textit{Refer Figure~\ref{fig:editor}: Flowchart editor canvas with nodes, edges, and toolbar.}
 
-\begin{figure}[!htbp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{image/flowchart_editor.jpeg}
 \caption{Flowchart editor canvas with nodes, edges, and toolbar.}
@@ -117,7 +118,7 @@ Each flowchart shape is implemented as a custom node component extending a commo
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{image/custom.jpg}
-\caption{Image showing custom node components used in the flowchart editor.}
+\caption{Custom node components used in the flowchart editor.}
 \label{fig:custom-nodes}
 \end{figure}
 
@@ -125,7 +126,7 @@ Different visual styles are applied using CSS. Process nodes are rendered as rec
 
 \subsection{Auto-Layout Feature}
 
-The auto-layout feature uses a column-based clustering algorithm to align nodes neatly. It calculates the true center X-coordinate for each node, clusters nodes within a tolerance of 150 pixels, computes the average center for each cluster, and repositions nodes to align with their cluster's average. Edge types are automatically adjusted based on alignment -- straight edges for vertically aligned nodes, smoothstep edges for others. This automatic arrangement improves the readability of complex diagrams by reducing overlaps and uneven spacing between nodes. As a result, users can quickly organize large flowcharts into a clean and structured layout with minimal manual adjustment. \textit{Refer Figure~\ref{fig:autolayout-before}: Flowchart before applying auto-layout and Figure~\ref{fig:autolayout-after}: Flowchart after applying auto-layout.}
+The auto-layout feature utilizes a custom \textbf{Column Snapping (1D Clustering)} algorithm, implemented within the system's core flowchart hook, to intelligently organize nodes into a readable and aligned format. The implementation scans existing node positions and groups nodes that share a similar horizontal axis within a specific \texttt{TOLERANCE} of 150px. The algorithm then "snaps" all nodes in a group to their calculated average center and normalizes node widths based on their type (e.g., \texttt{process}, \texttt{decision}). This ensures that diagrams remain visually consistent even after complex manual edits. Furthermore, the layout engine dynamically adjusts edge routing, switching to \texttt{straight} connections for nodes aligned within a 50px threshold to create a clean, professional look. \textit{Refer Figure~\ref{fig:autolayout-before}: Flowchart before applying auto-layout and Figure~\ref{fig:autolayout-after}: Flowchart after applying auto-layout.}
 
 \begin{figure}[!htbp]
 \centering
@@ -148,11 +149,64 @@ The auto-layout feature uses a column-based clustering algorithm to align nodes 
 \label{fig:autolayout}
 \end{figure}
 
+The core logic for the column snapping layout engine is implemented through two primary functions: \texttt{normaliseAndSnap} and \texttt{applyAutoLayout}. The first function handles the clustering and alignment of nodes based on proximity, while the second propagates these changes and optimizes the visual style of connecting edges. By combining grouping with type-based width normalization, the system maintains high graphical fidelity without requiring complex hierarchical calculations. \textit{Refer Figure~\ref{lst:dagre-layout}: Implementation of the auto-layout engine.}
+
+\begin{lstlisting}[language=JavaScript, caption={Implementation of the auto-layout engine.},basicstyle=\scriptsize\ttfamily, float=!htbp, label=lst:dagre-layout]
+const normaliseAndSnap = (nodes) => {
+  const maxWidths = { start: 100, process: 150, io: 150, decision: 120 };
+  nodes.forEach(node => {
+    const nodeWidth = node.width || (node.style && node.style.width) || maxWidths[node.type];
+    if (nodeWidth > maxWidths[node.type]) maxWidths[node.type] = nodeWidth;
+  });
+
+  const TOLERANCE = 150;
+  const columns = [];
+  const nodesWithCenters = nodes.map(node => {
+    const finalWidth = maxWidths[node.type];
+    const trueCenterX = node.position.x + finalWidth / 2;
+    return { ...node, trueCenterX, finalWidth };
+  });
+
+  nodesWithCenters.sort((a, b) => a.trueCenterX - b.trueCenterX).forEach(node => {
+    const cx = node.trueCenterX;
+    const existingCol = columns.find(col => Math.abs(col.averageCenterX - cx) < TOLERANCE);
+    if (existingCol) {
+      existingCol.centerValues.push(cx);
+      existingCol.averageCenterX = existingCol.centerValues.reduce((s, v) => s + v, 0) / existingCol.centerValues.length;
+    } else {
+      columns.push({ centerValues: [cx], averageCenterX: cx });
+    }
+  });
+
+  return nodesWithCenters.map(node => {
+    const myCol = columns.find(col => Math.abs(col.averageCenterX - node.trueCenterX) < TOLERANCE);
+    return {
+      ...node,
+      style: { ...node.style, width: node.finalWidth },
+      position: { x: myCol.averageCenterX - node.finalWidth / 2, y: node.position.y }
+    };
+  });
+};
+
+const applyAutoLayout = useCallback(() => {
+  setNodes((currentNodes) => {
+    const newlyAlignedNodes = normaliseAndSnap(currentNodes);
+    setEdges((currentEdges) => currentEdges.map(edge => {
+      const srcNode = newlyAlignedNodes.find(n => n.id === edge.source);
+      const tgtNode = newlyAlignedNodes.find(n => n.id === edge.target);
+      const isVertical = Math.abs(srcNode.position.x - tgtNode.position.x) < 50;
+      return { ...edge, type: isVertical ? "straight" : "smoothstep" };
+    }));
+    return newlyAlignedNodes;
+  });
+}, [setNodes, setEdges]);
+\end{lstlisting}
+
 \subsection{Edge Label Editing}
 
-Edge labels can be added or edited by double-clicking on any edge. An inline input popup appears at the mouse position, allowing the user to enter label text. Pressing Enter saves the label, Escape cancels, and clicking elsewhere also saves. Labels are displayed with a background box for readability, with styling that adapts to the current theme. \textit{Refer Figure~\ref{fig:edgelabel}: Edge label editing popup on a decision branch}.
+Edge labels can be added or edited by double-clicking on any edge. An inline input popup appears at the mouse position, allowing the user to enter label text. Pressing Enter saves the label, Escape cancels, and clicking elsewhere also saves. Labels are displayed with a background box for readability, with styling that adapts to the current theme. The edge labels are managed as part of the React Flow state object, ensuring that they remain anchored to the connection line even during node movement. This dynamic positioning logic prevents visual overlap and maintains the logical association between the label and its respective transition. \textit{Refer Figure~\ref{fig:edgelabel}: Edge label editing popup on a decision branch}.
 
-\begin{figure}[!htbp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{image/edge_label.jpeg}
 \caption{Edge label editing popup on a decision branch.}
@@ -161,29 +215,35 @@ Edge labels can be added or edited by double-clicking on any edge. An inline inp
 
 \subsection{Node Colouring and Text Styling}
 
-The flowchart editor provides styling options that allow users to customize the visual appearance of nodes and text. Users can change the background color of nodes using a color picker interface, making it easier to visually distinguish different stages or categories within a flowchart. This feature is particularly useful for highlighting important steps, grouping related processes, or improving the overall readability of complex diagrams. \textit{Refer Figure~\ref{fig:nodecolor}: Node color customization using the color picker}.
-
+The flowchart editor provides styling options that allow users to customize the visual appearance of nodes and text. Users can change the background color of nodes using a color picker interface, making it easier to visually distinguish different stages or categories within a flowchart. This feature is particularly useful for highlighting important steps, grouping related processes, or improving the overall readability of complex diagrams. Each color choice is propagated to the underlying JSON model, ensuring that the visual categorization is preserved during both save operations and exports. This consistency allows for a standardized look-and-feel across all documentation generated by the platform. \textit{Refer Figure~\ref{fig:nodecolor}: Node color customization}.
+\vspace{1em}
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{image/node_colouring.jpeg}
-\caption{Node color customization using the color picker.}
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{image/auto_layout_before.jpeg}
+\caption{Node color customization.}
 \label{fig:nodecolor}
-\end{figure}
-
-In addition to node coloring, the editor supports text styling options including bold, italic, and adjustable font size. These controls allow users to emphasize key information within nodes and improve the clarity of diagram content. By combining node color customization with flexible text formatting, the editor enables users to create visually structured and easily interpretable flowcharts. \textit{Refer Figure~\ref{fig:textstyle}: Text styling options including bold, italic, and font size adjustment}.
-
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=\linewidth]{image/text_styling.jpeg}
-\caption{Text styling options including bold, italic, and font size adjustment.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{image/auto_layout_after.jpeg}
+\caption{Text styling options.}
 \label{fig:textstyle}
+\end{subfigure}
+
+\caption{Node and text styling options.}
+\label{fig:styling}
 \end{figure}
+In addition to node coloring, the editor supports text styling options including bold, italic, and adjustable font size. These controls allow users to emphasize key information within nodes and improve the clarity of diagram content. By combining node color customization with flexible text formatting, the editor enables users to create visually structured and easily interpretable flowcharts. The text formatting is implemented using inline CSS attributes that are dynamically applied based on the editor's control state, ensuring that styling changes are reflected in real-time. This provides users with immediate visual feedback and ensures that the final diagram adheres to the desired aesthetic standards. \textit{Refer Figure~\ref{fig:textstyle}: Text styling options}.
+
 
 \subsection{Theme Implementation}
 
-The system supports both dark and light modes using CSS variables. A theme context provides the current theme state and toggle function. User preference is persisted in localStorage so that the selected theme remains consistent across sessions. CSS variables control node backgrounds, borders, text colors, canvas background, and grid colors, with all components reacting to theme changes. This approach ensures a centralized and maintainable styling system across the application. The dark mode helps reduce eye strain during prolonged use, especially in low-light environments, while the light mode provides a clear interface suitable for documentation and presentations. Theme switching is performed instantly without reloading the page, ensuring a smooth user experience. \textit{Refer Figure~\ref{fig:light-mode}: Same flowchart displayed in light mode}.
-
+The system supports both dark and light modes using CSS variables. A theme context provides the current theme state and toggle function. User preference is persisted in localStorage so that the selected theme remains consistent across sessions. CSS variables control node backgrounds, borders, text colors, canvas background, and grid colors, with all components reacting to theme changes. This approach ensures a centralized and maintainable styling system across the application. The dark mode helps reduce eye strain during prolonged use, especially in low-light environments, while the light mode provides a clear interface suitable for documentation and presentations. The theme transition is managed via a React Context provider that updates the global CSS environment, allowing custom components to adapt their internal styling without manual prop drilling. This centralized architecture simplifies the addition of future themes or accessibility adjustments while ensuring theme switching is performed instantly without reloading the page. \textit{Refer Figure~\ref{fig:light-mode}: Same flowchart displayed in light mode}.
+\vspace{1em}
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{image/light_mode.jpeg}
@@ -193,14 +253,14 @@ The system supports both dark and light modes using CSS variables. A theme conte
 
 \subsection{Export Functionality}
 
-Three export formats are supported: PNG for sharing, SVG for vector graphics, and JSON for data portability. PNG export uses the html-to-image library to capture the canvas as a high-resolution image suitable for documents and presentations. SVG export uses React Flow's built-in rendering~\cite{reactflow} to generate scalable graphics that maintain clarity at any resolution. JSON export stores the nodes and edges structure with formatted output, allowing diagrams to be saved, transferred, and re-imported for further editing without losing layout information. \textit{Refer Figure~\ref{fig:export}: Export options dropdown showing PNG, SVG, and JSON formats.}
+Three export formats are supported: PNG for sharing, SVG for vector graphics, and JSON for data portability. PNG export uses the html-to-image library to capture the canvas as a high-resolution image suitable for documents and presentations. SVG export uses React Flow's built-in rendering to generate scalable graphics that maintain clarity at any resolution. JSON export stores the nodes and edges structure with formatted output, allowing diagrams to be saved, transferred, and re-imported for further editing without losing layout information. \textit{Refer Figure~\ref{fig:export}: Export options dropdown(PNG, SVG, and JSON).}
 
 Providing multiple export formats ensures that the generated diagrams can be used across different environments and workflows. PNG images are suitable for documentation and presentations, SVG files allow further editing in vector graphic tools, and JSON exports enable users to reload and continue editing diagrams later. This flexibility ensures that the system supports both visual sharing and structured data storage.
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{image/export.jpeg}
-\caption{Export options dropdown showing PNG, SVG, and JSON formats.}
+\caption{Export options dropdown(PNG, SVG, and JSON).}
 \label{fig:export}
 \end{figure}
 
@@ -208,4 +268,4 @@ Providing multiple export formats ensures that the generated diagrams can be use
 \section{Conclusion}
 \label{sec:implementation-summary}
 
-This chapter presented the implementation of modules within the Automated Diagram Digitization platform. From the AI-powered image analysis endpoint to the React Flow editor, each component was built with emphasis on accuracy, user experience, and maintainability. The layered architecture ensures modules remain testable and extensible. The implementation integrates multiple technologies including FastAPI~\cite{fastapi}, React~\cite{react}, PostgreSQL~\cite{postgresql}, and the Gemini AI API~\cite{gemini} to provide a complete workflow from diagram input to final export. Each module was designed to interact seamlessly with others while maintaining clear separation of responsibilities. This modular structure simplifies future enhancements and maintenance of the system. The following chapter describes the testing strategy used to validate the correctness and robustness of the implementation.
+This chapter presented the implementation of modules within the Automated Diagram Digitization platform. From the AI-powered image analysis endpoint to the React Flow editor, each component was built with emphasis on accuracy, user experience, and maintainability. The layered architecture ensures modules remain testable and extensible. The implementation integrates multiple technologies including FastAPI, React, PostgreSQL, and the Gemini AI API to provide a complete workflow from diagram input to final export. Each module was designed to interact seamlessly with others while maintaining clear separation of responsibilities. This modular structure simplifies future enhancements and maintenance of the system. The following chapter describes the testing strategy used to validate the correctness and robustness of the implementation.

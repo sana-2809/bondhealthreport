@@ -1,141 +1,58 @@
-\chapter{Conclusion}
-\label{ch:conclusion}
+\chapter*{Conclusion}
+%\label{ch:conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
 
-The development of the Automated Diagram Digitization system represents a significant step forward in bridging the gap between physical brainstorming and digital documentation. This concluding chapter summarizes the project's primary achievements, reflects on the technical challenges overcome during implementation, and evaluates the project’s overall impact on productivity. Through the successful integration of multimodal AI and interactive web technologies, the platform demonstrates the potential for intelligent automation to transform traditional diagramming workflows.
+The development of the Automated Diagram Digitization system represents a significant step forward in bridging the gap between physical brainstorming and digital documentation. Through the successful integration of multimodal AI and interactive web technologies, the platform demonstrates the potential for intelligent automation to transform traditional diagramming workflows.
 
-\section{Summary of Work}
-Automated Diagram Digitization successfully delivers an intelligent web--based system for converting flowchart images into editable digital diagrams. Key accomplishments include:
+The system successfully delivers an intelligent web-based proof-of-concept for converting flowchart images into editable digital diagrams, achieving all eight stated objectives. These include AI-powered recognition using the Google Gemini API with custom prompt engineering for shape identification, text extraction with line break preservation, and connection detection with directional arrows; three input modes comprising image upload with drag-and-drop, text-to-flowchart from natural language descriptions, and JSON import; an interactive editor with drag-and-drop shape palette, undo/redo with snapshot history, auto-layout using the Dagre hierarchical engine, node resizing, and edge labeling via double-click; text and color styling with dark/light theme support; PNG, SVG, and JSON export; and persistent storage via PostgreSQL with JSONB and UUID-based retrieval. The Gemini API integration with custom prompts achieves approximately 92\% accuracy in informal testing across a curated sample set of flowchart images. The platform improves workflow efficiency by significantly reducing the need for manual redrawing, saving 15--30 minutes per moderately complex flowchart, while preserving text formatting, automating connection detection, and supporting multiple export formats for diverse use cases.
 
-\begin{enumerate}
-    \item \textbf{AI--Powered Recognition}: Google Gemini API integration with custom prompts for accurate shape identification (rectangle, diamond, oval, parallelogram), text extraction with line break preservation, and connection detection with directional arrows
-    \item \textbf{Multiple Input Methods}: Three input modes--image upload with drag--drop, text--to--flowchart from natural language descriptions, and JSON import for existing flow data
-    \item \textbf{Interactive Editor}: Drag--drop shape palette, undo/redo with snapshot history, auto--layout with column--based clustering, node resizing with text adaptation, and edge labeling via double--click
-    \item \textbf{Styling Features}: Text formatting (bold, italic, font size), node/edge color customization, and theme switching (dark/light mode) with localStorage persistence
-    \item \textbf{Export Functionality}: PNG for sharing, SVG for vector graphics, and JSON for data portability
-    \item \textbf{Persistent Storage}: PostgreSQL with JSONB support for storing complete React Flow state, UUID primary keys, and timestamp tracking
-    \item \textbf{Responsive UI}: Glassmorphism design with Tailwind CSS for modern, accessible interface across all devices
-    \item \textbf{Error Handling}: Regex--based JSON extraction for malformed AI responses, automatic edge ID generation, and graceful failure recovery
-\end{enumerate}
+Certain limitations were identified during development and testing. Overlapping nodes or elements in images reduce recognition accuracy, and dark-coloured text extraction occasionally fails under poor lighting conditions. Real-time collaboration, a dedicated mobile application, a predefined template library, and support for BPMN and UML diagram types are not yet implemented and remain priorities for future development. Automated unit and integration testing are also pending; all testing in this project was conducted manually.
 
-\section{Project Objectives Achievement}
+The development process was a rich educational experience spanning AI integration, full-stack development, prompt engineering, database design, and user experience. Working with FastAPI async backends, React~19, React Flow, PostgreSQL with JSONB, and the Gemini API provided the team with practical proficiency across a modern production-grade technology stack. The project also strengthened professional skills including version control with Git and GitHub, Agile development practices, technical documentation with LateX, and API design and testing with Swagger. 
 
-At the outset of the project, eight specific objectives were defined to guide the development of the Automated Diagram Digitization platform. These objectives covered all major aspects of the system, from AI--powered recognition and multiple input methods to persistent storage and theme support. The following assessment confirms that each objective has been successfully met through the implementation described in this report.
+With all planned features implemented, robust error handling, a preliminary internal satisfaction score of 4.3 out of 5, and a 98.6\% test pass rate across 69 test cases, the system demonstrates readiness for deployment as a functional prototype. The following table presents a quantitative summary of the project's development effort. \textit{Refer Table~\ref{tab:project-stats}: Project Statistics.}
 
-The system successfully achieved all eight stated objectives:
-
-\begin{enumerate}
-    \item \textbf{AI-Powered Recognition}: Gemini API integration with custom prompts achieves 92\%+ accuracy for common flowchart shapes
-    \item \textbf{Multiple Input Methods}: Image upload, text prompt, and JSON import fully implemented with validation
-    \item \textbf{Interactive Editor}: Complete with drag--drop, undo/redo, auto--layout, resizing, and edge labeling
-    \item \textbf{Text Customization}: Bold, italic, and font size controls for node content
-    \item \textbf{Edge Labeling}: Double--click edge editing with inline input and background styling
-    \item \textbf{Export Functionality}: PNG, SVG, and JSON export working reliably
-    \item \textbf{Theme Support}: Dark/light mode with localStorage persistence
-    \item \textbf{Persistent Storage}: PostgreSQL CRUD operations with UUID--based retrieval
-\end{enumerate}
-
-\section{Project Limitations}
-
-While the Automated Diagram Digitization system successfully meets its core objectives, certain limitations were identified during development and testing. Acknowledging these limitations is important for setting realistic expectations and for guiding future improvements to the platform. Each limitation listed below represents an area where the current version of the system does not yet fully address the intended requirement.
-
-Identified limitations for future enhancement:
-
-\begin{enumerate}
-    \item Overlapping garments in images reduce recognition accuracy
-    \item Dark color text extraction occasionally fails in poor lighting
-    \item Real--time collaboration not yet implemented
-    \item Mobile application pending development
-    \item Template library not available
-    \item BPMN and UML diagram types not supported
-    \item Automated testing not yet fully implemented
-\end{enumerate}
-
-
-\section{Learning Outcomes}
-
-The development of the Automated Diagram Digitization system was a rich educational experience that extended well beyond the technical aspects of building a web application. Team members developed skills at the intersection of artificial intelligence, full--stack development, and user experience design. The following subsections outline the key areas of growth and knowledge gained through this project.
-
-\subsection{Technical Skills}
-
-The project provided hands--on experience with a comprehensive modern technology stack spanning both frontend and backend development. Team members gained practical proficiency in building production--quality applications using AI--integrated frameworks.
-
-Full--stack development proficiency: FastAPI async backends with Python, React 18 and React Flow for interactive diagramming, PostgreSQL with JSONB for flexible data storage, Gemini API integration for AI capabilities, modern CSS with glassmorphism effects.
-
-\subsection{Professional Development}
-
-Beyond technical abilities, the project significantly strengthened team members' professional and collaborative skills. Working within a structured development workflow with version control and iterative delivery helped simulate real--world software engineering practices.
-
-Team collaboration using Git and GitHub with feature branches, Agile development practices, technical documentation with LaTeX, API design and testing methodologies, project timeline management and milestone tracking.
-
-\subsection{Domain Knowledge}
-
-The project also deepened the team's understanding of specialized domains relevant to intelligent document processing and web application development. These insights will serve as a foundation for future work in AI--assisted applications.
-
-Computer vision concepts for shape recognition, prompt engineering for large language models, diagramming standards and conventions, web application security practices, responsive design principles, user experience optimization.
-
-\section{Impact and Significance}
-
-The Automated Diagram Digitization platform delivers measurable value to its target users by automating tasks that were previously labor--intensive and error--prone. By combining AI--powered recognition with an interactive editor, the system eliminates the need for manual redrawing and provides a seamless workflow from image input to exportable digital diagram. The impact of the platform can be observed across multiple dimensions of productivity and usability, as outlined below.~\cite{ocr-review}
-
-Automated Diagram Digitization improves workflow efficiency by:
-
-\begin{enumerate}
-    \item Eliminating manual redrawing, saving 15--30 minutes per moderately complex flowchart
-    \item Preserving text formatting with proper line breaks for readability
-    \item Automating connection detection to maintain logical flow
-    \item Providing professional editing tools comparable to paid software
-    \item Supporting multiple export formats for diverse use cases
-    \item Enabling theme switching for comfortable extended use
-    \item Offering flexible input methods for different user preferences
-    \item Ensuring data persistence for workflow continuity
-\end{enumerate}
-
-\section{Final Remarks}
-
-Automated Diagram Digitization represents a successful fusion of artificial intelligence and modern web technologies. The modular architecture and comprehensive feature set provide a strong foundation for future enhancements without disrupting existing functionality. With all planned features successfully implemented, robust error handling, and positive user feedback (4.3/5 average rating, 98.6\% test pass rate), the system is ready for deployment.
-
-The project demonstrates that thoughtfully designed AI--powered tools can bridge critical gaps in diagram digitization, improving productivity and accessibility for students, educators, software developers, and business professionals. The team's dedication, technical expertise, and collaborative approach resulted in a solution that addresses real--world diagramming challenges while maintaining usability, accuracy, and scalability.
-
-As artificial intelligence continues to evolve, systems like Automated Diagram Digitization will play an increasingly important role in transforming how we capture, edit, and share visual information. This project provides a springboard for future innovations in intelligent document processing, with the ultimate goal of making diagram creation and modification as simple as taking a photo.
-
-\section{Project Statistics}
-
-The following table presents a quantitative summary of the project's development effort and testing outcomes. These statistics provide an objective measure of the scale and quality of work completed throughout the project lifecycle. The figures reflect the combined contributions of all five team members over the four--month development period. \textit{Refer Table~\ref{tab:project-stats}: Project Statistics Summary.}
-
-\begin{table}[H]
-    \centering
-    \small
-    \begin{tabular}{|p{6cm}|r|}
-        \hline
-        \textbf{Metric} & \textbf{Value} \\
-        \hline
-        Lines of Code (Python) & 1,500+ \\
-        \hline
-        Lines of Code (JavaScript) & 3,500+ \\
-        \hline
-        Database Tables & 1 (flowcharts) \\
-        \hline
-        API Endpoints & 5 \\
-        \hline
-        User Input Methods & 3 \\
-        \hline
-        Features Implemented & 25+ \\
-        \hline
-        Test Cases & 69 \\
-        \hline
-        Test Pass Rate & 98.6\% \\
-        \hline
-        Bugs Fixed & 41/43 \\
-        \hline
-        Development Time & 4 months \\
-        \hline
-        Team Size & 5 members \\
-        \hline
-        GitHub Commits & 150+ \\
-        \hline
-        User Satisfaction & 4.3/5 \\
-        \hline
-    \end{tabular}
-    \caption{Project Statistics}
-    \label{tab:project-stats}
+\begin{table}[!htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{6cm}|r|}
+    \hline
+    \textbf{Metric} & \textbf{Value} \\
+    \hline
+    Lines of Code (Python)     & $\sim$350 \\
+    \hline
+    Lines of Code (JavaScript) & $\sim$1,000 \\
+    \hline
+    Lines of Code (CSS)        & $\sim$600 \\
+    \hline
+    Lines of Code (HTML)       & $\sim$100 \\
+    \hline
+    Database Tables            & 1 (flowcharts) \\
+    \hline
+    API Endpoints              & 5 \\
+    \hline
+    User Input Methods         & 3 \\
+    \hline
+    Features Implemented       & 25+ \\
+    \hline
+    Test Cases                 & 69 \\
+    \hline
+    Test Pass Rate             & 98.6\% \\
+    \hline
+    Bugs Fixed                 & 41/43 \\
+    \hline
+    Development Time           & 3 months \\
+    \hline
+    Team Size                  & 5 members \\
+    \hline
+    GitHub Commits             & 85 \\
+    \hline
+    User Satisfaction (Internal) & 4.3/5 \\
+    \hline
+\end{tabular}
+\caption{Project Statistics}
+\label{tab:project-stats}
 \end{table}
+
+Automated Diagram Digitization represents a successful fusion of artificial intelligence and modern web technologies. The project demonstrates that thoughtfully designed AI-powered tools can bridge critical gaps in diagram digitization, improving productivity and accessibility for students, educators, software developers, and business professionals. As artificial intelligence continues to evolve, systems like this will play an increasingly important role in transforming how visual information is captured, edited, and shared, with the ultimate goal of making diagram creation as simple as taking a photograph.

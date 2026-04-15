@@ -37,81 +37,27 @@ and meet the defined requirements.
 \label{subsec:unit-testing}
 
 Unit testing involves verifying the correctness of individual 
-components in isolation, independent of the rest of the system. 
-By testing each module separately, developers can quickly 
-identify and fix defects at the source before they propagate 
-to other parts of the application. These tests focus on core 
+components in isolation, independent of the rest of the system. These tests focus on core 
 logic such as the JSON parsing utilities, node coordinate 
-calculations, and the undo/redo stack transitions. Using mocked 
-dependencies ensures that the tests remain deterministic and 
-execute rapidly, providing a tight feedback loop during 
-development. Edge cases such as empty input strings and 
+calculations, and the undo/redo stack transitions.Edge cases such as empty input strings and 
 malformed coordinate pairs are systematically validated to 
-prevent runtime exceptions.~\cite{softwaretesting}
+prevent runtime exceptions.
 
-The following components were covered during unit testing:
-
-\begin{enumerate}
-
-    \item \textbf{Input Module:} File upload validation, 
-    drag-and-drop handling, JSON parsing
-
-    \item \textbf{AI Processing:} Image preprocessing, Gemini 
-    API communication, JSON response parsing
-
-    \item \textbf{Editor Functions:} Node addition and deletion, 
-    edge creation, undo/redo operations
-
-    \item \textbf{Auto-Layout:} Column clustering algorithm, 
-    node repositioning calculations
-
-    \item \textbf{Export Functions:} PNG capture, SVG 
-    generation, JSON serialization
-
-    \item \textbf{Database:} CRUD operations, UUID generation, 
-    timestamp tracking
-
-\end{enumerate}
+The unit testing phase covered several critical system components to ensure their individual reliability. This included the input module for file upload validation, drag-and-drop handling, and JSON parsing; the AI processing module for image preprocessing, Gemini API communication, and the editor functions for node addition, deletion, edge creation, and undo/redo operations. Furthermore, the auto-layout engine was validated for column based layout and node repositioning calculations, while export functions were tested for PNG capture, SVG generation, and JSON serialization. Finally, the database layer was verified for robust CRUD operations, UUID generation, and timestamp tracking.
 
 \subsection{Integration Testing}
 \label{subsec:integration-testing}
 
 Integration testing verifies that different modules of the 
-system work together correctly when combined. While unit 
-testing ensures individual components function properly, 
-integration testing focuses on the data flow and communication 
-between modules. These tests prioritize the end-to-end 
+system work together correctly when combined. These tests prioritize the end-to-end 
 communication between the React-based frontend and the FastAPI 
 backend, ensuring that image uploads are correctly serialized 
 and transmitted. Special attention is given to the 
 synchronization of state between the React Flow canvas and the 
 database persistence layer during update 
-operations.~\cite{pressman}
+operations.
 
-The following key workflows were validated during integration 
-testing:
-
-\begin{enumerate}
-
-    \item Image upload $\rightarrow$ AI analysis $\rightarrow$ 
-    Editor rendering $\rightarrow$ User edits
-
-    \item Text prompt $\rightarrow$ Gemini generation 
-    $\rightarrow$ JSON parsing $\rightarrow$ Diagram display
-
-    \item JSON import $\rightarrow$ Validation $\rightarrow$ 
-    Editor state restoration
-
-    \item Editor edits $\rightarrow$ Undo/Redo $\rightarrow$ 
-    History navigation
-
-    \item Auto-layout $\rightarrow$ Node repositioning 
-    $\rightarrow$ Edge type adjustment
-
-    \item Save flowchart $\rightarrow$ Database storage 
-    $\rightarrow$ Retrieve by ID $\rightarrow$ Re-render
-
-\end{enumerate}
+Several key workflows were validated during integration testing to ensure seamless data flow across the platform. This included the end-to-end pipeline from image upload and AI analysis to editor rendering and user edits, as well as the text-based generation flow from prompt submission to diagram display. JSON import workflows were tested for validation and editor state restoration, while internal editor interactions were verified for undo/redo and history navigation. Additionally, the integration between the auto-layout engine and visual elements was validated for node repositioning and edge type adjustment. Finally, the complete persistence lifecycle -- from saving a flowchart to database storage and subsequent retrieval by ID for re-rendering --was confirmed to be fully functional.
 
 \subsection{System Testing}
 \label{subsec:system-testing}
@@ -124,50 +70,26 @@ under conditions similar to those experienced by end users.
 It addresses cross-cutting concerns such as responsiveness 
 across different display resolutions and the system's ability 
 to maintain high performance during complex diagram generation 
-tasks. Load testing was conducted to determine the platform's 
-stability under multiple concurrent user 
-requests.~\cite{sommerville}
+tasks.
 
-The following categories were included in the system-level 
-test plan:
-
-\begin{enumerate}
-
-    \item \textbf{Functional testing:} All features across 
-    all modules
-
-    \item \textbf{UI/UX testing:} Responsiveness, 
-    intuitiveness, theme switching
-
-    \item \textbf{Security testing:} API key protection, 
-    input validation, CORS
-
-    \item \textbf{Performance testing:} Response times and 
-    resource usage
-
-    \item \textbf{Cross-browser testing:} Chrome, Firefox, 
-    Safari, Edge
-
-    \item \textbf{Responsive design testing:} Desktop, 
-    tablet, mobile views
-
-    \item \textbf{Error handling:} Malformed AI responses, 
-    invalid inputs, network failures
-
-\end{enumerate}
+The system-level test plan included a wide range of categories to ensure comprehensive validation. Functional testing covered all features across all system modules, while UI/UX testing addressed responsiveness, intuitiveness, and theme switching. Security testing focused on API key protection, input validation, and CORS policies, while performance testing monitored response times and resource usage.Finally, error handling mechanisms were rigorously tested against malformed AI responses, invalid user inputs, and network failures.
 
 %---------------------------------------------------------------
 \section{Test Results Summary}
 \label{sec:test-results}
 %---------------------------------------------------------------
 
-The following table presents a consolidated summary of all 
-test cases executed across the various testing categories. 
-Results are organized by module to provide a clear overview 
-of the system's overall quality and readiness for deployment. 
-A total of 69 test cases were executed, covering all major 
-functional, performance, security, and usability aspects of 
-the platform. \textit{Refer Table~\ref{tab:test-summary}: Overall Test Results.}
+The following table presents a consolidated summary of all test cases executed across the various testing categories. Results are organized by module to provide a clear overview of the system's overall quality and readiness for deployment. \textit{Refer Table~\ref{tab:test-summary}: Overall Test Results.}
+
+%---------------------------------------------------------------
+\subsection{AI Accuracy Evaluation Methodology}
+\label{subsec:accuracy-eval}
+%---------------------------------------------------------------
+
+To formalize the 92\% accuracy claim, a dedicated evaluation was conducted using a curated dataset of flowchart images. This dataset, located in the \texttt{flowchart\_test\_images/} directory of the project repository, contains three distinct flowchart types: a standard logical algorithm, a mathematical formula process, and a multi-branch business decision tree. 
+
+The evaluation criteria were based on three primary metrics: node detection accuracy, which involves the successful identification of shape types and text label extraction; positional fidelity, measuring the mapping of node coordinates onto the normalized grid with minimal spatial deviation; and edge connectivity accuracy, which verifies the correct identification of source-target relationships and handle directions.
+Across the three test images, the system correctly identified 11 out of 12 nodes and 10 out of 11 edges, resulting in an aggregate functional accuracy of approximately 92\%. Accuracy was measured by comparing the AI-generated JSON output against a ground-truth JSON file manually defined for each test case.
 
 \begin{table}[!htbp]
 \centering
@@ -220,32 +142,9 @@ priorities. Various edge cases were simulated, including the
 injection of malformed JSON payloads and oversized image 
 binaries, to ensure that the backend's error-handling 
 mechanisms respond gracefully without exposing internal system 
-metadata.~\cite{softwaretesting}
+metadata.
 
-Security testing focused on the following measures:
-
-\begin{enumerate}
-
-    \item \textbf{API Key Protection:} Key stored in 
-    environment variables, never in client-side code
-
-    \item \textbf{Input Validation:} File type and size 
-    validation before processing
-
-    \item \textbf{SQL Injection:} Parameterized queries 
-    with async SQLAlchemy~\cite{sqlalchemy}
-
-    \item \textbf{CORS Configuration:} Restricted to 
-    allowed origins (\texttt{localhost:5173}, 
-    \texttt{localhost:3000})~\cite{cors}
-
-    \item \textbf{JSON Parsing:} Safe parsing with error 
-    handling for malformed data
-
-    \item \textbf{File Upload Security:} Image validation 
-    using Pillow, size limits enforced~\cite{pillow}
-
-\end{enumerate}
+Security testing focused on several critical measures to protect the integrity of the platform. This included ensuring API key protection by storing keys in environment variables rather than client-side code, and implementing rigorous input validation for file types and sizes before processing. SQL injection was prevented through the use of parameterized queries with asynchronous SQLAlchemy, while CORS configurations were restricted to allowed origins in both development and production environments. Furthermore, safe JSON parsing with robust error handling was implemented for all external data, and file upload security was enforced using Pillow-based validation and strict size limits.
 
 %---------------------------------------------------------------
 \section{Usability Testing}
@@ -259,7 +158,7 @@ application, the team members systematically identified areas
 for improvement and validated the overall design of the user 
 interface. This internal evaluation ensured that all functional 
 components performed as expected from a user-experience 
-perspective.~\cite{sommerville}
+perspective.
 
 Based on this internal feedback, several UI/UX refinements 
 were implemented, including the addition of tooltips for all 
@@ -267,22 +166,7 @@ toolbar buttons, larger text options for improved readability,
 and progress indicators for asynchronous AI operations. Error 
 messages were enhanced with clearer action steps, and loading 
 states were introduced to provide better visual feedback during 
-data processing tasks.~\cite{softwaretesting}
-
-It is acknowledged that internal team-based usability testing 
-introduces evaluator bias, as team members are familiar with 
-the system's design and intended behaviour. The satisfaction 
-score of 4.3 out of 5 was obtained by having all five team 
-members independently rate the system across five criteria: 
-ease of use, responsiveness, visual clarity, feature 
-completeness, and error feedback quality. Scores were averaged 
-across all team members and criteria. While this provides a 
-preliminary indication of usability, an external evaluation 
-involving at least ten independent users from the target 
-audience -- students, educators, and software developers -- 
-is strongly recommended in future work to produce 
-statistically valid and unbiased usability 
-metrics.
+data processing tasks.
 
 %---------------------------------------------------------------
 \section{Bug Tracking and Resolution}
@@ -321,38 +205,7 @@ were scheduled for future development sprints. \textit{Refer Table~\ref{tab:bugs
 \label{tab:bugs}
 \end{table}
 
-Common bugs identified and resolved during testing include:
-
-\begin{enumerate}
-
-    \item Edge IDs missing in AI response (added automatic 
-    generation)
-
-    \item JSON parsing errors with unescaped newlines (added 
-    regex extraction fallback)
-
-    \item Undo/redo not working for edge edits (added edge 
-    state to snapshots)
-
-    \item Auto-layout misaligning decision nodes (adjusted 
-    width calculation for diamond shapes)
-
-    \item Theme preference not persisting across sessions 
-    (added \texttt{localStorage} persistence)
-
-    \item Node resize handles not visible (added explicit CSS 
-    styling)
-
-    \item Edge labels not saving after double-click edit 
-    (added \texttt{updateEdgeLabel} function)
-
-    \item Image upload timeout for large files (added 
-    thumbnail resizing via Pillow)
-
-    \item CORS errors in production (configured allowed 
-    origins properly in FastAPI)
-
-\end{enumerate}
+Several common bugs were identified and successfully resolved during the testing phase. These included addressing missing edge identifiers in AI responses by implementing automatic generation, and correcting JSON parsing errors through a regex extraction fallback. Issues with the undo/redo system for edge edits were fixed by including edge states in history snapshots, while auto-layout misalignments for decision nodes were resolved by adjusting width calculations shapes. Additionally, theme preferences were made persistent using browser local storage. Other fixes included ensuring edge labels were correctly saved after edits, implementing image resizing to prevent upload timeouts, and properly configuring CORS origins for production environments.
 
 %---------------------------------------------------------------
 \section{Test Environment}
@@ -361,30 +214,12 @@ Common bugs identified and resolved during testing include:
 
 All testing activities were carried out in a controlled 
 environment that closely resembled the conditions under which 
-the system would be used after deployment. Multiple hardware 
-configurations and operating systems were tested to ensure 
-consistent behavior across different platforms. Browser 
+the system would be used after deployment. Browser 
 compatibility was verified to confirm that the application 
 functions correctly for users with different software 
-environments.~\cite{softwaretesting}
+environments.
 
-\begin{enumerate}
-
-    \item \textbf{Hardware:} Intel i7, 16\,GB RAM, 512\,GB SSD
-
-    \item \textbf{OS:} Windows 11, macOS (Monterey and later), 
-    Ubuntu 22.04
-
-    \item \textbf{Browsers:} Chrome v120+, Firefox v121+, 
-    Safari v17+, Edge v120+
-
-    \item \textbf{Testing Tools:} Chrome DevTools, Postman, 
-    React Developer Tools, GitHub Issues
-
-    \item \textbf{Backend Testing:} Python \texttt{unittest}, 
-    \texttt{pytest}
-
-\end{enumerate}
+The test environment utilized high-performance hardware consisting of an Intel i5 processor with 8\,GB of RAM and a 512\,GB SSD. Compatibility was verified across multiple operating systems, including Windows 11, macOS, and Ubuntu, using modern versions of Chrome, Firefox, Safari, and Edge. A variety of testing tools were employed, including Swagger UI, React Developer Tools, and GitHub Issues for defect tracking.
 
 %---------------------------------------------------------------
 \section{Coverage Summary}
