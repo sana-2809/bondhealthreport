@@ -1,31 +1,7 @@
 \chapter{Literature Review}
 \label{ch:literature}
 
-The integration of artificial intelligence into document processing 
-and diagram recognition has experienced significant advancement, 
-driven by progress in deep learning, multimodal AI, and intelligent 
-document understanding systems. Modern research has increasingly 
-focused on enabling machines to interpret not only textual content 
-but also graphical structures and semantic context embedded within diagrams. This evolution reflects a shift from traditional rule-based document analysis toward data-driven 
-approaches capable of handling complex visual information.
-
-Recent studies explore a wide range of techniques for diagram 
-digitization, including convolutional neural networks (CNNs) for 
-object and shape detection, optical character recognition (OCR) 
-systems for extracting textual content, transformer-based models 
-for contextual understanding, and graph-based methods for modeling 
-structural relationships. Additionally, interactive web-based 
-diagramming frameworks have been developed to support visualization 
-and manipulation of structured outputs.
-
-Despite these advancements, the literature consistently highlights 
-several unresolved challenges. These include reduced accuracy in 
-hand-drawn or noisy diagrams, difficulty in detecting connections 
-and directional edges, limitations in handling overlapping or 
-irregular shapes, and the absence of unified systems that combine 
-automated recognition with interactive editing capabilities. These 
-limitations provide the primary motivation for the development of 
-the Automated Diagram Digitization system.
+The integration of artificial intelligence into document processing and diagram recognition has advanced significantly through progress in deep learning, multimodal AI, and intelligent document understanding. These developments have fostered a broader ecosystem of AI applications in academic and professional workflows, facilitating more efficient information synthesis. Research has shifted from rule-based document analysis toward data-driven approaches capable of handling complex visual information, employing CNNs for shape detection, OCR for text extraction, transformer-based models for contextual understanding, and graph-based methods for structural modelling.~\cite{ai-education}
 
 %---------------------------------------------------------------
 \section{Computer Vision for Diagram Recognition}
@@ -36,17 +12,7 @@ Vishnu Vardhan Reddy and Rajeswari propose a unified framework that
 integrates optical character recognition with generative AI for 
 document understanding. Their approach emphasizes preprocessing 
 techniques such as noise reduction, binarization, and layout 
-analysis to enhance recognition accuracy. By incorporating 
-language models, the system produces semantically structured outputs 
-from raw document images, demonstrating improved extraction accuracy 
-for structured documents when preprocessing is applied.
-
-However, this framework primarily targets text-centric documents 
-and does not adequately address diagrammatic structures. It lacks 
-mechanisms for detecting geometric shapes, directional arrows, 
-and inter-node relationships, which are essential for flowchart 
-digitization. Furthermore, the output remains static and does not 
-support post-recognition editing or user interaction.
+analysis to enhance recognition accuracy. However, the approach targets text-centric documents and lacks mechanisms for detecting geometric shapes, directional arrows, or inter-node relationships. Furthermore, the output remains static and does not support post-recognition editing or user interaction.~\cite{ocr-review}
 
 A more recent survey on graphical object detection highlights that 
 standard OCR pipelines are insufficient for interpreting graphical 
@@ -54,17 +20,9 @@ elements such as diagrams, tables, and figures, necessitating
 specialized detection models based on deep neural networks. These 
 approaches treat diagram components as visual objects requiring 
 dedicated detection and classification pipelines rather than simple 
-text extraction tasks.~\cite{ocr-review}
+text extraction tasks. The performance of such systems is often predicated on the use of robust machine learning frameworks like TensorFlow, enabling the deployment of efficient backbone architectures such as MobileNetV2 for real-time inference. Furthermore, conventional vision libraries like OpenCV provide the foundational image processing routines required for these pipelines.~\cite{opencv,mobilenet,tensorflow}
 
-This work supports the use of preprocessing pipelines and 
-multimodal AI in the proposed system. The preprocessing techniques 
-directly inform the image normalization steps used before invoking 
-the Gemini API, while the emphasis on structured output aligns with 
-the graph-based representation adopted in this project.
-
-In a more comprehensive study, Liu and Zhang categorize various 
-diagram recognition methods into symbol-based and relation-based 
-approaches. They emphasize that while symbol recognition has 
+Liu and Zhang further categorize various diagram recognition methods into symbol-based and relation-based approaches. They emphasize that while symbol recognition has 
 reached high maturity using deep learning models, the automated 
 detection of complex structural relationships remains an active 
 area of research. Their survey highlights the potential of combining 
@@ -82,13 +40,7 @@ studied, with CNNs, recurrent neural networks (RNNs), and
 connectionist temporal classification (CTC) forming the core 
 architectures. CNNs are particularly effective in learning spatial 
 features directly from image data, enabling high accuracy in both 
-printed and handwritten text recognition tasks.~\cite{szeliski}
-
-More recent advancements incorporate transformer-based architectures, 
-which improve recognition by capturing long-range dependencies and 
-contextual relationships between characters. These models have 
-significantly outperformed traditional sequence-based approaches 
-in benchmark datasets.
+printed and handwritten text recognition tasks.Transformer-based models have further improved contextual understanding.~\cite{szeliski}
 
 However, handwriting recognition systems exhibit notable limitations 
 when applied to diagram labels. Variability in handwriting styles, 
@@ -98,11 +50,6 @@ spatial formatting such as multi-line labels within diagram nodes.
 This loss of formatting is critical, as spatial arrangement often 
 conveys semantic meaning in diagrams.
 
-The proposed system addresses this limitation through prompt 
-engineering strategies that explicitly preserve formatting using 
-\texttt{\textbackslash n} characters, ensuring accurate reconstruction 
-of multi-line labels.
-
 %---------------------------------------------------------------
 \section{AI-Powered Code and Flowchart Generation}
 \label{sec:ai-generation}
@@ -110,46 +57,35 @@ of multi-line labels.
 
 Large language models (LLMs), including GPT and Google's Gemini, 
 have enabled automated flowchart generation from natural language 
-descriptions. These models decompose textual input into logical 
-steps and map them to structured representations such as JSON or 
-XML, effectively bridging conceptual design and visual representation.
-
-Recent research demonstrates that combining generative AI with 
+descriptions by decomposing textual input into logical 
+steps and mapping them to structured representations such as JSON or 
+XML. Recent research demonstrates that combining generative AI with 
 vision-based preprocessing significantly enhances diagram parsing. 
 For instance, the GenFlowchart framework integrates OCR, shape 
 detection, and transformer-based language models to produce 
-high-quality structured outputs, achieving strong semantic matching 
-scores and user satisfaction metrics.
-
-Despite these advancements, LLM-based systems face challenges such as 
-inconsistent outputs, difficulty handling complex nested logic, and 
+high-quality structured outputs. Despite these advancements, LLM-based systems face challenges such as inconsistent outputs, difficulty handling complex nested logic, and 
 occasional generation of invalid structured data. These issues 
 necessitate robust validation and error-handling mechanisms.~\cite{flowchart-code}
-
-The proposed system directly addresses these challenges through 
-regex-based JSON extraction fallback and automatic edge ID 
-generation, ensuring structural consistency.
 
 %---------------------------------------------------------------
 \section{Interactive Diagramming Tools and Libraries}
 \label{sec:diagramming-tools}
 %---------------------------------------------------------------
+Interactive libraries such as React Flow, GoJS, and mxGraph support 
+drag-and-drop, zooming, and export, but primarily focus on manual 
+diagram creation and do not integrate automated recognition capabilities. 
+Performance limitations arise when rendering large-scale diagrams, and 
+advanced features such as undo/redo and custom constraints require 
+additional implementation effort. These platforms typically leverage RESTful architectural patterns to manage states and services in a decoupled, scalable manner.~\cite{rest}
 
-Interactive diagramming tools such as React Flow, GoJS, and mxGraph 
-provide powerful interfaces for creating and editing diagrams. These 
-libraries support essential features such as drag-and-drop node 
-placement, edge connections, zooming, and export functionality.
-
-However, existing tools primarily focus on manual diagram creation 
-and do not integrate automated recognition capabilities. Performance 
-limitations arise when rendering large-scale diagrams, and advanced 
-features such as undo/redo and custom constraints require additional 
-implementation effort.
-
-The integration of the Dagre layout engine, based on the Sugiyama 
-framework, addresses automatic node positioning by organizing graphs 
-into hierarchical layers and minimizing edge crossings. This ensures 
-clear and readable diagram layouts.~\cite{diagram-survey}
+The proposed system employs a column-based auto-layout approach, 
+where nodes are organized into structured vertical columns based on 
+their logical relationships. This method improves readability by 
+maintaining alignment and reducing visual clutter, while ensuring 
+a consistent flow of information across the diagram. Compared to 
+traditional layered layouts, column-based layouts can produce more 
+compact and visually balanced representations with fewer edge 
+crossings.~\cite{diagram-survey}
 
 %---------------------------------------------------------------
 \section{Optical Graph Recognition Techniques}
@@ -158,16 +94,7 @@ clear and readable diagram layouts.~\cite{diagram-survey}
 
 Optical Graph Recognition (OGR) focuses on converting diagram images 
 into structured graph representations. Traditional approaches rely 
-on computer vision techniques such as Hough transforms, contour 
-detection, and heuristic rules for shape and edge detection.
-
-Recent deep learning approaches have significantly improved 
-performance. For example, Arrow R-CNN extends Faster R-CNN by 
-introducing keypoint detection for arrows, enabling joint recognition 
-of symbols and connections. This approach improves diagram 
-recognition accuracy by reconstructing both structure and semantics 
-simultaneously, particularly in handwritten contexts where arrow heads 
-and shafts exhibit high variability.~\cite{arrow-rcnn}
+on computer vision techniques such as contour detection, and heuristic rules for shape and edge detection. Recent deep learning approaches such as Arrow R-CNN extends Faster R-CNN with keypoint detection for arrows, enabling joint symbol and connection recognition.~\cite{arrow-rcnn}
 
 Similarly, Kim and Lee propose a system for automatic flowchart 
 recognition from hand-drawn images, utilizing contour analysis and 
@@ -176,76 +103,40 @@ and terminators. Their research highlights the importance of
 handling noise and irregular strokes in hand-drawn diagrams to 
 ensure robust structural extraction.~\cite{flowchart-analysis}
 
-Furthermore, transformer-based models such as FR-DETR achieve high 
+Transformer-based models such as FR-DETR achieve high 
 precision and recall by combining object detection with line 
 segment detection in a unified architecture, reaching F1-scores 
-above 90\% on benchmark datasets.
-Despite these improvements, these systems remain computationally 
-intensive and often struggle with real-world conditions such as 
-hand-drawn diagrams, irregular shapes, and noisy backgrounds. 
-Additionally, most OGR systems produce static outputs without 
-interactive editing capabilities.~\cite{diagram-survey}
-
-The proposed system addresses these limitations by leveraging 
-multimodal AI models capable of contextual understanding, replacing 
-rigid rule-based methods with flexible semantic interpretation.
+above 90\% on benchmark datasets. Despite these advances, most OGR systems produce static outputs and struggle with real-world hand-drawn conditions.~\cite{diagram-survey}
 
 %---------------------------------------------------------------
 \section{Conclusion}
 \label{sec:lit-conclusion}
 
 %---------------------------------------------------------------
-
-The literature review establishes the project's technical foundation and reveals gaps addressed by the Automated Diagram Digitization system. Utilizing Gemini AI, the system replaces heuristic methods with contextual multimodal understanding to identify shapes, text, and connections. It offers unique flexibility by supporting image uploads, natural language descriptions, and JSON imports in a single platform.
-
-The platform also bridge the post-recognition editing gap through an 
-interactive editor that supports drag-and-drop from a shape palette, 
-snapshot-based undo/redo, hierarchical auto-layout, and edge labeling. 
-It addresses common text formatting loss by providing bold, italic, 
-and font size adjustments while preserving line breaks using 
-\texttt{\textbackslash n} characters. Finally, the system extends 
-beyond limited export options by offering PNG, SVG, and JSON formats, 
-while enhancing user comfort and workflow continuity through 
-theme switching and persistent PostgreSQL storage with UUID-based 
-identification.
-
-Unlike the reviewed systems, which address recognition or editing 
-in isolation, the Automated Diagram Digitization platform integrates 
-both capabilities within a single, cohesive workflow. This 
-integration represents the primary contribution of the project to 
-the field of intelligent document processing. \textit{Refer Table~\ref{tab:gap_analysis}: Research Gaps Addressed by the Proposed System.}
+The literature consistently reveals two critical gaps: no existing system combines automated recognition with interactive post-recognition editing in a single platform, and most systems fail to preserve text formatting or support flexible input modes. The proposed system addresses these gaps by pairing Gemini AI recognition with a React Flow interactive editor, supporting image upload, text-to-flowchart generation, and JSON import in one platform, and offering PNG, SVG, and JSON export. \textit{Refer Table~\ref{tab:gap_analysis}: Research Gaps Addressed by the Proposed System.}
 
 \vspace{1em}
-% Gap Analysis Table (D2)
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
-\renewcommand{\arraystretch}{1.8}
+\renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{6cm}|p{6cm}|}
 \hline
-\textbf{Gap Identified in Literature} & 
-\textbf{How the Proposed System Addresses It} \\
+\textbf{Gap Identified in Literature} & \textbf{How the Proposed System Addresses It} \\
 \hline
-No integrated solution combining automated recognition with 
-interactive editing & 
-Combines Gemini AI recognition with a React Flow interactive 
-editor in a single platform \\
+No integrated solution combining automated recognition with interactive editing &
+Combines Gemini AI recognition with a React Flow interactive editor in a single platform \\
 \hline
-Poor preservation of text formatting (line breaks) in diagram 
-labels & 
-Uses Gemini's multimodal prompt engineering with explicit 
-\texttt{\textbackslash n} line break instructions \\
+Poor preservation of text formatting (line breaks) in diagram labels &
+Uses Gemini's multimodal prompt engineering with explicit \texttt{\textbackslash n} line break instructions \\
 \hline
-Limited or single input methods in existing tools & 
-Provides three input modes: image upload, text-to-flowchart 
-generation, and JSON import \\
+Limited or single input methods in existing tools &
+Provides three input modes: image upload, text-to-flowchart generation, and JSON import \\
 \hline
-Restricted export options in automated recognition systems & 
-Supports PNG, SVG, and JSON export formats for diverse 
-use cases \\
+Restricted export options in automated recognition systems &
+Supports PNG, SVG, and JSON export formats for diverse use cases \\
 \hline
-Heuristic OGR methods fail on hand-drawn or irregular diagrams & 
-Replaces rule-based vision with contextual multimodal AI 
-understanding via Gemini API \\
+Heuristic OGR methods fail on hand-drawn or irregular diagrams &
+Replaces rule-based vision with contextual multimodal AI understanding via Gemini API \\
 \hline
 \end{tabular}
 \caption{Research Gaps Addressed by the Proposed System}

@@ -1,122 +1,42 @@
+% ============================================================
 \chapter{Introduction}
 \label{ch:introduction}
-
-This chapter introduces the Automated Diagram Digitization project, 
-presenting the motivation behind the work, the key problems it 
-addresses, its primary objectives, and the scope of the system 
-developed.
-
-In today's digital era, the need to convert hand-drawn or printed 
-diagrams into editable digital formats has become increasingly 
-important across various domains including education, software 
-development, and business process modeling. Flowcharts, being 
-fundamental tools for representing algorithms, processes, and 
-workflows, are frequently created on paper or whiteboards during 
-brainstorming sessions, classroom teachings, and initial design 
-phases. However, these hand-drawn diagrams often remain in physical 
-form, limiting their usability, shareability, and 
-editability.
-
-Traditional methods of digitizing flowcharts involve manual redrawing 
-using diagramming tools like Microsoft Visio, Lucidchart, or draw.io 
--- a time-consuming and error-prone process. This creates a 
-significant gap between the creative, free-form sketching process and 
-the structured, digital representation required for documentation and 
-further processing. Recent advances in artificial intelligence, 
-particularly in computer vision and large language models, have opened 
-new possibilities for automated diagram recognition, enabling the 
-development of intelligent systems that can understand and reconstruct 
-diagrammatic information automatically.
-
+ 
+This chapter introduces the Automated Diagram Digitization project, presenting its motivation, problem context, objectives, and scope.
+ 
+In today's digital era, the need to convert hand-drawn or printed diagrams into editable digital formats has grown across education, software development, and business process modelling. Flowcharts are frequently created on paper or whiteboards during brainstorming and design phases, yet they often remain in physical form, limiting shareability and editability. Traditional digitization involves manual redrawing in tools such as Microsoft Visio, Lucidchart, or draw.io—a time-consuming and error-prone process. Advances in computer vision and large language models have opened new possibilities for automated diagram recognition, enabling intelligent systems to understand and reconstruct diagrammatic information automatically.
+ 
 %---------------------------------------------------------------
 \section{Problem Statement}
 %---------------------------------------------------------------
-
-While manual diagramming tools have evolved significantly, the 
-transition from physical brainstorming on whiteboards or paper to 
-digital documentation remains a bottleneck in the software development 
-lifecycle. Current workflows often require developers and designers to 
-spend valuable time recreating existing work, leading to decreased 
-productivity and potential inconsistencies between the original sketch 
-and the digital version. This gap highlights the need for a more 
-intelligent, automated bridge that can interpret visual structures 
-without exhaustive manual input. Specifically, the existing diagram digitization ecosystem suffers from a series of interrelated challenges, starting with the significant manual redrawing bottleneck where users must recreate diagrams in tools like Visio or draw.io -- a process that often takes 15--30 minutes and introduces transcription errors. This problem is compounded by a lack of automated recognition for shapes and connections, as well as the failure of standard OCR tools to handle handwritten text or preserve line breaks within diagrammatic structures. Moreover, current systems struggle to identify directional relationships and offer limited input flexibility, often lacking support for AI-generated prompts or structured JSON data. These limitations are further exacerbated by the absence of intelligent editing features like hierarchical auto-layout and restricted export formats, which collectively hinder the seamless transition from visual sketches to maintainable digital assets.
-
+ 
+The transition from physical brainstorming artefacts to structured digital documentation remains a bottleneck in the software development lifecycle. Current workflows require developers and designers to spend 15–30 minutes recreating each diagram, introducing transcription errors and inconsistencies. The existing digitization ecosystem suffers from several interrelated challenges: manual redrawing bottlenecks, a total absence of automated shape and connection recognition, failure of standard OCR tools to preserve handwritten text or line breaks within nodes, inability to detect directional relationships, limited input flexibility, and restricted export options. These limitations collectively hinder the seamless transition from visual sketches to maintainable digital assets.
+ 
 %---------------------------------------------------------------
 \section{Objectives}
 %---------------------------------------------------------------
-
-The project aims to overcome the limitations of traditional digitization methods by providing a comprehensive, AI-driven platform that simplifies the entire flowchart lifecycle—from initial recognition to final export. By integrating state-of-the-art vision models with a highly interactive editing environment, the system seeks to empower users with tools that were previously only available through complex, expensive enterprise software. The Automated Diagram Digitization project focuses on developing an AI-powered recognition system capable of identifying flowchart shapes, text, and connections from images using Google's Gemini AI with custom prompt engineering for accurate shape detection. It provides multiple input methods, including image upload, text-based algorithm-to-flowchart conversion, and JSON import, ensuring maximum flexibility and seamless workflow integration. The system includes an intuitive interactive diagram editor with drag-and-drop functionality, undo/redo support, auto-layout for proper alignment, and comprehensive styling options such as node and edge color customization. Additionally, it enables advanced text formatting features like bold, italic, and font size adjustments to enhance readability and presentation quality. Edge labeling functionality is implemented through double-click editing, allowing users to add and modify connection labels, particularly for decision branches such as ``Yes/No'' with proper styling. The platform also supports multiple export formats including PNG for sharing, SVG for high-quality vector graphics, and JSON for data portability and integration with other tools. Theme support is provided through a dark/light mode toggle with persistent user preferences stored in \texttt{localStorage} to improve user experience and reduce eye strain. Furthermore, the system ensures persistent storage by enabling saving and retrieval of flowcharts using a PostgreSQL database with UUID-based identification and timestamp tracking for audit purposes.
-
+ 
+The project aims to overcome traditional digitization limitations by delivering an AI-driven platform that covers the full flowchart lifecycle from recognition to export. Specific objectives include: developing an AI-powered recognition system using Google Gemini with custom prompt engineering for accurate shape, text, and connection detection; providing multiple input methods (image upload, text-to-flowchart conversion, and JSON import); implementing an interactive diagram editor with drag-and-drop, undo/redo, auto-layout, node and edge colour customisation, and bold/italic/font-size text formatting; supporting edge labelling via double-click; enabling export to PNG, SVG, and JSON; offering dark/light theme switching with preferences persisted via \texttt{localStorage}; and ensuring persistent flowchart storage using a PostgreSQL database with UUID-based identification and timestamp tracking.
+ 
 %---------------------------------------------------------------
 \section{Scope of the Project}
 %---------------------------------------------------------------
-
-The Automated Diagram Digitization project is designed with a well-defined scope that guides development priorities and sets clear expectations for its capabilities. The scope is categorized into functional and technical aspects, each addressing different dimensions of the system.
-
+ 
 \subsection{Functional Scope}
-
-The functional scope encompasses all end-user-visible features and system behaviors. The system transforms raw visual inputs into interactive digital representations while preserving the original logical structure of diagrams. It includes the ability to identify fundamental flowchart shapes such as process (rectangle), decision (diamond), start node (oval), and input/output (parallelogram) from uploaded images. It ensures accurate text extraction from shapes with proper preservation of line breaks using \texttt{\textbackslash n} characters for multi-line labels. The system performs automatic detection of connections between nodes, including directional arrows and appropriate handle assignments such as top, bottom, left, and right. It supports image input in formats like PNG and JPG, along with a drag-and-drop interface and file size validation. Additionally, it enables text-to-flowchart conversion using natural language processing to transform algorithm descriptions into structured diagrams with correct node types and connections. JSON import and export functionality allows users to load existing flowcharts for editing and export current states for portability. The interactive editor provides drag-and-drop capabilities from a shape palette, node resizing with adaptive text, undo/redo functionality with keyboard shortcuts, and auto-layout for clean alignment. Styling features include node and edge color customization, text formatting such as bold, italic, and font size adjustments, as well as edge labeling with styled backgrounds for improved readability.
-
+ 
+The system transforms raw visual inputs into interactive digital representations while preserving the original logical structure of diagrams. It identifies the four fundamental flowchart shapes from uploaded images, extracts text with multi-line line-break preservation using \texttt{\textbackslash n} characters, detects directional edges with appropriate handle assignments (top, bottom, left, right), and accepts images in PNG and JPG formats. Text-to-flowchart conversion transforms natural language algorithm descriptions into structured diagrams. JSON import and export enable portability. The interactive editor supports drag-and-drop from a shape palette, node resizing with adaptive text, undo/redo with keyboard shortcuts, auto-layout, edge labelling, and colour and text styling.
+ 
 \subsection{Technical Scope}
-
-The technical scope defines the technologies and implementation strategies used to build the platform in a reliable and maintainable manner. The backend is implemented using FastAPI in Python with asynchronous endpoints supporting image analysis, text-to-flowchart generation, and database operations. The frontend is developed using React 19 with Vite for optimized performance, along with React Flow for diagram rendering and custom node components tailored for each shape type. The system integrates with the Google Gemini AI API using carefully designed system prompts to achieve accurate shape recognition and text-to-flowchart conversion. A PostgreSQL database is used with JSONB support to store the complete React Flow state, utilizing UUID-based primary keys and timestamp tracking. Export functionality is implemented using libraries such as html-to-image for PNG generation, React Flow’s SVG renderer for vector exports, and proper serialization for JSON output. The platform also follows a RESTful API design, providing endpoints for image analysis, text generation, and full flowchart CRUD operations.
-
-
+ 
+The backend is implemented in FastAPI (Python) with asynchronous endpoints. The frontend uses React 19 with Vite and React Flow with custom node components. Integration with the Google Gemini API uses carefully engineered system prompts. A PostgreSQL database with JSONB support stores the complete React Flow state, using UUID primary keys and timestamp tracking. Export is implemented via \texttt{html-to-image} for PNG, React Flow's SVG renderer for vector output, and JSON serialisation for data portability.
+ 
 \subsection{Limitations and Exclusions}
-
-The project does not cover recognition of complex BPMN symbols, 
-swimlanes, UML diagrams, or real-time video processing. It focuses 
-specifically on the four basic flowchart shapes commonly used in 
-algorithm representation and process documentation. Support for 
-additional diagram types, collaborative editing, and mobile 
-application interfaces are identified as directions for future 
-development and are discussed in Chapter~8.
-
+ 
+The project does not cover BPMN symbols, swimlanes, UML diagrams, or real-time video processing. It focuses on the four basic flowchart shapes commonly used in algorithm and process documentation. Support for additional diagram types, collaborative editing, and mobile interfaces are identified as future directions, discussed in Chapter~8.
+ 
 %---------------------------------------------------------------
 \section{Significance of Work}
 \label{sec:significance}
 %---------------------------------------------------------------
-
-The Automated Diagram Digitization project addresses a genuine and 
-widespread problem faced by students, educators, and software 
-professionals who regularly work with hand-drawn or printed 
-flowcharts. Traditionally, converting such diagrams into editable 
-digital formats required significant manual effort using tools like 
-Microsoft Visio, Lucidchart, or draw.io -- a process that could take 
-anywhere from 15 to 30 minutes per diagram.
-
-By leveraging the multimodal capabilities of Google's Gemini AI 
-combined with a purpose-built interactive editor, this project 
-demonstrates that the digitization process can be reduced to a matter 
-of seconds with a high degree of accuracy. The platform's support for 
-multiple input methods -- image upload, natural language description, 
-and JSON import -- makes it adaptable to a wide range of real-world 
-workflows.
-
-Beyond individual productivity, the system contributes to the broader 
-goal of making diagram creation and documentation more accessible. It 
-reduces the skill barrier associated with professional diagramming 
-tools and opens up accurate, editable flowchart generation to users 
-with minimal technical background. The open-source technology stack 
-ensures that the platform can be freely adopted, extended, and built 
-upon by future developers and researchers in the field of intelligent 
-document processing.
-
-%---------------------------------------------------------------
-% Chapter Summary and Transition
-%---------------------------------------------------------------
-
-The remainder of this report is organized as follows. Chapter~2 
-presents a critical review of related literature spanning diagram 
-recognition, handwriting analysis, AI-powered flowchart generation, 
-and interactive diagramming tools. Chapter~3 discusses the system 
-study, including an analysis of existing systems, feasibility 
-assessment, and requirements specification. Chapter~4 presents the 
-detailed system design covering architecture, data flow, database 
-schema, and API design. Chapter~5 describes the implementation of 
-each module. Chapter~6 covers the technologies and tools used in 
-development. Chapter~7 presents the testing strategy and results. 
-Chapter~8 outlines potential future enhancements, and Chapter~9 
-concludes the report with a summary of findings and reflections on 
-the project.
+ 
+The platform addresses a genuine problem faced by students, educators, and software professionals who regularly work with hand-drawn flowcharts. By combining Google Gemini's multimodal capabilities with a purpose-built interactive editor, the project demonstrates that digitization can be reduced from 15–30 minutes to a matter of seconds, with high accuracy. Support for multiple input methods makes the system adaptable to diverse real-world workflows. Beyond individual productivity, the platform reduces the skill barrier associated with professional diagramming tools, making accurate flowchart generation accessible to users with minimal technical background. The open-source technology stack enables free adoption, extension, and future research in intelligent document processing.

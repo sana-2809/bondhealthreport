@@ -6,13 +6,7 @@ fundamental prerequisite for building a high-performance system
 like Automated Diagram Digitization. This chapter provides a 
 detailed examination of the frameworks, libraries, and tools 
 utilized in the development of the platform, outlining the 
-technical rationale behind each choice. The architecture is 
-designed to be modular, ensuring that the frontend interface, 
-backend logic, and AI processing services remain loosely coupled 
-for maximum scalability and maintainability.
-
-The development of this platform leverages a JavaScript 
-and Python ecosystem, combining the agility of React for the user 
+technical rationale behind each choice. The development of this platform leverages a JavaScript and Python ecosystem, combining the agility of React for the user 
 interface with the high performance of FastAPI for backend 
 services. By integrating Google's state-of-the-art Gemini AI 
 models for multimodal analysis and PostgreSQL for reliable data 
@@ -21,16 +15,7 @@ intelligent capabilities and enterprise-grade stability. These
 technologies collectively enable the platform to handle complex 
 diagram recognition tasks while providing a smooth, responsive 
 experience for the end user.
-
-%---------------------------------------------------------------
-\section{Introduction}
-\label{sec:tech-intro}
-%---------------------------------------------------------------
-
-Automated Diagram Digitization leverages modern web technologies 
-to create an intelligent flowchart recognition and editing 
-platform. This chapter summarizes the key technologies, 
-frameworks, and tools employed in the project. \textit{Refer Table~\ref{tab:tech-stack}: Technology Stack Overview.}
+\textit{Refer Table~\ref{tab:tech-stack}: Technology Stack Overview.}
 
 \begin{table}[H]
 \centering
@@ -119,7 +104,7 @@ component.
 
 FastAPI serves as the backend framework, offering high 
 performance comparable to Node.js with automatic OpenAPI 
-documentation. The backend architecture leverages several core features of FastAPI to ensure high performance and developer productivity. The system utilizes asynchronous endpoint handling with the \texttt{async}/\texttt{await} pattern to manage concurrent requests efficiently. To maintain data integrity, the platform implements automatic request validation using Pydantic models, which enforce schema compliance for all incoming payloads. Furthermore, a built-in CORS middleware configuration ensures secure communication between the frontend and backend, while standardized JSON response serialization provides consistent error formatting and status reporting across all API endpoints.
+documentation. The system utilizes asynchronous endpoint handling with the \texttt{async}/\texttt{await} pattern to manage concurrent requests efficiently. To maintain data integrity, the platform implements automatic request validation using Pydantic models, which enforce schema compliance for all incoming payloads. Furthermore, a built-in CORS middleware configuration ensures secure communication between the frontend and backend, while standardized JSON response serialization provides consistent error formatting and status reporting across all API endpoints.
 
 \subsection{PostgreSQL with JSONB}
 \label{subsec:postgresql}
@@ -136,10 +121,7 @@ structures.
 SQLAlchemy is a powerful and flexible ORM (Object-Relational 
 Mapper) for Python that simplifies database interactions through 
 high-level abstractions. The async version is used here to align 
-with FastAPI's asynchronous processing model, ensuring that 
-database queries do not block the event loop and allowing the 
-backend to handle multiple concurrent requests 
-efficiently. Security in the database layer is enhanced through the use of parameterized queries, which effectively prevent SQL injection attacks. Additionally, the schema employs UUID primary keys for secure, globally unique record identification and includes comprehensive timestamp tracking with full timezone support.
+with FastAPI's asynchronous processing model. Security in the database layer is enhanced through the use of parameterized queries, which effectively prevent SQL injection attacks. Additionally, the schema employs UUID primary keys for secure, globally unique record identification and includes comprehensive timestamp tracking with full timezone support.
 
 %---------------------------------------------------------------
 \section{AI Integration}
@@ -156,7 +138,7 @@ analysis.
 \subsection{Google Gemini API}
 \label{subsec:gemini}
 
-Gemini AI provides the multimodal intelligence for flowchart recognition and generation. The API is accessed via the official Python client library (\texttt{google-genai}) with custom system prompts engineered for shape detection and text extraction. Custom prompt engineering with the Gemini-Flash model achieves approximately 92\% accuracy in informal testing across a diverse sample set of 3 complex flowchart images (algorithmic, mathematical, and logical). Accuracy is evaluated based on node-type identification, text label precision, and edge connectivity correctness.~
+Gemini AI provides the multimodal intelligence for flowchart recognition and generation. The API is accessed via the official Python client library (\texttt{google-genai}) with custom system prompts engineered for shape detection and text extraction. Accuracy is evaluated based on node-type identification, text label precision, and edge connectivity correctness.~
 
 \subsection{Pillow (PIL)}
 \label{subsec:pillow}
@@ -194,46 +176,6 @@ The built-in Swagger UI provided by FastAPI is used extensively for
 testing and validating RESTful API endpoints during backend 
 development, providing an interactive interface for exploring all system 
 endpoints.
-
-\subsection{Development Environment}
-\label{subsec:dev-environment}
-
-The Automated Diagram Digitization system was developed using 
-a modern web development environment designed to support 
-efficient frontend and backend development. The backend services 
-were implemented using Python with the FastAPI framework, while 
-the frontend interface was developed using React with Vite. Node.js and npm were used for managing frontend dependencies and running the development server. Python virtual environments were used to isolate backend dependencies and maintain a consistent 
-development setup.
-
-Version control was managed using Git, with the project 
-repository hosted on GitHub, enabling collaborative development, 
-version tracking, and seamless integration with cloud deployment 
-platforms.Database schema design and data verification were facilitated using pgAdmin, 
-and the built-in Swagger UI provided by FastAPI served as a 
-critical tool for interactive API testing before frontend 
-integration. \textit{Refer Table~\ref{tab:dev-tools}: Development Environment Tools}.
-
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|p{7cm}|}
-\hline
-\textbf{Tool / Platform} & \textbf{Purpose} \\
-\hline
-Visual Studio Code & Code development and debugging \\
-\hline
-Node.js and npm & Frontend dependency management \\
-\hline
-Python Virtual Environment & Backend dependency isolation \\
-\hline
-Git and GitHub & Version control and collaboration \\
-\hline
-Swagger UI / Browser Testing & API testing and validation \\
-\hline
-\end{tabular}
-\caption{Development Environment Tools}
-\label{tab:dev-tools}
-\end{table}
 
 %---------------------------------------------------------------
 \section{Project Structure}
@@ -497,7 +439,6 @@ The Automated Diagram Digitization platform is fully containerized using Docker 
 \label{subsec:docker}
 
 Docker is used to encapsulate the application into portable containers. The \texttt{docker-compose.yml} configuration orchestrates the system’s primary services into a unified environment. This include the frontend container, which uses a Node.js image to compile the Vite application and serve static assets; the backend container, which utilizes a Python image to install dependencies and run the FastAPI server via Uvicorn; and the database container, based on the official PostgreSQL 16 image with persistent volumes for reliable data storage.
-Containerization ensures that any developer can spin up the entire stack with a single \texttt{docker-compose up} command, guaranteeing that all services correctly interact through a localized virtual network.
 
 \section{Conclusion}
 \label{sec:tech-conclusion}
